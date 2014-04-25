@@ -15,3 +15,11 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::get('/classes', 'ClassController@index');
+Route::get('/classes/{id}', 'ClassController@show');
+
+
+//USE TERM CONTROLLER
+Route::get('/term/{term}/classes', 'TermController@index');
+Route::get('/term/{term}/classes/{id}', 'TermController@show');
