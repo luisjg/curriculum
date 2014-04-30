@@ -19,7 +19,8 @@ class CreateTermTable extends Migration {
 			$table->string('description_short');
 			$table->dateTime('begin_date');
 			$table->dateTime('end_date');
-			$table->timestamps();
+			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->timestamp('updated_at')->nullable();
 
 			$table->primary(array('acad_career', 'sterm'));
 		});

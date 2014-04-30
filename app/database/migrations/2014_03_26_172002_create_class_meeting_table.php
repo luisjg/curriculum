@@ -20,7 +20,8 @@ class CreateClassMeetingTable extends Migration {
 			$table->dateTime('start_time');
 			$table->dateTime('end_time');
 			$table->string('days');
-			$table->timestamps();
+			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->timestamp('updated_at')->nullable();
 
 			$table->primary(array('sterm', 'class_number'));
 		});

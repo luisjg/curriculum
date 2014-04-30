@@ -21,7 +21,8 @@ class CreateClassTable extends Migration {
 			$table->integer('course_id');
 			$table->string('description');
 			$table->integer('units');
-			$table->timestamps();
+			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->timestamp('updated_at')->nullable();
 
 			$table->primary(array('sterm', 'class_number'));
 
