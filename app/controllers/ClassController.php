@@ -14,18 +14,21 @@ class ClassController extends \BaseController {
 		$term = $this->getCurrentTermCode();
 		$data = Classes::with(
 			array(
-				'classmeeting' => function($query) use ($term) {
+				'class_meeting' => function($query) use ($term) {
 					$query->where('sterm', $term);
 				}, 
-				'classinstructors' => function($query) use ($term) {
+				'class_instructors' => function($query) use ($term) {
 					$query->where('sterm', $term);
 				}
 			)
 		)->where('sterm', $term);
 
+		$data = $data->get()->toArray();
+		$this->prepareClassesResponse($data);
+
 		$response = array(
 			'success'	  => true,
-			'data'	      => $data->get()->toArray(),
+			'data'	      => $data,
 			'status'      => 200
 		);
 
@@ -48,10 +51,10 @@ class ClassController extends \BaseController {
 		$term = $this->getCurrentTermCode();
 		$data = Classes::with(
 			array(
-				'classmeeting' => function($query) use ($term) {
+				'class_meeting' => function($query) use ($term) {
 					$query->where('sterm', $term);
 				}, 
-				'classinstructors' => function($query) use ($term) {
+				'class_instructors' => function($query) use ($term) {
 					$query->where('sterm', $term);
 				}
 			)
@@ -76,9 +79,12 @@ class ClassController extends \BaseController {
 			//throw some stuff
 		}
 
+		$data = $data->get()->toArray();
+		$this->prepareClassesResponse($data);
+
 		$response = array(
 			'success'	  => true,
-			'data'	      => $data->get()->toArray(),
+			'data'	      => $data,
 			'status'      => 200
 		);
 
