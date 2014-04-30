@@ -12,14 +12,14 @@ class CreateClassMeetingTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('classmeetings', function($table){
+		Schema::create('class_meeting', function($table){
 			$table->integer('sterm');
 			$table->integer('class_number');
 			$table->integer('meeting_number');
-			$table->integer('facility_id');
-			$table->dateTime('meeting_time_start');
-			$table->dateTime('meeting_time_end');
-			$table->string('meeting_pattern_code');
+			$table->integer('location');
+			$table->dateTime('start_time');
+			$table->dateTime('end_time');
+			$table->string('days');
 			$table->timestamps();
 
 			$table->primary(array('sterm', 'class_number'));
@@ -33,7 +33,7 @@ class CreateClassMeetingTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('classmeetings');
+		Schema::drop('class_meeting');
 	}
 
 }

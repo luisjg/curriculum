@@ -12,15 +12,15 @@ class CreateClassTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('classes', function($table){
+		Schema::create('course_class', function($table){
 			$table->integer('sterm');
 			$table->integer('class_number');
 			$table->string('subject');
 			$table->string('catalog_number');
-			$table->string('description');
+			$table->string('title');
 			$table->integer('course_id');
-			$table->string('course_description');
-			$table->integer('course_units');
+			$table->string('description');
+			$table->integer('units');
 			$table->timestamps();
 
 			$table->primary(array('sterm', 'class_number'));
@@ -35,7 +35,7 @@ class CreateClassTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('classes');
+		Schema::drop('course_class');
 	}
 
 }

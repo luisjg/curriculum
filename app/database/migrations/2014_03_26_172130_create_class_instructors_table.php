@@ -12,12 +12,12 @@ class CreateClassInstructorsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('classinstructors', function($table){
+		Schema::create('class_instructors', function($table){
 			$table->integer('sterm');
 			$table->integer('class_number');
 			$table->string('emplid');
 			$table->string('instructor_role');
-			$table->string('email');
+			$table->string('instructor');
 			$table->timestamps();
 
 			$table->primary(array('sterm', 'class_number', 'emplid'));
@@ -31,7 +31,7 @@ class CreateClassInstructorsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('classinstructors');
+		Schema::drop('class_instructors');
 	}
 
 }

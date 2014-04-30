@@ -12,7 +12,7 @@ class CreateTermTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('terms', function($table){
+		Schema::create('term_data', function($table){
 			$table->string('acad_career');
 			$table->integer('sterm');
 			$table->string('description');
@@ -32,7 +32,7 @@ class CreateTermTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('terms');
+		Schema::drop('term_data');
 	}
 
 }
