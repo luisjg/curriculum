@@ -10,23 +10,23 @@ class ClassInstructorTableSeeder extends Seeder {
 	public function run()
 	{
 		
-		DB::table('classinstructors')->delete();
+		DB::table('class_instructors')->delete();
 
 		$classinstructors = array(
-			'sterm' => 2023,
+			'sterm' => 2143,
 			'class_number' => 90,
 			'emplid' => '103850927',
 			'instructor_role' => 'Best role ever',
-			'email' => 'email@gmail.com'
+			'instructor' => 'email@gmail.com'
 		);
 		ClassInstructor::create($classinstructors);
 
 		$classinstructors = array(
-			'sterm' => 2023,
+			'sterm' => 2143,
 			'class_number' => 95,
 			'emplid' => '1',
 			'instructor_role' => 'Best role ever',
-			'email' => 'email2@gmail.com'
+			'instructor' => 'email2@gmail.com'
 		);
 		ClassInstructor::create($classinstructors);
 

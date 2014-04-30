@@ -10,27 +10,27 @@ class ClassMeetingTableSeeder extends Seeder {
 	public function run()
 	{
 		
-		DB::table('classmeetings')->delete();
+		DB::table('class_meeting')->delete();
 
 		$classmeeting = array(
-			'sterm' => 2023,
+			'sterm' => 2143,
 			'class_number' => 90,
 			'meeting_number' => 1,
-			'facility_id' => 2,
-			'meeting_time_start' => date("Y-m-d H:i:s"),
-			'meeting_time_end' => date("Y-m-d H:i:s"),
-			'meeting_pattern_code' => 'MWF'
+			'location' => 2,
+			'start_time' => date("Y-m-d H:i:s"),
+			'end_time' => date("Y-m-d H:i:s"),
+			'days' => 'MWF'
 		);
 		ClassMeeting::create($classmeeting);
 
 		$classmeeting = array(
-			'sterm' => 2023,
+			'sterm' => 2143,
 			'class_number' => 95,
 			'meeting_number' => 1,
-			'facility_id' => 10,
-			'meeting_time_start' => date("Y-m-d H:i:s"),
-			'meeting_time_end' => date("Y-m-d H:i:s"),
-			'meeting_pattern_code' => 'MWF',
+			'location' => 10,
+			'start_time' => date("Y-m-d H:i:s"),
+			'end_time' => date("Y-m-d H:i:s"),
+			'days' => 'MWF',
 		);
 		ClassMeeting::create($classmeeting);
 
