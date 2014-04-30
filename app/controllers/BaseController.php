@@ -76,4 +76,42 @@ class BaseController extends Controller {
 		return $term_code;
 	}
 
+	/*
+		Remove all keys from $array that are present in the $keys array.
+		Elements in $keys can be paths using "dot" notation.
+	*/
+	function forgetArrayKeyValuePairs(&$array, $keys)
+	{
+		for ($i=0; $i < count($keys); $i++) { 
+			array_forget($array, $keys[$i]);
+		}
+	}
+
+	//Removes unwanted array properties before sending back the JSON response
+	function prepareClassesResponse(&$data)
+	{
+		for ($i=0; $i < count($data); $i++) { 
+
+			$this->forgetArrayKeyValuePairs($data[$i], 
+				array(
+					'sterm',
+					'class_meeting.sterm',
+					'class_meeting.class_number'
+				)
+			);
+
+			for ($j=0; $j < count($data[$i]['class_instructors']); $j++) { 
+				$this->forgetArrayKeyValuePairs($data[$i]['class_instructors'],
+					array(
+						$j . '.sterm', 
+						$j . '.class_number', 
+						$j . '.emplid', 
+						$j . '.instructor_role'
+					)
+				);
+			}
+		}
+		return $data;
+	}
+
 }
