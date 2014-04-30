@@ -10,5 +10,5 @@ class Term extends Eloquent{
 	 *
 	 * @var string
 	 */
-	protected $table = 'terms';
+	protected $table = 'term_data';
 }
