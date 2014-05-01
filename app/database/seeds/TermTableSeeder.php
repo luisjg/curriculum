@@ -24,11 +24,11 @@ class TermTableSeeder extends Seeder {
 
 		$term = array(
 			'acad_career' => 'Academic Career',
-			'sterm' => 2147,
-			'description' => 'Fall 2014',
+			'sterm' => 2137,
+			'description' => 'Fall 2013',
 			'description_short' => 'Fall \'14',
-			'begin_date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 8, 24, 2014)),
-			'end_date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 12, 23, 2014))
+			'begin_date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 8, 24, 2013)),
+			'end_date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 12, 23, 2013))
 		);
 		Term::create($term);
 
