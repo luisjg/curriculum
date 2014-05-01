@@ -16,7 +16,7 @@ class CreateClassMeetingTable extends Migration {
 			$table->integer('sterm');
 			$table->integer('class_number');
 			$table->integer('meeting_number');
-			$table->integer('location');
+			$table->string('location');
 			$table->dateTime('start_time');
 			$table->dateTime('end_time');
 			$table->string('days');
