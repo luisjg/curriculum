@@ -13,8 +13,6 @@ class ClassMeeting extends Eloquent{
 	protected $table = 'class_meeting';
 	protected $hidden = array('created_at', 'updated_at');
 
-	protected $appends = array('start_time', 'end_time');
-
 	//Change start_time from timestamp to military time
 	public function getStartTimeAttribute($value)
 	{
