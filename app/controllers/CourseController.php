@@ -15,6 +15,7 @@ class CourseController extends \BaseController {
 		$data = Classes::where('sterm', $term);
 
 		$data = $data->get()->toArray();
+		$this->removeDuplicateClasses($data);
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
@@ -61,6 +62,7 @@ class CourseController extends \BaseController {
 		}
 
 		$data = $data->get()->toArray();
+		$this->removeDuplicateClasses($data);
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
