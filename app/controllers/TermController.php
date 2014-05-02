@@ -129,8 +129,8 @@ class TermController extends \BaseController {
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
 
-		//Is the $id a ticket number?
-		if($id_array_size == 1){ $id a subject?
+		//Is the $id a subject?
+		if($id_array_size == 1){
 			$data = $data->where('subject', $id);
 		} 
 
