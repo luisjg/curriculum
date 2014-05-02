@@ -149,6 +149,20 @@ class BaseController extends Controller {
 		}
 		$data = array_values($data);
 	}
+
+	function removeDuplicateClasses(&$array)
+	{
+		$unique_classes = array();
+		for ($i=0; $i < count($array); $i++) { 
+			$key = $array[$i]['subject'] . $array[$i]['catalog_number'];
+			if(!array_key_exists($key, $unique_classes)){
+				$unique_classes[$key] = $array[$i];
+			}
+		}
+		$array = array_values($unique_classes);
+	}
+
+
 }
 
 
