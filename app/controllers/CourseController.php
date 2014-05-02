@@ -13,9 +13,8 @@ class CourseController extends \BaseController {
 	{
 		$term = $this->getCurrentTermCode();
 		$data = Classes::where('sterm', $term);
-
-		$data = $data->get()->toArray();
-		$this->removeDuplicateClasses($data);
+		
+		$data = $data->groupby('subject')->get()->toArray();
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
@@ -60,8 +59,7 @@ class CourseController extends \BaseController {
 			//throw some stuff
 		}
 
-		$data = $data->get()->toArray();
-		$this->removeDuplicateClasses($data);
+		$data = $data->groupby('subject')->get()->toArray();
 		$this->prepareCoursesResponse($data);
 
 		$response = array(

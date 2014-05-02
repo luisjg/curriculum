@@ -108,8 +108,7 @@ class TermController extends \BaseController {
 		$term_code = $this->generateTermCodeFromSemesterTerm($term);
 		$data = Classes::where('sterm', $term_code);
 
-		$data = $data->get()->toArray();
-		$this->removeDuplicateClasses($data);
+		$data = $data->groupby('subject')->get()->toArray();
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
@@ -143,8 +142,7 @@ class TermController extends \BaseController {
 			//throw some stuff
 		}
 
-		$data = $data->get()->toArray();
-		$this->removeDuplicateClasses($data);
+		$data = $data->groupby('subject')->get()->toArray();
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
