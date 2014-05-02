@@ -114,4 +114,37 @@ class BaseController extends Controller {
 		return $data;
 	}
 
+	function filterClassesByInstructor($instructor, &$data)
+	{
+		$num_classes = count($data);
+		for ($i=0; $i < $num_classes; $i++) {
+
+			$instructors = $data[$i]['class_instructors'];
+			$instructor_exists = false;
+			for ($j=0; $j < count($instructors); $j++) { 
+				if($instructors[$j]['instructor'] == $instructor){
+					$instructor_exists = true;
+					break;
+				}
+			}
+			if (!$instructor_exists){
+				unset($data[$i]);
+				// $i--;
+			}
+		}
+		$data = array_values($data);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
