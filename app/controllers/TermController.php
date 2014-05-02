@@ -73,7 +73,6 @@ class TermController extends \BaseController {
 		if($id_array_size == 1){
 			//Is the $id a ticket number?
 			if(is_numeric($id)){
-
 				$data = $data->where('class_number', $id);
 			}
 			//Is the $id a subject?
@@ -131,16 +130,8 @@ class TermController extends \BaseController {
 		$id_array_size = count($id_array);
 
 		//Is the $id a ticket number?
-		if($id_array_size == 1){
-			//Is the $id a ticket number?
-			if(is_numeric($id)){
-
-				$data = $data->where('class_number', $id);
-			}
-			//Is the $id a subject?
-			else{
-				$data = $data->where('subject', $id);
-			}
+		if($id_array_size == 1){ $id a subject?
+			$data = $data->where('subject', $id);
 		} 
 
 		//Is the $id a subject-catalog_number
