@@ -122,14 +122,13 @@ class BaseController extends Controller {
 			$instructors = $data[$i]['class_instructors'];
 			$instructor_exists = false;
 			for ($j=0; $j < count($instructors); $j++) { 
-				if($instructors[$j]['instructor'] == $instructor){
+				if(trim($instructors[$j]['instructor']) == $instructor){
 					$instructor_exists = true;
 					break;
 				}
 			}
 			if (!$instructor_exists){
 				unset($data[$i]);
-				// $i--;
 			}
 		}
 		$data = array_values($data);
