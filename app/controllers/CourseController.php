@@ -13,8 +13,9 @@ class CourseController extends \BaseController {
 	{
 		$term = $this->getCurrentTermCode();
 		$data = Classes::where('sterm', $term);
-		
-		$data = $data->groupby('subject')->get()->toArray();
+
+		$data = $data->get()->toArray();
+		$this->removeDuplicateClasses($data);
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
@@ -45,8 +46,9 @@ class CourseController extends \BaseController {
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
 
-		//Is the $id a subject?
+		//Is the $id a ticket number?
 		if($id_array_size == 1){
+			//Add is_numeric check?
 			$data = $data->where('subject', $id);
 		} 
 
@@ -59,7 +61,8 @@ class CourseController extends \BaseController {
 			//throw some stuff
 		}
 
-		$data = $data->groupby('subject')->get()->toArray();
+		$data = $data->get()->toArray();
+		$this->removeDuplicateClasses($data);
 		$this->prepareCoursesResponse($data);
 
 		$response = array(

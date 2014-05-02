@@ -100,7 +100,6 @@ class TermController extends \BaseController {
 		);
 
 		return Response::make($response, 200);
-
 	}
 
 	public function coursesIndex($term)
@@ -108,7 +107,8 @@ class TermController extends \BaseController {
 		$term_code = $this->generateTermCodeFromSemesterTerm($term);
 		$data = Classes::where('sterm', $term_code);
 
-		$data = $data->groupby('subject')->get()->toArray();
+		$data = $data->get()->toArray();
+		$this->removeDuplicateClasses($data);
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
@@ -142,7 +142,8 @@ class TermController extends \BaseController {
 			//throw some stuff
 		}
 
-		$data = $data->groupby('subject')->get()->toArray();
+		$data = $data->get()->toArray();
+		$this->removeDuplicateClasses($data);
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
