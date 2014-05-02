@@ -21,5 +21,11 @@ Route::get('/classes/{id}', 'ClassController@show');
 
 
 //USE TERM CONTROLLER
-Route::get('/term/{term}/classes', 'TermController@index');
-Route::get('/term/{term}/classes/{id}', 'TermController@show');
+Route::get('/term/{term}/classes', 'TermController@classesIndex');
+Route::get('/term/{term}/classes/{id}', 'TermController@classesShow');
+
+Route::get('/courses', 'CourseController@index');
+Route::get('/courses/{id}', 'CourseController@show');
+
+Route::get('/term/{term}/courses', 'TermController@coursesIndex');
+Route::get('/term/{term}/courses/{id}', 'TermController@coursesShow');
