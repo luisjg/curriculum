@@ -27,6 +27,10 @@ class TermController extends \BaseController {
 		$data = $data->get()->toArray();
 		$this->prepareClassesResponse($data);
 
+		if(Input::has('instructor')){
+			$this->filterClassesByInstructor(Input::get('instructor'), $data);
+		}
+
 		$response = array(
 			'success'	  => true,
 			'data'	      => $data,
