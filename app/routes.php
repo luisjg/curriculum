@@ -19,8 +19,6 @@ Route::get('/', function()
 Route::get('/classes', 'ClassController@index');
 Route::get('/classes/{id}', 'ClassController@show');
 
-
-//USE TERM CONTROLLER
 Route::get('/term/{term}/classes', 'TermController@classesIndex');
 Route::get('/term/{term}/classes/{id}', 'TermController@classesShow');
 
