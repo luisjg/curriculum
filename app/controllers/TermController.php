@@ -10,7 +10,7 @@ class TermController extends \BaseController {
 	 *				from the given $term 
 	 *
 	 */
-	public function index($term)
+	public function classesIndex($term)
 	{
 		$term_code = $this->generateTermCodeFromSemesterTerm($term);
 		$data = Classes::with(
@@ -51,7 +51,7 @@ class TermController extends \BaseController {
 	 * @return class info for ticket number|subject-catalog_number for the given term
 	 *
 	 */
-	public function show($term, $id)
+	public function classesShow($term, $id)
 	{
 		$term_code = $this->generateTermCodeFromSemesterTerm($term);
 		$data = Classes::with(
@@ -95,6 +95,58 @@ class TermController extends \BaseController {
 
 		return Response::make($response, 200);
 
+	}
+
+	public function coursesIndex($term)
+	{
+		$term_code = $this->generateTermCodeFromSemesterTerm($term);
+		$data = Classes::where('sterm', $term_code);
+
+		$data = $data->get()->toArray();
+		$this->prepareCoursesResponse($data);
+
+		$response = array(
+			'success'	  => true,
+			'data'	      => $data,
+			'status'      => 200
+		);
+
+		return Response::make($response, 200);
+	}
+
+	public function coursesShow($term, $id)
+	{
+		$term_code = $this->generateTermCodeFromSemesterTerm($term);
+		$data = Classes::where('sterm', $term_code);
+
+		$id_array = explode('-', $id);
+		$id_array_size = count($id_array);
+
+		//Is the $id a ticket number?
+		if($id_array_size == 1){
+			//Add is_numeric check?
+			$data = $data->where('subject', $id);
+		} 
+
+		//Is the $id a subject-catalog_number
+		elseif($id_array_size == 2){
+			$subject = $id_array[0];
+			$catalog_number = $id_array[1];
+			$data = $data->where('subject', $subject)->where('catalog_number', $catalog_number);
+		} else{
+			//throw some stuff
+		}
+
+		$data = $data->get()->toArray();
+		$this->prepareCoursesResponse($data);
+
+		$response = array(
+			'success'	  => true,
+			'data'	      => $data,
+			'status'      => 200
+		);
+
+		return Response::make($response, 200);
 	}
 
 }
