@@ -111,9 +111,25 @@ class BaseController extends Controller {
 				);
 			}
 		}
-		return $data;
 	}
 
+	function prepareCoursesResponse(&$data)
+	{
+		for ($i=0; $i < count($data); $i++) { 
+			$this->forgetArrayKeyValuePairs($data[$i], 
+				array(
+					'sterm',
+					'class_number'
+				)
+			);
+		}
+	}
+
+
+	/*
+		Remove all classes from $data that do NOT contain
+		$instructor in it's list of class_instructors
+	*/
 	function filterClassesByInstructor($instructor, &$data)
 	{
 		$num_classes = count($data);
