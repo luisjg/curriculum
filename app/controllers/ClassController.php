@@ -27,7 +27,7 @@ class ClassController extends \BaseController {
 		$this->prepareClassesResponse($data);
 
 		if(Input::has('instructor')){
-			$this->filterClassesByInstructor(Input::get('instructor'), $data);
+			$this->filterClassesByInstructor(trim(Input::get('instructor')), $data);
 		}
 
 		$response = array(
@@ -78,7 +78,6 @@ class ClassController extends \BaseController {
 			$subject = $id_array[0];
 			$catalog_number = $id_array[1];
 			$data = $data->where('subject', $subject)->where('catalog_number', $catalog_number);
-
 		} else{
 			//throw some stuff
 		}
