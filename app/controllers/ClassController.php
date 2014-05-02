@@ -70,7 +70,6 @@ class ClassController extends \BaseController {
 		if($id_array_size == 1){
 			//Is the $id a ticket number?
 			if(is_numeric($id)){
-
 				$data = $data->where('class_number', $id);
 			}
 			//Is the $id a subject?
