@@ -48,8 +48,15 @@ class CourseController extends \BaseController {
 
 		//Is the $id a ticket number?
 		if($id_array_size == 1){
-			//Add is_numeric check?
-			$data = $data->where('subject', $id);
+			//Is the $id a ticket number?
+			if(is_numeric($id)){
+
+				$data = $data->where('class_number', $id);
+			}
+			//Is the $id a subject?
+			else{
+				$data = $data->where('subject', $id);
+			}
 		} 
 
 		//Is the $id a subject-catalog_number
