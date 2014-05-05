@@ -5,8 +5,8 @@ class ClassController extends \BaseController {
 	/**
 	 * Get all class information from the current term
 	 * @link /classes 	GET
-	 * @return all classes, classmeetings, and classinstructors
-	 *				from the given current term
+	 * @return all classes, including the class_meeting and
+	 * class_instructors for those classes
 	 *
 	 */
 	public function index()
@@ -31,23 +31,26 @@ class ClassController extends \BaseController {
 		}
 
 		$response = array(
+			'status'      => 200,
 			'success'	  => true,
-			'data'	      => $data,
-			'status'      => 200
+			'version'     => 'omar-1.0',
+			'type'		  => 'classes',
+			'classes'	  => $data
 		);
 
 		return Response::make($response, 200);
-
 	}
 
 	/**
 	 * Get class information for a specific class if a ticket number is given,
 	 *	or class information for all classes with a specific subject and
-	 *	catalog_number if subject-catalog_number is given, all for the given term
+	 *	catalog_number if subject-catalog_number is given. All the information
+	 *  is for the current term
 	 * @todo Exceptions in else block, and is_numeric check on ticket number
 	 * @link /classes/{id} 	GET
 	 * @param int|string $id
-	 * @return class info for ticket number|subject-catalog_number for the given term
+	 * @return class info given ticket number|subject|subject-catalog_number, 
+	 * 			all for the current term
 	 *
 	 */
 	public function show($id)
@@ -91,12 +94,13 @@ class ClassController extends \BaseController {
 		$this->prepareClassesResponse($data);
 
 		$response = array(
+			'status'      => 200,
 			'success'	  => true,
-			'data'	      => $data,
-			'status'      => 200
+			'version'     => 'omar-1.0',
+			'type'		  => 'classes',
+			'classes'	  => $data
 		);
 
 		return Response::make($response, 200);
-
 	}
 }

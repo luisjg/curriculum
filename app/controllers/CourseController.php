@@ -3,10 +3,9 @@
 class CourseController extends \BaseController {
 
 	/**
-	 * Get all class information from the current term
-	 * @link /classes 	GET
-	 * @return all classes, classmeetings, and classinstructors
-	 *				from the given current term
+	 * Get all course information for the current term
+	 * @link /courses 	GET
+	 * @return all courses for the current term
 	 *
 	 */
 	public function index()
@@ -15,27 +14,27 @@ class CourseController extends \BaseController {
 		$data = Classes::where('sterm', $term);
 
 		$data = $data->get()->toArray();
-		$this->removeDuplicateClasses($data);
+		$this->removeDuplicateCourses($data);
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
+			'status'      => 200,
 			'success'	  => true,
-			'data'	      => $data,
-			'status'      => 200
+			'version'     => 'omar-1.0',
+			'type'		  => 'courses',
+			'courses'	  => $data
 		);
 
 		return Response::make($response, 200);
-
 	}
 
 	/**
-	 * Get class information for a specific class if a ticket number is given,
-	 *	or class information for all classes with a specific subject and
-	 *	catalog_number if subject-catalog_number is given, all for the given term
-	 * @todo Exceptions in else block, and is_numeric check on ticket number
-	 * @link /classes/{id} 	GET
-	 * @param int|string $id
-	 * @return class info for ticket number|subject-catalog_number for the given term
+	 * Get course information for a specific course, given a subject,
+	 *  for the current term
+	 * @todo Exceptions in else block
+	 * @link /courses/{id} 	GET
+	 * @param string $id
+	 * @return course info for a subject, all for the current term
 	 *
 	 */
 	public function show($id)
@@ -62,16 +61,17 @@ class CourseController extends \BaseController {
 		}
 
 		$data = $data->get()->toArray();
-		$this->removeDuplicateClasses($data);
+		$this->removeDuplicateCourses($data);
 		$this->prepareCoursesResponse($data);
 
 		$response = array(
+			'status'      => 200,
 			'success'	  => true,
-			'data'	      => $data,
-			'status'      => 200
+			'version'     => 'omar-1.0',
+			'type'		  => 'courses',
+			'courses'	  => $data
 		);
 
 		return Response::make($response, 200);
-
 	}
 }
