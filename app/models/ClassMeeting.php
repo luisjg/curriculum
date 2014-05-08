@@ -10,7 +10,7 @@ class ClassMeeting extends Eloquent{
 	 *
 	 * @var string
 	 */
-	protected $table = 'class_meetings';
+	protected $table = 'class_meeting';
 	protected $hidden = array('created_at', 'updated_at');
 
 	//Change start_time from timestamp to military time

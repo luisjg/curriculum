@@ -10,7 +10,7 @@ class Classes extends Eloquent{
 	 *
 	 * @var string
 	 */
-	protected $table = 'course_classes';
+	protected $table = 'course_class';
 	protected $hidden = array('created_at', 'updated_at');
 
 	protected $appends = array('term');
