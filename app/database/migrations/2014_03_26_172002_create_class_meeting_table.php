@@ -12,7 +12,7 @@ class CreateClassMeetingTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('class_meeting', function($table){
+		Schema::create('class_meetings', function($table){
 			$table->integer('sterm');
 			$table->integer('class_number');
 			$table->integer('meeting_number');
@@ -34,7 +34,7 @@ class CreateClassMeetingTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('class_meeting');
+		Schema::drop('class_meetings');
 	}
 
 }

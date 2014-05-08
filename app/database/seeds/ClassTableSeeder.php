@@ -10,7 +10,7 @@ class ClassTableSeeder extends Seeder {
 	public function run()
 	{
 		
-		DB::table('course_class')->delete();
+		DB::table('course_classes')->delete();
 
 		$class = array(
 			'sterm' => 2137,

@@ -10,7 +10,7 @@ class ClassMeetingTableSeeder extends Seeder {
 	public function run()
 	{
 		
-		DB::table('class_meeting')->delete();
+		DB::table('class_meetings')->delete();
 
 		$classmeeting = array(
 			'sterm' => 2137,
