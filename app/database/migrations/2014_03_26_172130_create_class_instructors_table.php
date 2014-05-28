@@ -18,7 +18,8 @@ class CreateClassInstructorsTable extends Migration {
 			$table->string('emplid');
 			$table->string('instructor_role');
 			$table->string('instructor');
-			$table->timestamps();
+			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->timestamp('updated_at')->nullable();
 
 			$table->primary(array('sterm', 'class_number', 'emplid'));
 		});

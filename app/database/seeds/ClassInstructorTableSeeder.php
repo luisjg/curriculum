@@ -13,20 +13,39 @@ class ClassInstructorTableSeeder extends Seeder {
 		DB::table('class_instructors')->delete();
 
 		$classinstructors = array(
-			'sterm' => 2143,
-			'class_number' => 90,
-			'emplid' => '103850927',
+			'sterm' => 2137,
+			'class_number' => 12000,
+			'emplid' => '1',
 			'instructor_role' => 'Best role ever',
-			'instructor' => 'email@gmail.com'
+			'instructor' => 'ani@csun.edu'
+		);
+		ClassInstructor::create($classinstructors);
+
+		$classinstructors = array(
+			'sterm' => 2137,
+			'class_number' => 12100,
+			'emplid' => '1',
+			'instructor_role' => 'Best role ever',
+			'instructor' => 'ani@csun.edu'
+		);
+		ClassInstructor::create($classinstructors);
+
+
+		$classinstructors = array(
+			'sterm' => 2143,
+			'class_number' => 10147,
+			'emplid' => '1',
+			'instructor_role' => 'Best role ever',
+			'instructor' => 'staff@csun.edu'
 		);
 		ClassInstructor::create($classinstructors);
 
 		$classinstructors = array(
 			'sterm' => 2143,
-			'class_number' => 95,
+			'class_number' => 10148,
 			'emplid' => '1',
 			'instructor_role' => 'Best role ever',
-			'instructor' => 'email2@gmail.com'
+			'instructor' => 'pistolesi@csun.edu'
 		);
 		ClassInstructor::create($classinstructors);
 

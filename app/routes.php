@@ -16,10 +16,18 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+//class info with current term
 Route::get('/classes', 'ClassController@index');
 Route::get('/classes/{id}', 'ClassController@show');
 
+//class info with specific term
+Route::get('/term/{term}/classes', 'TermController@classesIndex');
+Route::get('/term/{term}/classes/{id}', 'TermController@classesShow');
 
-//USE TERM CONTROLLER
-Route::get('/term/{term}/classes', 'TermController@index');
-Route::get('/term/{term}/classes/{id}', 'TermController@show');
+//course info with current term
+Route::get('/courses', 'CourseController@index');
+Route::get('/courses/{id}', 'CourseController@show');
+
+//course info with specific term
+Route::get('/term/{term}/courses', 'TermController@coursesIndex');
+Route::get('/term/{term}/courses/{id}', 'TermController@coursesShow');

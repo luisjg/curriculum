@@ -16,7 +16,7 @@ class BaseController extends Controller {
 	}
 	/**
 	 * Retrieves the Term Code for the current Semester
-	 * @todo Throw ModelNotFoundException when current term doesn't exist
+	 * @todo Throw an Exception when current term doesn't exist
 	 * @return Current Term Code (e.g 2147)
 	 *
 	 */
@@ -34,7 +34,7 @@ class BaseController extends Controller {
 
 	/**
 	 * Generates the Term Code given the current Semester and Year
-	 * @todo Throw exceptions in each if check
+	 * @todo Throw exceptions in each if block
 	 * @param  string $term (e.g Fall-2014)
 	 * @return Generated Term Code (e.g 2147)
 	 *
@@ -42,7 +42,7 @@ class BaseController extends Controller {
 	function generateTermCodeFromSemesterTerm($term){
 
 		/*
-			Creating term code from semester and year:
+			Creating term code from semester and year (e.g Fall-2014):
 			1) Take the given year, and remove the digit in 
 				the century position (e.g 2014 becomes 214)
 			2) Grab the number associated with the term name
@@ -76,10 +76,14 @@ class BaseController extends Controller {
 		return $term_code;
 	}
 
-	/*
-		Remove all keys from $array that are present in the $keys array.
-		Elements in $keys can be paths using "dot" notation.
-	*/
+	/**
+	 * Remove all keys from $array that are present in the $keys array.
+	 * Elements in $keys can be paths using "dot" notation (e.g 'data.class_meeting.sterm').
+	 * The array is directly modified.
+	 * @param array $array (reference), array $keys
+	 * @return No return value. Array is modified directly.
+	 *
+	 */
 	function forgetArrayKeyValuePairs(&$array, $keys)
 	{
 		for ($i=0; $i < count($keys); $i++) { 
@@ -87,11 +91,18 @@ class BaseController extends Controller {
 		}
 	}
 
-	//Removes unwanted array properties before sending back the JSON response
+	/**
+	 * 	Removes sterm from top level of the JSON, and also removes sterm
+	 *	and class_number from the lower levels of the JSON (class_meeting 
+	 *	and each instructor in class_instructors) before sending back the
+	 *  JSON response
+	 * @param array $data (reference)
+	 * @return No return value. Array is modified directly.
+	 *
+	 */
 	function prepareClassesResponse(&$data)
 	{
 		for ($i=0; $i < count($data); $i++) { 
-
 			$this->forgetArrayKeyValuePairs($data[$i], 
 				array(
 					'sterm',
@@ -99,19 +110,78 @@ class BaseController extends Controller {
 					'class_meeting.class_number'
 				)
 			);
-
 			for ($j=0; $j < count($data[$i]['class_instructors']); $j++) { 
 				$this->forgetArrayKeyValuePairs($data[$i]['class_instructors'],
 					array(
 						$j . '.sterm', 
-						$j . '.class_number', 
-						$j . '.emplid', 
-						$j . '.instructor_role'
+						$j . '.class_number'
 					)
 				);
 			}
 		}
-		return $data;
 	}
 
+
+	/**
+	 * Remove sterm and class_number from top level of the JSON
+	 * @param array $array (reference)
+	 * @return No return value. Array is modified directly
+	 *
+	 */
+	function prepareCoursesResponse(&$data)
+	{
+		for ($i=0; $i < count($data); $i++) { 
+			$this->forgetArrayKeyValuePairs($data[$i], 
+				array(
+					'sterm',
+					'class_number'
+				)
+			);
+		}
+	}
+
+	/**
+	 * Remove all classes from $data that do NOT contain
+	 * $instructor in it's list of class_instructors
+	 * @param string $instructor, array $data (reference)
+	 * @return No return value. Array is modified directly
+	 *
+	 */	
+	function filterClassesByInstructor($instructor, &$data)
+	{
+		$num_classes = count($data);
+		for ($i=0; $i < $num_classes; $i++) {
+
+			$instructors = $data[$i]['class_instructors'];
+			$instructor_exists = false;
+			for ($j=0; $j < count($instructors); $j++) { 
+				if(trim($instructors[$j]['instructor']) == $instructor){
+					$instructor_exists = true;
+					break;
+				}
+			}
+			if (!$instructor_exists){
+				unset($data[$i]);
+			}
+		}
+		$data = array_values($data);
+	}
+
+	/**
+	 * Remove all duplicate courses from the given array
+	 * @param array $data (reference)
+	 * @return No return value. Array is modified directly
+	 *
+	 */	
+	function removeDuplicateCourses(&$array)
+	{
+		$unique_classes = array();
+		for ($i=0; $i < count($array); $i++) { 
+			$key = $array[$i]['subject'] . $array[$i]['catalog_number'];
+			if(!array_key_exists($key, $unique_classes)){
+				$unique_classes[$key] = $array[$i];
+			}
+		}
+		$array = array_values($unique_classes);
+	}
 }
