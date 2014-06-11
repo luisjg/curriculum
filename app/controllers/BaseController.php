@@ -134,7 +134,8 @@ class BaseController extends Controller {
 			$this->forgetArrayKeyValuePairs($data[$i], 
 				array(
 					'sterm',
-					'class_number'
+					'class_number',
+					'term'
 				)
 			);
 		}
