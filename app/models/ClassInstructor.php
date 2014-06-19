@@ -11,5 +11,6 @@ class ClassInstructor extends Eloquent{
 	 * @var string
 	 */
 	protected $table = 'class_instructors';
+    
 	protected $hidden = array('created_at', 'updated_at', 'emplid', 'instructor_role');
 }
