@@ -12,7 +12,7 @@ class CreateClassInstructorsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('class_instructors', function($table){
+		Schema::create('class_instructors', function(Blueprint $table){
 			$table->integer('sterm');
 			$table->integer('class_number');
 			$table->string('emplid');
@@ -32,7 +32,7 @@ class CreateClassInstructorsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('class_instructors');
+		Schema::dropIfExists('class_instructors');
 	}
 
 }

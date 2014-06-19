@@ -12,7 +12,7 @@ class CreateClassTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('course_classes', function($table){
+		Schema::create('course_classes', function(Blueprint $table){
 			$table->integer('sterm');
 			$table->integer('class_number');
 			$table->string('subject');
@@ -25,7 +25,6 @@ class CreateClassTable extends Migration {
 			$table->timestamp('updated_at')->nullable();
 
 			$table->primary(array('sterm', 'class_number'));
-
 		});
 	}
 
@@ -36,7 +35,7 @@ class CreateClassTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('course_classes');
+		Schema::dropIfExists('course_classes');
 	}
 
 }

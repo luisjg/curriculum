@@ -12,7 +12,7 @@ class CreateTermTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('term_data', function($table){
+		Schema::create('term_data', function(Blueprint $table){
 			$table->string('acad_career');
 			$table->integer('sterm');
 			$table->string('description');
@@ -33,7 +33,7 @@ class CreateTermTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('term_data');
+		Schema::dropIfExists('term_data');
 	}
 
 }
