@@ -11,23 +11,22 @@ class ClassController extends \BaseController {
 	 */
 	public function index()
 	{
-		$term = $this->getCurrentTermCode();
-		$data = Classes::with(
-			array(
-				'class_meeting' => function($query) use ($term) {
-					$query->where('sterm', $term);
-				}, 
-				'class_instructors' => function($query) use ($term) {
-					$query->where('sterm', $term);
-				}
-			)
-		)->where('sterm', $term);
+		$term = getCurrentTermCode();
 
-		$data = $data->get()->toArray();
-		$this->prepareClassesResponse($data);
+		$data = Classes::with([
+			'class_meeting' => function($query) use ($term) {
+				$query->where('sterm', $term);
+			}, 
+			'class_instructors' => function($query) use ($term) {
+				$query->where('sterm', $term);
+			}
+		])->where('sterm', $term)->get()->toArray();
 
-		if(Input::has('instructor')){
-			$this->filterClassesByInstructor(Input::get('instructor'), $data);
+		prepareClassesResponse($data);
+
+		if (Input::has('instructor'))
+		{
+			filterClassesByInstructor(Input::get('instructor'), $data);
 		}
 
 		$response = array(
@@ -55,43 +54,41 @@ class ClassController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$term = $this->getCurrentTermCode();
-		$data = Classes::with(
-			array(
-				'class_meeting' => function($query) use ($term) {
-					$query->where('sterm', $term);
-				}, 
-				'class_instructors' => function($query) use ($term) {
-					$query->where('sterm', $term);
-				}
-			)
-		)->where('sterm', $term);
+		$term = getCurrentTermCode();
+
+		$data = Classes::with([
+			'class_meeting' => function($query) use ($term) {
+				$query->where('sterm', $term);
+			}, 
+			'class_instructors' => function($query) use ($term) {
+				$query->where('sterm', $term);
+			}
+		])->where('sterm', $term);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
 
-		if($id_array_size == 1){
-			//Is the $id a ticket number?
-			if(is_numeric($id)){
+		if ($id_array_size == 1)
+		{
+			if (is_numeric($id)) { // is the $id a ticket number?
 				$data = $data->where('class_number', $id);
-			}
-			//Is the $id a subject?
-			else{
+			} else { // is the $id a subject?
 				$data = $data->where('subject', $id);
 			}
 		} 
-
-		//Is the $id a subject-catalog_number?
-		elseif($id_array_size == 2){
+		elseif ($id_array_size == 2) // is the $id a subject-catalog_number?
+		{ 
 			$subject = $id_array[0];
 			$catalog_number = $id_array[1];
 			$data = $data->where('subject', $subject)->where('catalog_number', $catalog_number);
-		} else{
+		} 
+		else 
+		{
 			//throw some stuff
 		}
 
 		$data = $data->get()->toArray();
-		$this->prepareClassesResponse($data);
+		prepareClassesResponse($data);
 
 		$response = array(
 			'status'      => 200,
@@ -103,4 +100,5 @@ class ClassController extends \BaseController {
 
 		return Response::make($response, 200);
 	}
+	
 }
