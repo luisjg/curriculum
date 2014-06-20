@@ -8,11 +8,10 @@ class ClassTableSeeder extends Seeder {
 	 * @return void
 	 */
 	public function run()
-	{
-		
+	{	
 		DB::table('course_classes')->delete();
 
-		$class = array(
+		Classes::create(array(
 			'sterm' => 2137,
 			'class_number' => 12000,
 			'subject' => 'Comp',
@@ -21,10 +20,9 @@ class ClassTableSeeder extends Seeder {
 			'course_id' => 19187,
 			'description' => 'Comp 100 course description',
 			'units' => 3
-		);
-		Classes::create($class);
+		));
 
-		$class = array(
+		Classes::create(array(
 			'sterm' => 2137,
 			'class_number' => 12100,
 			'subject' => 'Comp',
@@ -33,11 +31,9 @@ class ClassTableSeeder extends Seeder {
 			'course_id' => 12345,
 			'description' => 'Comp 100L course description',
 			'units' => 1
-		);
-		Classes::create($class);
+		));
 
-
-		$class = array(
+		Classes::create(array(
 			'sterm' => 2143,
 			'class_number' => 10147,
 			'subject' => 'Art',
@@ -46,10 +42,9 @@ class ClassTableSeeder extends Seeder {
 			'course_id' => 19187,
 			'description' => 'Art 100L course description',
 			'units' => 2
-		);
-		Classes::create($class);
+		));
 
-		$class = array(
+		Classes::create(array(
 			'sterm' => 2143,
 			'class_number' => 10148,
 			'subject' => 'Art',
@@ -58,9 +53,7 @@ class ClassTableSeeder extends Seeder {
 			'course_id' => 12345,
 			'description' => 'Art 100L course description',
 			'units' => 2
-		);
-		Classes::create($class);
-
+		));
 	}
 
 }

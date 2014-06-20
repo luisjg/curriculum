@@ -12,23 +12,22 @@ class TermController extends \BaseController {
 	 */
 	public function classesIndex($term)
 	{
-		$term_code = $this->generateTermCodeFromSemesterTerm($term);
-		$data = Classes::with(
-			array(
-				'class_meeting' => function($query) use ($term_code) {
-					$query->where('sterm', $term_code);
-				}, 
-				'class_instructors' => function($query) use ($term_code) {
-					$query->where('sterm', $term_code);
-				}
-			)
-		)->where('sterm', $term_code);
+		$term_code = generateTermCodeFromSemesterTerm($term);
 
-		$data = $data->get()->toArray();
-		$this->prepareClassesResponse($data);
+		$data = Classes::with([
+			'class_meeting' => function($query) use ($term_code) {
+				$query->where('sterm', $term_code);
+			}, 
+			'class_instructors' => function($query) use ($term_code) {
+				$query->where('sterm', $term_code);
+			}
+		])->where('sterm', $term_code)->get()->toArray();
 
-		if(Input::has('instructor')){
-			$this->filterClassesByInstructor(Input::get('instructor'), $data);
+		prepareClassesResponse($data);
+
+		if (Input::has('instructor'))
+		{
+			filterClassesByInstructor(Input::get('instructor'), $data);
 		}
 
 		$response = array(
@@ -55,45 +54,41 @@ class TermController extends \BaseController {
 	 */
 	public function classesShow($term, $id)
 	{
-		$term_code = $this->generateTermCodeFromSemesterTerm($term);
-		$data = Classes::with(
-			array(
-				'class_meeting' => function($query) use ($term_code) {
-					$query->where('sterm', $term_code);
-				}, 
-				'class_instructors' => function($query) use ($term_code) {
-					$query->where('sterm', $term_code);
-				}
-			)
-		)->where('sterm', $term_code);
+		$term_code = generateTermCodeFromSemesterTerm($term);
 
+		$data = Classes::with([
+			'class_meeting' => function($query) use ($term_code) {
+				$query->where('sterm', $term_code);
+			}, 
+			'class_instructors' => function($query) use ($term_code) {
+				$query->where('sterm', $term_code);
+			}
+		])->where('sterm', $term_code);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
 
-		//Is the $id a ticket number?
-		if($id_array_size == 1){
-			//Is the $id a ticket number?
-			if(is_numeric($id)){
+		if ($id_array_size == 1)
+		{
+			if (is_numeric($id)) { // is the $id a ticket number?
 				$data = $data->where('class_number', $id);
-			}
-			//Is the $id a subject?
-			else{
+			} else { // is the $id a subject?
 				$data = $data->where('subject', $id);
 			}
 		} 
-
-		//Is the $id a subject-catalog_number
-		elseif($id_array_size == 2){
+		elseif ($id_array_size == 2) // is the $id a subject-catalog_number?
+		{
 			$subject = $id_array[0];
 			$catalog_number = $id_array[1];
 			$data = $data->where('subject', $subject)->where('catalog_number', $catalog_number);
-		} else{
+		}
+		else
+		{
 			//throw some stuff
 		}
 
 		$data = $data->get()->toArray();
-		$this->prepareClassesResponse($data);
+		prepareClassesResponse($data);
 
 		$response = array(
 			'status'      => 200,
@@ -114,12 +109,11 @@ class TermController extends \BaseController {
 	 */
 	public function coursesIndex($term)
 	{
-		$term_code = $this->generateTermCodeFromSemesterTerm($term);
-		$data = Classes::where('sterm', $term_code);
-
-		$data = $data->get()->toArray();
-		$this->removeDuplicateCourses($data);
-		$this->prepareCoursesResponse($data);
+		$term_code = generateTermCodeFromSemesterTerm($term);
+		
+		$data = Classes::where('sterm', $term_code)->get()->toArray();;
+		removeDuplicateCourses($data);
+		prepareCoursesResponse($data);
 
 		$response = array(
 			'status'      => 200,
@@ -143,29 +137,30 @@ class TermController extends \BaseController {
 	 */
 	public function coursesShow($term, $id)
 	{
-		$term_code = $this->generateTermCodeFromSemesterTerm($term);
+		$term_code = generateTermCodeFromSemesterTerm($term);
 		$data = Classes::where('sterm', $term_code);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
 
-		//Is the $id a subject?
-		if($id_array_size == 1){
+		if ($id_array_size == 1) // is the $id a subject?
+		{
 			$data = $data->where('subject', $id);
 		} 
-
-		//Is the $id a subject-catalog_number
-		elseif($id_array_size == 2){
+		elseif ($id_array_size == 2) // is the $id a subject-catalog_number
+		{
 			$subject = $id_array[0];
 			$catalog_number = $id_array[1];
 			$data = $data->where('subject', $subject)->where('catalog_number', $catalog_number);
-		} else{
+		}
+		else
+		{
 			//throw some stuff
 		}
 
 		$data = $data->get()->toArray();
-		$this->removeDuplicateCourses($data);
-		$this->prepareCoursesResponse($data);
+		removeDuplicateCourses($data);
+		prepareCoursesResponse($data);
 
 		$response = array(
 			'status'      => 200,
@@ -177,4 +172,5 @@ class TermController extends \BaseController {
 
 		return Response::make($response, 200);
 	}
+	
 }

@@ -11,6 +11,7 @@ class Classes extends Eloquent{
 	 * @var string
 	 */
 	protected $table = 'course_classes';
+	
 	protected $hidden = array('created_at', 'updated_at');
 
 	protected $appends = array('term');
@@ -25,11 +26,16 @@ class Classes extends Eloquent{
 		return $this->hasMany('ClassInstructor', 'class_number', 'class_number');
 	}
 
-	//Convert semester term code to Semester-Year format
+	/* Accessor - This function runs before getting the Term attribute from db 
+	 * 
+	 * Converts semester term code to Semester-Year format
+	 */
 	public function getTermAttribute()
 	{
 		$term = $this->sterm;
 		$term_codes = array(7 => 'Fall', 3 => 'Spring');
+
 		return $term_codes[$term[3]] . '-' . $term[0] . '0' . $term[1] . $term[2];
 	}
+
 }
