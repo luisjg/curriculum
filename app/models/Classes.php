@@ -33,7 +33,12 @@ class Classes extends Eloquent{
 	public function getTermAttribute()
 	{
 		$term = $this->sterm;
-		$term_codes = array(7 => 'Fall', 3 => 'Spring');
+		$term_codes = array(
+			1 => 'Winter',
+			3 => 'Spring',
+			5 => 'Summer',
+			7 => 'Fall'			
+		);
 
 		return $term_codes[$term[3]] . '-' . $term[0] . '0' . $term[1] . $term[2];
 	}
