@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Laravel PHP Framework</title>
+	<title>Curriculum Web Service (OMAR)</title>
 	<style>
 		@import url(//fonts.googleapis.com/css?family=Lato:700);
 
@@ -14,8 +14,6 @@
 		}
 
 		.welcome {
-			width: 300px;
-			height: 200px;
 			position: absolute;
 			left: 10px;
 			top: 10px;
@@ -26,7 +24,6 @@
 		}
 
 		h1 {
-			font-size: 32px;
 			margin: 16px 0 0 0;
 		}
 
@@ -37,7 +34,7 @@
 </head>
 <body>
 	<div class="welcome">
-		<h1>OMAR</h1>
+		<h1>Curriculum Web Service (OMAR)</h1>
 		<a target="_blank" href="pdfs/CurriculumWebService.pdf">CurriculumWebService.pdf</a>
 
 		<h2>Examples</h2>
