@@ -1,16 +1,12 @@
 <?php
 
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableInterface;
-
-class Meeting extends Eloquent{
+class Meeting extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	
 	protected $hidden = array('created_at', 'updated_at');
 
 	/* Accessor - This function runs before getting the start_time attribute from db 

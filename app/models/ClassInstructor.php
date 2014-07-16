@@ -1,9 +1,6 @@
 <?php
 
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableInterface;
-
-class ClassInstructor extends Eloquent{
+class ClassInstructor extends Eloquent {
 
 	/**
 	 * The database table used by the model.
@@ -12,5 +9,11 @@ class ClassInstructor extends Eloquent{
 	 */
 	protected $table = 'class_instructor'; /* pivot */
     
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+
 	protected $hidden = array('created_at', 'updated_at', 'emplid', 'instructor_role');
 }
