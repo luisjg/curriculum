@@ -42,7 +42,8 @@ class CourseController extends \BaseController {
 	public function show($id)
 	{
 		$term = getCurrentTermCode();
-		$data = Classes::where('sterm', $term);
+		$data = Classes::groupBy(array('subject', 'catalog_number'))
+			->having('sterm', '=', $term);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
@@ -64,7 +65,6 @@ class CourseController extends \BaseController {
 		}
 
 		$data = $data->get()->toArray();
-		removeDuplicateCourses($data);
 		prepareCoursesResponse($data);
 
 		$response = array(
