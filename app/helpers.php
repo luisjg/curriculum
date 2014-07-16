@@ -94,11 +94,17 @@ function prepareClassesResponse(&$data)
     for ($i=0; $i < count($data); $i++) { 
         forgetArrayKeyValuePairs($data[$i], 
             array(
-                'sterm',
-                'meetings.sterm',
-                'meetings.class_number'
+                'sterm'                
             )
         );
+        for ($j=0; $j < count($data[$i]['meetings']); $j++) { 
+            forgetArrayKeyValuePairs($data[$i]['meetings'],
+                array(
+                    $j . '.sterm',
+                    $j . '.class_number'
+                )
+            );
+        }
         for ($j=0; $j < count($data[$i]['instructors']); $j++) { 
             forgetArrayKeyValuePairs($data[$i]['instructors'],
                 array(

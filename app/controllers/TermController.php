@@ -15,7 +15,7 @@ class TermController extends \BaseController {
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::with([
-			'meeting' => function($query) use ($term_code) {
+			'meetings' => function($query) use ($term_code) {
 				$query->where('sterm', $term_code);
 			}, 
 			'instructors' => function($query) use ($term_code) {
@@ -57,7 +57,7 @@ class TermController extends \BaseController {
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::with([
-			'meeting' => function($query) use ($term_code) {
+			'meetings' => function($query) use ($term_code) {
 				$query->where('sterm', $term_code);
 			}, 
 			'instructors' => function($query) use ($term_code) {

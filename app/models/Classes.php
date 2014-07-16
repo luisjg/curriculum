@@ -10,15 +10,15 @@ class Classes extends Eloquent{
 	 *
 	 * @var string
 	 */
-	protected $table = 'classes';
+	protected $table = 'classes'; /* 'class' is a reservedname */
 	
 	protected $hidden = array('created_at', 'updated_at');
 
 	protected $appends = array('term');
 
-	public function meeting()
+	public function meetings()
 	{
-		return $this->hasOne('Meeting', 'class_number', 'class_number');
+		return $this->hasMany('Meeting', 'class_number', 'class_number');
 	}
 
 	public function instructors()
