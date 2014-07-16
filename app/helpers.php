@@ -10,15 +10,21 @@
  *
  */
 function getCurrentTermCode(){
-    $current_date = date("Y-m-d H:i:s");
+        $current_date = date("Y-m-d H:i:s");
+        
+        /* Get First term that that falls between these days */
+        /* Note: muliple semesters avaiable at the same time during the summer and GRAD/UGRD */
+        $term = Term::where('begin_date', '<=', $current_date)
+                    ->where('end_date', '>', $current_date)
+                    ->first(); 
 
-    //Handle ModelNotFoundException
-    $term = Term::where('begin_date', '<=', $current_date)
-                ->where('end_date', '>', $current_date)
-                ->firstOrFail()
-                ->sterm;
+        /* In between semesters, just use the last semester as default */
+        if (!$term) {
+            $term = SemesterTerm::where('end_date', '<', $current_date)->orderBy('end_date', 'desc')->first();
+        }
 
-    return $term;
+        /* Return current semester's sterm or 0 if no matches */
+        return $term ? $term->sterm : 0;
 }
 
 /**
