@@ -21,15 +21,18 @@ class TermController extends \BaseController {
 			'instructors' => function($query) use ($term_code) {
 				$query->where('term_id', $term_code);
 			}
-		])->where('term_id', $term_code)->get()->toArray();
+		])->where('term_id', $term_code);
 
-		prepareClassesResponse($data);
-
-		if (Input::has('instructor'))
-		{
-			filterClassesByInstructor(Input::get('instructor'), $data);
+		/* APPLY INSTRUCTOR FILTER */
+		$instructor = Input::get('instructor', 0);
+		if($instructor) {
+			$data->hasInstructor($instructor, $term);
 		}
 
+		$data = $data->get()->toArray();
+		prepareClassesResponse($data);
+
+		
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
