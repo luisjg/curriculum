@@ -21,13 +21,13 @@ Route::get('classes', 'ClassController@index');
 Route::get('classes/{id}', 'ClassController@show');
 
 //class info with specific term
-Route::get('term/{term}/classes', 'TermController@classesIndex');
-Route::get('term/{term}/classes/{id}', 'TermController@classesShow');
+Route::get('terms/{term}/classes', 'TermController@classesIndex');
+Route::get('terms/{term}/classes/{id}', 'TermController@classesShow');
 
 //course info with current term
 Route::get('courses', 'CourseController@index');
 Route::get('courses/{id}', 'CourseController@show');
 
 //course info with specific term
-Route::get('term/{term}/courses', 'TermController@coursesIndex');
-Route::get('term/{term}/courses/{id}', 'TermController@coursesShow');
+Route::get('terms/{term}/courses', 'TermController@coursesIndex');
+Route::get('terms/{term}/courses/{id}', 'TermController@coursesShow');

@@ -10,7 +10,7 @@ class ClassInstructor extends Eloquent{
 	 *
 	 * @var string
 	 */
-	protected $table = 'class_instructors';
+	protected $table = 'class_instructor'; /* pivot */
     
 	protected $hidden = array('created_at', 'updated_at', 'emplid', 'instructor_role');
 }

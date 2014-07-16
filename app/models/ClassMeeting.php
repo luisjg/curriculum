@@ -3,14 +3,13 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class ClassMeeting extends Eloquent{
+class Meeting extends Eloquent{
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'class_meetings';
 	
 	protected $hidden = array('created_at', 'updated_at');
 

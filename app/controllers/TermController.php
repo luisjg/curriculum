@@ -15,10 +15,10 @@ class TermController extends \BaseController {
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::with([
-			'class_meeting' => function($query) use ($term_code) {
+			'meeting' => function($query) use ($term_code) {
 				$query->where('sterm', $term_code);
 			}, 
-			'class_instructors' => function($query) use ($term_code) {
+			'instructors' => function($query) use ($term_code) {
 				$query->where('sterm', $term_code);
 			}
 		])->where('sterm', $term_code)->get()->toArray();
@@ -57,10 +57,10 @@ class TermController extends \BaseController {
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::with([
-			'class_meeting' => function($query) use ($term_code) {
+			'meeting' => function($query) use ($term_code) {
 				$query->where('sterm', $term_code);
 			}, 
-			'class_instructors' => function($query) use ($term_code) {
+			'instructors' => function($query) use ($term_code) {
 				$query->where('sterm', $term_code);
 			}
 		])->where('sterm', $term_code);
