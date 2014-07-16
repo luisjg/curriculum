@@ -135,8 +135,7 @@ function prepareCoursesResponse(&$data)
         forgetArrayKeyValuePairs($data[$i], 
             array(
                 'term_id',
-                'class_number',
-                'term'
+                'class_number'
             )
         );
     }
