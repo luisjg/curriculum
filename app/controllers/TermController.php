@@ -16,12 +16,12 @@ class TermController extends \BaseController {
 
 		$data = Classes::with([
 			'meetings' => function($query) use ($term_code) {
-				$query->where('sterm', $term_code);
+				$query->where('term_id', $term_code);
 			}, 
 			'instructors' => function($query) use ($term_code) {
-				$query->where('sterm', $term_code);
+				$query->where('term_id', $term_code);
 			}
-		])->where('sterm', $term_code)->get()->toArray();
+		])->where('term_id', $term_code)->get()->toArray();
 
 		prepareClassesResponse($data);
 
@@ -58,12 +58,12 @@ class TermController extends \BaseController {
 
 		$data = Classes::with([
 			'meetings' => function($query) use ($term_code) {
-				$query->where('sterm', $term_code);
+				$query->where('term_id', $term_code);
 			}, 
 			'instructors' => function($query) use ($term_code) {
-				$query->where('sterm', $term_code);
+				$query->where('term_id', $term_code);
 			}
-		])->where('sterm', $term_code);
+		])->where('term_id', $term_code);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
@@ -111,7 +111,7 @@ class TermController extends \BaseController {
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
 		
-		$data = Classes::where('sterm', $term_code)->get()->toArray();;
+		$data = Classes::where('term_id', $term_code)->get()->toArray();;
 		removeDuplicateCourses($data);
 		prepareCoursesResponse($data);
 
@@ -138,7 +138,7 @@ class TermController extends \BaseController {
 	public function coursesShow($term, $id)
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
-		$data = Classes::where('sterm', $term_code);
+		$data = Classes::where('term_id', $term_code);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);

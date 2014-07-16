@@ -12,7 +12,7 @@ class CourseController extends \BaseController {
 	{
 		$term = getCurrentTermCode();
 		
-		$data = Classes::where('sterm', $term)->get()->toArray();
+		$data = Classes::where('term_id', $term)->get()->toArray();
 
 		removeDuplicateCourses($data);
 		prepareCoursesResponse($data);
@@ -40,7 +40,7 @@ class CourseController extends \BaseController {
 	public function show($id)
 	{
 		$term = getCurrentTermCode();
-		$data = Classes::where('sterm', $term);
+		$data = Classes::where('term_id', $term);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);

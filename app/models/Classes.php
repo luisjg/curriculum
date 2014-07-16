@@ -3,14 +3,15 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Classes extends Eloquent{
+/* 'class' is a reserved name */
+class Classes extends Eloquent{ 
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'classes'; /* 'class' is a reservedname */
+	protected $table = 'classes'; 
 	
 	protected $hidden = array('created_at', 'updated_at');
 
@@ -32,7 +33,7 @@ class Classes extends Eloquent{
 	 */
 	public function getTermAttribute()
 	{
-		$term = $this->sterm;
+		$term = $this->term_id;
 		$term_codes = array(
 			1 => 'Winter',
 			3 => 'Spring',

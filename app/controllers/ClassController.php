@@ -15,12 +15,12 @@ class ClassController extends \BaseController {
 
 		$data = Classes::with([
 			'meetings' => function($query) use ($term) {
-				$query->where('sterm', $term);
+				$query->where('term_id', $term);
 			}, 
 			'instructors' => function($query) use ($term) {
-				$query->where('sterm', $term);
+				$query->where('term_id', $term  );
 			}
-		])->where('sterm', $term)->get()->toArray();
+		])->where('term_id', $term)->get()->toArray();
 
 		prepareClassesResponse($data);
 
@@ -58,12 +58,12 @@ class ClassController extends \BaseController {
 
 		$data = Classes::with([
 			'meetings' => function($query) use ($term) {
-				$query->where('sterm', $term);
+				$query->where('term_id', $term);
 			}, 
 			'instructors' => function($query) use ($term) {
-				$query->where('sterm', $term);
+				$query->where('term_id', $term);
 			}
-		])->where('sterm', $term);
+		])->where('term_id', $term);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);

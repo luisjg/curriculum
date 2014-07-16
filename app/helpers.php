@@ -23,8 +23,8 @@ function getCurrentTermCode(){
             $term = SemesterTerm::where('end_date', '<', $current_date)->orderBy('end_date', 'desc')->first();
         }
 
-        /* Return current semester's sterm or 0 if no matches */
-        return $term ? $term->sterm : 0;
+        /* Return current semester's term_id or 0 if no matches */
+        return $term ? $term->term_id : 0;
 }
 
 /**
@@ -73,7 +73,7 @@ function generateTermCodeFromSemesterTerm($term){
 
 /**
  * Remove all keys from $array that are present in the $keys array.
- * Elements in $keys can be paths using "dot" notation (e.g 'data.class_meeting.sterm').
+ * Elements in $keys can be paths using "dot" notation (e.g 'data.class_meeting.term_id').
  * The array is directly modified.
  * @param array $array (reference), array $keys
  * @return No return value. Array is modified directly.
@@ -87,7 +87,7 @@ function forgetArrayKeyValuePairs(&$array, $keys)
 }
 
 /**
- *  Removes sterm from top level of the JSON, and also removes sterm
+ *  Removes term_id from top level of the JSON, and also removes term_id
  *  and class_number from the lower levels of the JSON (class_meeting 
  *  and each instructor in class_instructors) before sending back the
  *  JSON response
@@ -100,13 +100,13 @@ function prepareClassesResponse(&$data)
     for ($i=0; $i < count($data); $i++) { 
         forgetArrayKeyValuePairs($data[$i], 
             array(
-                'sterm'                
+                'term_id'                
             )
         );
         for ($j=0; $j < count($data[$i]['meetings']); $j++) { 
             forgetArrayKeyValuePairs($data[$i]['meetings'],
                 array(
-                    $j . '.sterm',
+                    $j . '.term_id',
                     $j . '.class_number'
                 )
             );
@@ -114,7 +114,7 @@ function prepareClassesResponse(&$data)
         for ($j=0; $j < count($data[$i]['instructors']); $j++) { 
             forgetArrayKeyValuePairs($data[$i]['instructors'],
                 array(
-                    $j . '.sterm', 
+                    $j . '.term_id', 
                     $j . '.class_number'
                 )
             );
@@ -124,7 +124,7 @@ function prepareClassesResponse(&$data)
 
 
 /**
- * Remove sterm and class_number from top level of the JSON
+ * Remove term_id and class_number from top level of the JSON
  * @param array $array (reference)
  * @return No return value. Array is modified directly
  *
@@ -134,7 +134,7 @@ function prepareCoursesResponse(&$data)
     for ($i=0; $i < count($data); $i++) { 
         forgetArrayKeyValuePairs($data[$i], 
             array(
-                'sterm',
+                'term_id',
                 'class_number',
                 'term'
             )
