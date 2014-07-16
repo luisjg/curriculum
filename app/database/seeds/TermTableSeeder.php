@@ -9,11 +9,11 @@ class TermTableSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		DB::table('term_data')->delete();
+		DB::table('terms')->delete();
 
 		Term::create(array(
 			'acad_career' => 'Academic Career',
-			'sterm' => 2143,
+			'term_id' => 2143,
 			'description' => 'Spring 2014',
 			'description_short' => 'Spring \'14',
 			'begin_date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 1, 21, 2014)),
@@ -22,7 +22,7 @@ class TermTableSeeder extends Seeder {
 
 		Term::create(array(
 			'acad_career' => 'Academic Career',
-			'sterm' => 2137,
+			'term_id' => 2137,
 			'description' => 'Fall 2013',
 			'description_short' => 'Fall \'14',
 			'begin_date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 8, 24, 2013)),

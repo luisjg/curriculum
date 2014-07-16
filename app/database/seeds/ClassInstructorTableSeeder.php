@@ -9,10 +9,10 @@ class ClassInstructorTableSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		DB::table('class_instructors')->delete();
+		DB::table('class_instructor')->delete();
 
 		ClassInstructor::create(array(
-			'sterm' => 2137,
+			'term_id' => 2137,
 			'class_number' => 12000,
 			'emplid' => '1',
 			'instructor_role' => 'Best role ever',
@@ -20,7 +20,7 @@ class ClassInstructorTableSeeder extends Seeder {
 		));
 
 		ClassInstructor::create(array(
-			'sterm' => 2137,
+			'term_id' => 2137,
 			'class_number' => 12100,
 			'emplid' => '1',
 			'instructor_role' => 'Best role ever',
@@ -28,7 +28,7 @@ class ClassInstructorTableSeeder extends Seeder {
 		));
 
 		ClassInstructor::create(array(
-			'sterm' => 2143,
+			'term_id' => 2143,
 			'class_number' => 10147,
 			'emplid' => '1',
 			'instructor_role' => 'Best role ever',
@@ -36,7 +36,7 @@ class ClassInstructorTableSeeder extends Seeder {
 		));
 
 		ClassInstructor::create(array(
-			'sterm' => 2143,
+			'term_id' => 2143,
 			'class_number' => 10148,
 			'emplid' => '1',
 			'instructor_role' => 'Best role ever',
