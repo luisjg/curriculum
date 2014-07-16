@@ -48,6 +48,13 @@ class Classes extends Eloquent {
 		return $this->hasMany('ClassInstructor', 'class_number', 'class_number');
 	}
 
+	/* Only return classes that have specified instructor set */
+	public function scopeHasInstructor($query, $instructor, $term) {
+		$query->whereHas("instructors", function($q) use ($instructor, $term) {
+			$q->where('instructor', $instructor)->where('term_id', $term);
+		});
+	}
+
 	/* Accessor - This function runs before getting the Term attribute from db 
 	 * 
 	 * Converts semester term code to Semester-Year format

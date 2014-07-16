@@ -18,16 +18,18 @@ class ClassController extends \BaseController {
 				$query->where('term_id', $term);
 			}, 
 			'instructors' => function($query) use ($term) {
-				$query->where('term_id', $term  );
+				$query->where('term_id', $term);
 			}
-		])->where('term_id', $term)->get()->toArray();
+		])->where('term_id', $term);
 
-		prepareClassesResponse($data);
-
-		if (Input::has('instructor'))
-		{
-			filterClassesByInstructor(Input::get('instructor'), $data);
+		/* APPLY INSTRUCTOR FILTER */
+		$instructor = Input::get('instructor', 0);
+		if($instructor) {
+			$data->hasInstructor($instructor, $term);
 		}
+	
+		$data = $data->get()->toArray();
+		prepareClassesResponse($data);
 
 		$response = array(
 			'status'      => 200,
@@ -85,6 +87,12 @@ class ClassController extends \BaseController {
 		else 
 		{
 			//throw some stuff
+		}
+
+		/* APPLY INSTRUCTOR FILTER */
+		$instructor = Input::get('instructor', 0);
+		if($instructor) {
+			$data->hasInstructor($instructor, $term);
 		}
 
 		$data = $data->get()->toArray();
