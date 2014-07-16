@@ -12,9 +12,11 @@ class CourseController extends \BaseController {
 	{
 		$term = getCurrentTermCode();
 		
-		$data = Classes::where('sterm', $term)->get()->toArray();
+		$data = Classes::groupBy(array('subject', 'catalog_number'))
+			->having('sterm', '=', $term)
+			->get()
+			->toArray();
 
-		removeDuplicateCourses($data);
 		prepareCoursesResponse($data);
 
 		$response = array(
