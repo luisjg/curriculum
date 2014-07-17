@@ -18,14 +18,14 @@ class CourseController extends \BaseController {
 			->get()
 			->toArray();
 
-		prepareCoursesResponse($data);
+		$prepped_data = prepareCoursesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
 			'version'     => 'omar-1.0',
 			'type'		  => 'courses',
-			'courses'	  => $data
+			'courses'	  => $prepped_data
 		);
 
 		return Response::make($response, 200);
@@ -67,15 +67,14 @@ class CourseController extends \BaseController {
 			//throw some stuff
 		}
 
-		$data = $data->get()->toArray();
-		prepareCoursesResponse($data);
+		$prepped_data = prepareCoursesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
 			'version'     => 'omar-1.0',
 			'type'		  => 'courses',
-			'courses'	  => $data
+			'courses'	  => $prepped_data
 		);
 
 		return Response::make($response, 200);

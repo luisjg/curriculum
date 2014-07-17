@@ -28,15 +28,14 @@ class ClassController extends \BaseController {
 			$data->hasInstructor($instructor, $term);
 		}
 	
-		$data = $data->get()->toArray();
-		prepareClassesResponse($data);
+		$prepped_data = prepareClassesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
 			'version'     => 'omar-1.0',
 			'type'		  => 'classes',
-			'classes'	  => $data
+			'classes'	  => $prepped_data
 		);
 
 		return Response::make($response, 200);
@@ -95,15 +94,14 @@ class ClassController extends \BaseController {
 			$data->hasInstructor($instructor, $term);
 		}
 
-		$data = $data->get()->toArray();
-		prepareClassesResponse($data);
+		$prepped_data = prepareClassesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
 			'version'     => 'omar-1.0',
 			'type'		  => 'classes',
-			'classes'	  => $data
+			'classes'	  => $prepped_data
 		);
 
 		return Response::make($response, 200);

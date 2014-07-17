@@ -46,7 +46,12 @@ function generateTermCodeFromSemesterTerm($term){
             from step one. Fall-2014 => 2147.
     */
             
-    $term_codes = array('fall' => 7, 'spring' => 3);
+    $term_codes = array(
+            'winter' => 1,
+            'spring' => 3,
+            'summer' => 5,
+            'fall' => 7         
+        );
     $term_array = explode('-', $term);
 
     //Is the term formatted correctly?
@@ -87,83 +92,75 @@ function forgetArrayKeyValuePairs(&$array, $keys)
 }
 
 /**
- *  Removes term_id from top level of the JSON, and also removes term_id
- *  and class_number from the lower levels of the JSON (class_meeting 
- *  and each instructor in class_instructors) before sending back the
- *  JSON response
- * @param array $data (reference)
- * @return No return value. Array is modified directly.
+ * Transforms collection of classes for to presentation response (API) array for classes
+ *
+ * @param collection $data 
+ * @return array
  *
  */
-function prepareClassesResponse(&$data)
-{
-    for ($i=0; $i < count($data); $i++) { 
-        forgetArrayKeyValuePairs($data[$i], 
-            array(
-                'term_id'                
-            )
-        );
-        for ($j=0; $j < count($data[$i]['meetings']); $j++) { 
-            forgetArrayKeyValuePairs($data[$i]['meetings'],
-                array(
-                    $j . '.term_id',
-                    $j . '.class_number'
-                )
-            );
-        }
-        for ($j=0; $j < count($data[$i]['instructors']); $j++) { 
-            forgetArrayKeyValuePairs($data[$i]['instructors'],
-                array(
-                    $j . '.term_id', 
-                    $j . '.class_number'
-                )
-            );
-        }
-    }
-}
+function prepareClassesResponse($collection)
+{   
+    $classes = [];
+    foreach($collection as $_class) {
+        $data = [];
+        $data['class_number'] = $_class->class_number;
+        $data['subject'] = $_class->subject;
+        $data['catalog_number'] = $_class->catalog_number;
+        $data['section_number'] = $_class->section_number;
+        $data['title'] = $_class->title;
+        $data['course_id'] = $_class->course_id;
+        $data['description'] = $_class->description;
+        $data['units'] = $_class->units;
+        $data['term'] = $_class->term;
+        
+        foreach($_class->meetings as $_meeting) {
+            $meeting = [];
+            $meeting['meeting_number'] = $_meeting->meeting_number;
+            $meeting['location'] = $_meeting->location;
+            $meeting['start_time'] = $_meeting->start_time;
+            $meeting['end_time'] = $_meeting->end_time; 
+            $meeting['days'] = $_meeting->days; 
+            
+            $data['meetings'][] = $meeting;
 
+        }
 
-/**
- * Remove term_id and class_number from top level of the JSON
- * @param array $array (reference)
- * @return No return value. Array is modified directly
- *
- */
-function prepareCoursesResponse(&$data)
-{
-    for ($i=0; $i < count($data); $i++) { 
-        forgetArrayKeyValuePairs($data[$i], 
-            array(
-                'term_id',
-                'class_number'
-            )
-        );
+        foreach($_class->instructors as $_instructor) {
+            $instructor = [];
+            $instructor['instructor'] = $_instructor->instructor;   
+            
+            $data['instructors'][] = $instructor;
+        }
+
+        $classes[] = $data;
     }
+
+   return $classes; 
 }
 
 /**
- * Remove all classes from $data that do NOT contain
- * $instructor in it's list of class_instructors
- * @param string $instructor, array $data (reference)
- * @return No return value. Array is modified directly
+ * Transforms collection of classes (uniqued to couress) to presentation response (API) array for courses
  *
- */ 
-function filterClassesByInstructor($instructor, &$data)
-{
-    $num_classes = count($data);
-    for ($i=0; $i < $num_classes; $i++) {
-
-        $instructors = $data[$i]['class_instructors'];
-        $instructor_exists = false;
-        for ($j=0; $j < count($instructors); $j++) { 
-            if(trim($instructors[$j]['instructor']) == $instructor){
-                $instructor_exists = true;
-                break;
-            }
-        }
-        if (!$instructor_exists){
-            unset($data[$i]);
-        }
+ * @param collection $collection 
+ * @return array
+ *
+ */
+function prepareCoursesResponse($collection)
+{   
+    $courses = [];
+    foreach($collection as $_course) {
+        $data = [];
+        $data['subject'] = $_course->subject;
+        $data['catalog_number'] = $_course->catalog_number;
+        $data['section_number'] = $_course->section_number;
+        $data['title'] = $_course->title;
+        $data['course_id'] = $_course->course_id;
+        $data['description'] = $_course->description;
+        $data['units'] = $_course->units;
+        $data['term'] = $_course->term;
+        
+        $courses[] = $data;
     }
-    $data = array_values($data);
+
+   return $courses; 
 }

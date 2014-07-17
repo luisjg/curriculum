@@ -12,16 +12,16 @@ class TermController extends \BaseController {
 	 */
 	public function classesIndex($term)
 	{
-		$term_code = generateTermCodeFromSemesterTerm($term);
+		$term = generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::with([
-			'meetings' => function($query) use ($term_code) {
-				$query->where('term_id', $term_code);
+			'meetings' => function($query) use ($term) {
+				$query->where('term_id', $term);
 			}, 
-			'instructors' => function($query) use ($term_code) {
-				$query->where('term_id', $term_code);
+			'instructors' => function($query) use ($term) {
+				$query->where('term_id', $term);
 			}
-		])->where('term_id', $term_code);
+		])->where('term_id', $term);
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
@@ -29,16 +29,14 @@ class TermController extends \BaseController {
 			$data->hasInstructor($instructor, $term);
 		}
 
-		$data = $data->get()->toArray();
-		prepareClassesResponse($data);
-
+		$prepped_data = prepareClassesResponse($data->get());
 		
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
 			'version'     => 'omar-1.0',
 			'type'		  => 'classes',
-			'classes'	  => $data
+			'classes'	  => $prepped_data
 		);
 
 		return Response::make($response, 200);
@@ -66,7 +64,9 @@ class TermController extends \BaseController {
 			'instructors' => function($query) use ($term_code) {
 				$query->where('term_id', $term_code);
 			}
-		])->where('term_id', $term_code);
+		])
+		orderBy()
+		->where('term_id', $term_code);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
@@ -90,15 +90,14 @@ class TermController extends \BaseController {
 			//throw some stuff
 		}
 
-		$data = $data->get()->toArray();
-		prepareClassesResponse($data);
+		$prepped_data = prepareClassesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
 			'version'     => 'omar-1.0',
 			'type'		  => 'classes',
-			'classes'	  => $data
+			'classes'	  => $prepped_data
 		);
 
 		return Response::make($response, 200);
@@ -121,14 +120,14 @@ class TermController extends \BaseController {
 			->get()
 			->toArray();
 
-		prepareCoursesResponse($data);
+		$prepped_data = prepareCoursesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
 			'version'     => 'omar-1.0',
 			'type'		  => 'courses',
-			'courses'	  => $data
+			'courses'	  => $prepped_data
 		);
 
 		return Response::make($response, 200);
@@ -169,15 +168,14 @@ class TermController extends \BaseController {
 			//throw some stuff
 		}
 
-		$data = $data->get()->toArray();
-		prepareCoursesResponse($data);
+		$prepped_data = prepareCoursesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
 			'version'     => 'omar-1.0',
 			'type'		  => 'courses',
-			'courses'	  => $data
+			'courses'	  => $prepped_data
 		);
 
 		return Response::make($response, 200);
