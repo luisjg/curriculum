@@ -115,7 +115,7 @@ class TermController extends \BaseController {
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
 		
-		$data = Classes::groupBy('subject')->groupBy('catalog_number')
+		$data = Classes::groupBy('subject')->groupBy('catalog_number')->groupBy('course_id')
 			->having('term_id', '=', $term_code)
 			->get()
 			->toArray();
@@ -146,7 +146,7 @@ class TermController extends \BaseController {
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::groupBy('subject')->groupBy('catalog_number')
+		$data = Classes::groupBy('subject')->groupBy('catalog_number')->groupBy('course_id')
 			->having('term_id', '=', $term_code);
 
 		$id_array = explode('-', $id);

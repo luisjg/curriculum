@@ -12,7 +12,7 @@ class CourseController extends \BaseController {
 	{
 		$term = getCurrentTermCode();
 		
-		$data = Classes::groupBy('subject')->groupBy('catalog_number')
+		$data = Classes::groupBy('subject')->groupBy('catalog_number')->groupBy('course_id')
 			->having('term_id', '=', $term)
 			->get()
 			->toArray();
@@ -43,7 +43,7 @@ class CourseController extends \BaseController {
 	{
 		$term = getCurrentTermCode();
 
-		$data = Classes::groupBy('subject')->groupBy('catalog_number')
+		$data = Classes::groupBy('subject')->groupBy('catalog_number')->groupBy('course_id')
 			->having('term_id', '=', $term);
 
 		$id_array = explode('-', $id);
