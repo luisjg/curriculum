@@ -12,9 +12,11 @@ class CourseController extends \BaseController {
 	{
 		$term = getCurrentTermCode();
 		
-		$data = Classes::where('term_id', $term)->get()->toArray();
+		$data = Classes::groupBy('subject')->groupBy('catalog_number')
+			->having('sterm', '=', $term)
+			->get()
+			->toArray();
 
-		removeDuplicateCourses($data);
 		prepareCoursesResponse($data);
 
 		$response = array(
@@ -40,7 +42,9 @@ class CourseController extends \BaseController {
 	public function show($id)
 	{
 		$term = getCurrentTermCode();
-		$data = Classes::where('term_id', $term);
+
+		$data = Classes::groupBy('subject')->groupBy('catalog_number')
+			->having('sterm', '=', $term);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
@@ -62,7 +66,6 @@ class CourseController extends \BaseController {
 		}
 
 		$data = $data->get()->toArray();
-		removeDuplicateCourses($data);
 		prepareCoursesResponse($data);
 
 		$response = array(

@@ -107,6 +107,7 @@ class TermController extends \BaseController {
 	/**
 	 * Get all course information for the given term
 	 * @link /term/{term}/courses 	GET
+	 * @internal {term} looks like [semester (fall, spring, etc)]-[year]
 	 * @return all courses for the given term
 	 *
 	 */
@@ -114,8 +115,11 @@ class TermController extends \BaseController {
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
 		
-		$data = Classes::where('term_id', $term_code)->get()->toArray();;
-		removeDuplicateCourses($data);
+		$data = Classes::groupBy('subject')->groupBy('catalog_number')
+			->having('sterm', '=', $term_code)
+			->get()
+			->toArray();
+
 		prepareCoursesResponse($data);
 
 		$response = array(
@@ -141,7 +145,9 @@ class TermController extends \BaseController {
 	public function coursesShow($term, $id)
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
-		$data = Classes::where('term_id', $term_code);
+
+		$data = Classes::groupBy('subject')->groupBy('catalog_number')
+			->having('sterm', '=', $term_code);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);
@@ -162,7 +168,6 @@ class TermController extends \BaseController {
 		}
 
 		$data = $data->get()->toArray();
-		removeDuplicateCourses($data);
 		prepareCoursesResponse($data);
 
 		$response = array(

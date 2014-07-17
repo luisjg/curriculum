@@ -142,19 +142,28 @@ function prepareCoursesResponse(&$data)
 }
 
 /**
- * Remove all duplicate courses from the given array
- * @param array $data (reference)
+ * Remove all classes from $data that do NOT contain
+ * $instructor in it's list of class_instructors
+ * @param string $instructor, array $data (reference)
  * @return No return value. Array is modified directly
  *
  */ 
-function removeDuplicateCourses(&$array)
+function filterClassesByInstructor($instructor, &$data)
 {
-    $unique_classes = array();
-    for ($i=0; $i < count($array); $i++) { 
-        $key = $array[$i]['subject'] . $array[$i]['catalog_number'];
-        if(!array_key_exists($key, $unique_classes)){
-            $unique_classes[$key] = $array[$i];
+    $num_classes = count($data);
+    for ($i=0; $i < $num_classes; $i++) {
+
+        $instructors = $data[$i]['class_instructors'];
+        $instructor_exists = false;
+        for ($j=0; $j < count($instructors); $j++) { 
+            if(trim($instructors[$j]['instructor']) == $instructor){
+                $instructor_exists = true;
+                break;
+            }
+        }
+        if (!$instructor_exists){
+            unset($data[$i]);
         }
     }
-    $array = array_values($unique_classes);
+    $data = array_values($data);
 }
