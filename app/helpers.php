@@ -139,7 +139,7 @@ function prepareClassesResponse($collection)
 }
 
 /**
- * Transforms collection of classes (uniqued to couress) to presentation response (API) array for courses
+ * Transforms collection of classes (uniqued to courses) to presentation response (API) array for courses
  *
  * @param collection $collection 
  * @return array
