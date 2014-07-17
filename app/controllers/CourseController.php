@@ -14,7 +14,7 @@ class CourseController extends \BaseController {
 		
 		$data = Classes::groupBy('term_id')->groupBy('course_id')
 			->having('term_id', '=', $term)
-			->orderBy('subject')->orderBy('catalog_number')->take(50);
+			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = prepareCoursesResponse($data->get());
 
