@@ -31,6 +31,21 @@ class AddFieldsToMeetingsTable extends Migration {
 
 		/* Fill in new association_id field with something like FALL-2014:COMP-160:2 based on term_id */
 		DB::statement("UPDATE meetings SET association_id = CONCAT('classes',':',term_id,':',class_number)");
+
+		Schema::table('terms', function(Blueprint $table)
+		{		
+			$table->string('term')->after('term_id');
+		});
+
+		DB::statement("UPDATE terms SET 
+			term = CONCAT(CASE RIGHT(term_id,1)
+				WHEN 1 THEN 'Winter'
+				WHEN 3 THEN 'Spring'
+				WHEN 5 THEN 'Summer'
+				WHEN 7 THEN 'Fall'
+				ELSE 'unkown'
+			END, '-', LEFT(RIGHT(term_id,3),2))
+		");
 	}
 
 
@@ -44,6 +59,11 @@ class AddFieldsToMeetingsTable extends Migration {
 		Schema::table('meetings', function(Blueprint $table)
 		{
 			$table->dropColumn('association_id');	
+			$table->dropColumn('term');	
+		});
+
+		Schema::table('terms', function(Blueprint $table)
+		{
 			$table->dropColumn('term');	
 		});
 	}
