@@ -65,7 +65,7 @@ class TermController extends \BaseController {
 				$query->where('term_id', $term_code);
 			}
 		])
-		orderBy()
+		->orderBy('subject')->orderBy('catalog_number')
 		->where('term_id', $term_code);
 
 		$id_array = explode('-', $id);

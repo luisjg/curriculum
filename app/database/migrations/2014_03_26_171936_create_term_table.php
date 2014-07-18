@@ -12,9 +12,9 @@ class CreateTermTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('term_data', function(Blueprint $table){
-			$table->string('acad_career');
-			$table->integer('sterm');
+		Schema::create('terms', function(Blueprint $table){
+			$table->integer('term_id');
+			$table->string('term');
 			$table->string('description');
 			$table->string('description_short');
 			$table->dateTime('begin_date');
@@ -22,7 +22,7 @@ class CreateTermTable extends Migration {
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 			$table->timestamp('updated_at')->nullable();
 
-			$table->primary(array('acad_career', 'sterm'));
+			$table->primary('term_id');
 		});
 	}
 
@@ -33,7 +33,7 @@ class CreateTermTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('term_data');
+		Schema::dropIfExists('terms');
 	}
 
 }

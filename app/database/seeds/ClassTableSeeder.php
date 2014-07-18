@@ -12,7 +12,9 @@ class ClassTableSeeder extends Seeder {
 		DB::table('classes')->delete();
 
 		Classes::create(array(
+			'association_id' => 'classes:Fall-2014:12000',
 			'term_id' => 2137,
+			'term' => 'Fall-2014',
 			'class_number' => 12000,
 			'subject' => 'Comp',
 			'catalog_number' => '110',
@@ -23,7 +25,9 @@ class ClassTableSeeder extends Seeder {
 		));
 
 		Classes::create(array(
+			'association_id' => 'classes:Fall-2014:12100',
 			'term_id' => 2137,
+			'term' => 'Fall-2014',
 			'class_number' => 12100,
 			'subject' => 'Comp',
 			'catalog_number' => '110L',
@@ -34,7 +38,9 @@ class ClassTableSeeder extends Seeder {
 		));
 
 		Classes::create(array(
+			'association_id' => 'classes:Fall-2014:10147',
 			'term_id' => 2143,
+			'term' => 'Spring-2014',
 			'class_number' => 10147,
 			'subject' => 'Art',
 			'catalog_number' => '100L',
@@ -45,7 +51,9 @@ class ClassTableSeeder extends Seeder {
 		));
 
 		Classes::create(array(
+			'association_id' => 'classes:Spring-2014:10148',
 			'term_id' => 2143,
+			'term' => 'Spring-2014',
 			'class_number' => 10148,
 			'subject' => 'Art',
 			'catalog_number' => '100L',

@@ -12,8 +12,10 @@ class CreateClassInstructorsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('class_instructors', function(Blueprint $table){
-			$table->integer('sterm');
+		Schema::create('class_instructor', function(Blueprint $table){
+			$table->string('association_id');	
+			$table->integer('term_id');
+			$table->string('term');
 			$table->integer('class_number');
 			$table->string('emplid');
 			$table->string('instructor_role');
@@ -21,7 +23,7 @@ class CreateClassInstructorsTable extends Migration {
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 			$table->timestamp('updated_at')->nullable();
 
-			$table->primary(array('sterm', 'class_number', 'emplid'));
+			$table->primary(array('term_id', 'class_number', 'emplid'));
 		});
 	}
 
@@ -32,7 +34,7 @@ class CreateClassInstructorsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('class_instructors');
+		Schema::dropIfExists('class_instructor');
 	}
 
 }

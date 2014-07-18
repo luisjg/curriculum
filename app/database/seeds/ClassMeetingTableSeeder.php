@@ -12,7 +12,9 @@ class ClassMeetingTableSeeder extends Seeder {
 		DB::table('meetings')->delete();
 
 		Meeting::create(array(
+			'association_id' => 'classes:Fall-2014:12000',
 			'term_id' => 2137,
+			'term' => 'Fall-2014',
 			'class_number' => 12000,
 			'meeting_number' => 1,
 			'location' => 'JD1156',
@@ -22,7 +24,9 @@ class ClassMeetingTableSeeder extends Seeder {
 		));
 
 		Meeting::create(array(
+			'association_id' => 'classes:Fall-2014:12100',
 			'term_id' => 2137,
+			'term' => 'Fall-2014',
 			'class_number' => 12100,
 			'meeting_number' => 2,
 			'location' => 'JD1156',
@@ -32,7 +36,9 @@ class ClassMeetingTableSeeder extends Seeder {
 		));
 
 		Meeting::create(array(
+			'association_id' => 'classes:Spring-2014:10147',
 			'term_id' => 2143,
+			'term' => 'Spring-2014',
 			'class_number' => 10147,
 			'meeting_number' => 1,
 			'location' => 'AC210',
@@ -42,7 +48,9 @@ class ClassMeetingTableSeeder extends Seeder {
 		));
 
 		Meeting::create(array(
+			'association_id' => 'classes:Spring-2014:10148',
 			'term_id' => 2143,
+			'term' => 'Spring-2014',
 			'class_number' => 10148,
 			'meeting_number' => 2,
 			'location' => 'AC210',
