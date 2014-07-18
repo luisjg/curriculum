@@ -10,7 +10,7 @@ class CourseController extends \BaseController {
 	 */
 	public function index()
 	{
-		$term = getCurrentTermCode();
+		$term = getCurrentTermID();
 		
 		$data = Classes::groupBy('term_id')->groupBy('course_id')
 			->having('term_id', '=', $term)
@@ -40,7 +40,7 @@ class CourseController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$term = getCurrentTermCode();
+		$term = getCurrentTermID();
 
 		$data = Classes::groupBy('term_id')->groupBy('course_id')
 			->having('term_id', '=', $term)

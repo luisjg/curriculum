@@ -9,7 +9,7 @@
  * @return Current Term Code (e.g 2147)
  *
  */
-function getCurrentTermCode(){
+function getCurrentTermID(){
         $current_date = date("Y-m-d H:i:s");
         
         /* Get First term that that falls between these days */
@@ -25,6 +25,29 @@ function getCurrentTermCode(){
 
         /* Return current semester's term_id or 0 if no matches */
         return $term ? $term->term_id : 0;
+}
+
+/**
+ * Retrieves the Term for the current Semester
+ * @todo Throw an Exception when current term doesn't exist
+ * @return Current Term Code (e.g 2147)
+ *
+ */
+function getCurrentTerm(){
+    $term = getCurrentTermID();
+    return getTermFromTermID($term);
+
+}
+
+function getTermFromTermID($term_id) {
+    $term_codes = array(
+            1 => 'Winter',
+            3 => 'Spring',
+            5 => 'Summer',
+            7 => 'Fall'         
+        );
+
+        return $term_codes[$term_id[3]] . '-' . $term_id[0] . '0' . $term_id[1] . $term_id[2];
 }
 
 /**

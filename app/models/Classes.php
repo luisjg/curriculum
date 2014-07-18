@@ -49,27 +49,23 @@ class Classes extends Eloquent {
 	}
 
 	/* Only return classes that have specified instructor set */
+	public function scopeWithMeetings($query, $term) {
+		$query->with(['meetings' => function($query) use ($term) {
+			$query->where('term_id', $term);
+		}]);
+	}
+
+	/* Only return classes that have specified instructor set */
+	public function scopeWithInstructors($query, $term) {
+		$query->with(['instructors' => function($query) use ($term) {
+			$query->where('term_id', $term);
+		}]);
+	}
+
+	/* Only return classes that have specified instructor set */
 	public function scopeHasInstructor($query, $instructor, $term) {
 		$query->whereHas("instructors", function($q) use ($instructor, $term) {
 			$q->where('instructor', $instructor)->where('term_id', $term);
 		});
 	}
-
-	/* Accessor - This function runs before getting the Term attribute from db 
-	 * 
-	 * Converts semester term code to Semester-Year format
-	 */
-	public function getTermNameAttribute()
-	{
-		$term = $this->term_id;
-		$term_codes = array(
-			1 => 'Winter',
-			3 => 'Spring',
-			5 => 'Summer',
-			7 => 'Fall'			
-		);
-
-		return $term_codes[$term[3]] . '-' . $term[0] . '0' . $term[1] . $term[2];
-	}
-
 }

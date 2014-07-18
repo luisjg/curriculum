@@ -11,16 +11,11 @@ class ClassController extends \BaseController {
 	 */
 	public function index()
 	{
-		$term = getCurrentTermCode();
+		$term = getCurrentTermID();
 
-		$data = Classes::with([
-			'meetings' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}, 
-			'instructors' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}
-		])->where('term_id', $term);
+		$data = Classes::withMeetings($term)
+			->withInstructors($term)
+			->where('term_id', $term);
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
@@ -55,16 +50,11 @@ class ClassController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$term = getCurrentTermCode();
+		$term = getCurrentTermID();
 
-		$data = Classes::with([
-			'meetings' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}, 
-			'instructors' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}
-		])->where('term_id', $term);
+		$data = Classes::withMeetings($term)
+			->withInstructors($term)
+			->where('term_id', $term);
 
 		$id_array = explode('-', $id);
 		$id_array_size = count($id_array);

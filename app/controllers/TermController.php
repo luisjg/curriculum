@@ -14,14 +14,9 @@ class TermController extends \BaseController {
 	{
 		$term = generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::with([
-			'meetings' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}, 
-			'instructors' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}
-		])->where('term_id', $term);
+		$data = Classes::withMeetings($term)
+			->withInstructors($term)
+			->where('term_id', $term);
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
@@ -57,14 +52,8 @@ class TermController extends \BaseController {
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::with([
-			'meetings' => function($query) use ($term_code) {
-				$query->where('term_id', $term_code);
-			}, 
-			'instructors' => function($query) use ($term_code) {
-				$query->where('term_id', $term_code);
-			}
-		])
+		$data = Classes::withMeetings($term)
+			->withInstructors($term)
 		->orderBy('subject')->orderBy('catalog_number')
 		->where('term_id', $term_code);
 
