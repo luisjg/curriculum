@@ -26,7 +26,7 @@ class Classes extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $appends = array('term');
+	protected $appends = array('TermName');
 
 	/**
 	 * Classes have many meetings (one-to-many relationship)
@@ -59,7 +59,7 @@ class Classes extends Eloquent {
 	 * 
 	 * Converts semester term code to Semester-Year format
 	 */
-	public function getTermAttribute()
+	public function getTermNameAttribute()
 	{
 		$term = $this->term_id;
 		$term_codes = array(
