@@ -187,3 +187,43 @@ function prepareCoursesResponse($collection)
 
    return $courses; 
 }
+
+/**
+ * Checks if id is an association id (ie: classes:Summer-14:10472)
+ *
+ * @param mixed $id 
+ * @return boolean
+ *
+ */
+function isAssociationID($id) {
+    $pattern = '/^classes:(Spring|Summer|Fall|Winter)-[0-9][0-9]:[0-9]{5}$/';
+    return preg_match($pattern, $id);
+}
+
+/**
+ * Checks if id is a subject-catalog_number id (ie:comp-110L)
+ *
+ * @param mixed $id 
+ * @return boolean
+ *
+ */
+function isSubjectCatelogID($id) {
+    if (strpos($id,':') !== false) {
+        return false; // contains ':' not a subject
+    }
+
+    $id_array = explode('-', $id);
+    return (count($id_array)==2)?true:false;
+}
+
+/**
+ * Checks if id is a subject id (ie: comp)
+ *
+ * @param mixed $id 
+ * @return boolean
+ *
+ */
+function isSubjectID($id) {         
+    $pattern = '/^[a-zA-Z][a-zA-Z\/ ]*$/';
+    return preg_match($pattern, $id);
+}

@@ -42,28 +42,10 @@ class CourseController extends \BaseController {
 	{
 		$term = getCurrentTermID();
 
-		$data = Classes::groupBy('term_id')->groupBy('course_id')
+		$data = Classes::whereIdentifier($id)
+			->groupBy('term_id')->groupBy('course_id')
 			->having('term_id', '=', $term)
 			->orderBy('subject')->orderBy('catalog_number');
-
-		$id_array = explode('-', $id);
-		$id_array_size = count($id_array);
-
-		if ($id_array_size == 1) // is the $id a ticket number?
-		{
-			//Add is_numeric check?
-			$data = $data->where('subject', $id);
-		}
-		elseif ($id_array_size == 2) // is the $id a subject-catalog_number
-		{
-			$subject = $id_array[0];
-			$catalog_number = $id_array[1];
-			$data = $data->where('subject', $subject)->where('catalog_number', $catalog_number);
-		}
-		else
-		{
-			//throw some stuff
-		}
 
 		$prepped_data = prepareCoursesResponse($data->get());
 
