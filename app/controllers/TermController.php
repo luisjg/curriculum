@@ -89,7 +89,7 @@ class TermController extends \BaseController {
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
 		
-		$data = Classes::treatAsCourse($term_code, false)
+		$data = Classes::groupAsCourse($term_code, false)
 			->orderBy('subject')->orderBy('catalog_number')
 			->get()
 			->toArray();
@@ -126,7 +126,7 @@ class TermController extends \BaseController {
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::whereIdentifier($id)
-			->treatAsCourse($term_code, Input::get('showAll',false))
+			->groupAsCourse($term_code, Input::get('showAll',false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 	

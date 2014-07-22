@@ -14,7 +14,7 @@ class CourseController extends \BaseController {
 	{
 		$term = getCurrentTermID();
 		
-		$data = Classes::treatAsCourse($term, false)
+		$data = Classes::groupAsCourse($term, false)
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = prepareCoursesResponse($data->get());
@@ -44,7 +44,7 @@ class CourseController extends \BaseController {
 		$term = getCurrentTermID();
 
 		$data = Classes::whereIdentifier($id)
-			->treatAsCourse($term, Input::get('showAll', false))
+			->groupAsCourse($term, Input::get('showAll', false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = prepareCoursesResponse($data->get());

@@ -66,7 +66,7 @@ class Classes extends Eloquent {
 	 * Treat class list as course list
 	 * @internal without a courses table this is the best we can do to get a course list
 	*/
-	public function scopeTreatAsCourse($query, $term, $showAll) {
+	public function scopeGroupAsCourse($query, $term, $showAll) {
 		/* Get All Courses */
 		$query->groupBy('course_id')
 			->orderBy('subject')->orderBy('catalog_number');
