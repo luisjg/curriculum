@@ -80,6 +80,8 @@ class TermController extends \BaseController {
 	 * Get all course information for the given term
 	 * @link /term/{term}/courses 	GET
 	 * @internal {term} looks like [semester (fall, spring, etc)]-[year]
+	 * @internal don't allow entire course list for all semesters to be returned without a subject 
+	 * 				until paging or some way to restrict these results is added
 	 * @return all courses for the given term
 	 *
 	 */
@@ -87,8 +89,7 @@ class TermController extends \BaseController {
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
 		
-		$data = Classes::groupBy('term_id')->groupBy('course_id')
-			->having('term_id', '=', $term_code)
+		$data = Classes::treatAsCourse($term_code, false)
 			->orderBy('subject')->orderBy('catalog_number')
 			->get()
 			->toArray();
@@ -125,8 +126,7 @@ class TermController extends \BaseController {
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::whereIdentifier($id)
-			->groupBy('term_id')->groupBy('course_id')
-			->having('term_id', '=', $term_code)
+			->treatAsCourse($term_code, Input::get('showAll',false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 	
