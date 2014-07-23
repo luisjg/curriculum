@@ -12,8 +12,10 @@ class CreateClassMeetingTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('class_meetings', function(Blueprint $table){
-			$table->integer('sterm');
+		Schema::create('meetings', function(Blueprint $table){
+			$table->string('association_id');	
+			$table->integer('term_id');
+			$table->string('term');
 			$table->integer('class_number');
 			$table->integer('meeting_number');
 			$table->string('location');
@@ -23,7 +25,7 @@ class CreateClassMeetingTable extends Migration {
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 			$table->timestamp('updated_at')->nullable();
 
-			$table->primary(array('sterm', 'class_number'));
+			$table->primary(array('term_id', 'class_number'));
 		});
 	}
 
@@ -34,7 +36,7 @@ class CreateClassMeetingTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('class_meetings');
+		Schema::dropIfExists('meetings');
 	}
 
 }

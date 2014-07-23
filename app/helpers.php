@@ -9,7 +9,7 @@
  * @return Current Term Code (e.g 2147)
  *
  */
-function getCurrentTermCode(){
+function getCurrentTermID(){
         $current_date = date("Y-m-d H:i:s");
         
         /* Get First term that that falls between these days */
@@ -25,6 +25,29 @@ function getCurrentTermCode(){
 
         /* Return current semester's term_id or 0 if no matches */
         return $term ? $term->term_id : 0;
+}
+
+/**
+ * Retrieves the Term for the current Semester
+ * @todo Throw an Exception when current term doesn't exist
+ * @return Current Term Code (e.g 2147)
+ *
+ */
+function getCurrentTerm(){
+    $term = getCurrentTermID();
+    return getTermFromTermID($term);
+
+}
+
+function getTermFromTermID($term_id) {
+    $term_codes = array(
+            1 => 'Winter',
+            3 => 'Spring',
+            5 => 'Summer',
+            7 => 'Fall'         
+        );
+
+        return $term_codes[$term_id[3]] . '-' . $term_id[0] . '0' . $term_id[1] . $term_id[2];
 }
 
 /**
@@ -163,4 +186,44 @@ function prepareCoursesResponse($collection)
     }
 
    return $courses; 
+}
+
+/**
+ * Checks if id is an association id (ie: classes:Summer-14:10472)
+ *
+ * @param mixed $id 
+ * @return boolean
+ *
+ */
+function isAssociationID($id) {
+    $pattern = '/^classes:(Spring|Summer|Fall|Winter)-[0-9][0-9]:[0-9]{5}$/';
+    return preg_match($pattern, $id);
+}
+
+/**
+ * Checks if id is a subject-catalog_number id (ie:comp-110L)
+ *
+ * @param mixed $id 
+ * @return boolean
+ *
+ */
+function isSubjectCatelogID($id) {
+    if (strpos($id,':') !== false) {
+        return false; // contains ':' not a subject
+    }
+
+    $id_array = explode('-', $id);
+    return (count($id_array)==2)?true:false;
+}
+
+/**
+ * Checks if id is a subject id (ie: comp)
+ *
+ * @param mixed $id 
+ * @return boolean
+ *
+ */
+function isSubjectID($id) {         
+    $pattern = '/^[a-zA-Z][a-zA-Z\/ ]*$/';
+    return preg_match($pattern, $id);
 }

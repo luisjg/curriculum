@@ -11,16 +11,11 @@ class ClassController extends \BaseController {
 	 */
 	public function index()
 	{
-		$term = getCurrentTermCode();
+		$term = getCurrentTermID();
 
-		$data = Classes::with([
-			'meetings' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}, 
-			'instructors' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}
-		])->where('term_id', $term);
+		$data = Classes::withMeetings($term)
+			->withInstructors($term)
+			->where('term_id', $term);
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
@@ -48,46 +43,25 @@ class ClassController extends \BaseController {
 	 *  is for the current term
 	 * @todo Exceptions in else block, and is_numeric check on ticket number
 	 * @link /classes/{id} 	GET
+	 * @internal Examples of possible $id
+	 *		NAME 					EXAMPLE			 
+	 *		association_id			classes:Summer-14:10472 		
+	 * 		class_number			10402
+	 *		subject 				comp
+ 	 *		subject-catalog_number 	comp-160
 	 * @param int|string $id
-	 * @return class info given ticket number|subject|subject-catalog_number, 
-	 * 			all for the current term
+	 * @return class
 	 *
 	 */
 	public function show($id)
 	{
-		$term = getCurrentTermCode();
+		$term_id = getCurrentTermID();
 
-		$data = Classes::with([
-			'meetings' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}, 
-			'instructors' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}
-		])->where('term_id', $term);
-
-		$id_array = explode('-', $id);
-		$id_array_size = count($id_array);
-
-		if ($id_array_size == 1)
-		{
-			if (is_numeric($id)) { // is the $id a ticket number?
-				$data = $data->where('class_number', $id);
-			} else { // is the $id a subject?
-				$data = $data->where('subject', $id);
-			}
-		} 
-		elseif ($id_array_size == 2) // is the $id a subject-catalog_number?
-		{ 
-			$subject = $id_array[0];
-			$catalog_number = $id_array[1];
-			$data = $data->where('subject', $subject)->where('catalog_number', $catalog_number);
-		} 
-		else 
-		{
-			//throw some stuff
-		}
-
+		$data = Classes::withMeetings($term_id)
+			->withInstructors($term_id)
+			->where('term_id', $term_id)
+			->whereIdentifier($id);
+	
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
 		if($instructor) {

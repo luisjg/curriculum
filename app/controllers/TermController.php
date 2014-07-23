@@ -14,14 +14,9 @@ class TermController extends \BaseController {
 	{
 		$term = generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::with([
-			'meetings' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}, 
-			'instructors' => function($query) use ($term) {
-				$query->where('term_id', $term);
-			}
-		])->where('term_id', $term);
+		$data = Classes::withMeetings($term)
+			->withInstructors($term)
+			->where('term_id', $term);
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
@@ -47,8 +42,13 @@ class TermController extends \BaseController {
 	 *	or class information for all classes with a specific subject and
 	 *	catalog_number if subject-catalog_number is given. All the information
 	 *  is for the current term
-	 * @todo Exceptions in else block, and is_numeric check on ticket number
 	 * @link /term/{term}/classes/{id} 	GET
+	 * @internal Examples of possible $id
+	 *		NAME 					EXAMPLE			 
+	 *		association_id			classes:Summer-14:10472 		
+	 * 		class_number			10402
+	 *		subject 				comp
+ 	 *		subject-catalog_number 	comp-160
 	 * @param string $term, int|string $id
 	 * @return class info for ticket number|subject-catalog_number for the given term
 	 *
@@ -57,39 +57,12 @@ class TermController extends \BaseController {
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::with([
-			'meetings' => function($query) use ($term_code) {
-				$query->where('term_id', $term_code);
-			}, 
-			'instructors' => function($query) use ($term_code) {
-				$query->where('term_id', $term_code);
-			}
-		])
-		orderBy()
+		$data = Classes::withMeetings($term)
+		->withInstructors($term)
+		->whereIdentifier($id)
+		->orderBy('subject')->orderBy('catalog_number')
 		->where('term_id', $term_code);
-
-		$id_array = explode('-', $id);
-		$id_array_size = count($id_array);
-
-		if ($id_array_size == 1)
-		{
-			if (is_numeric($id)) { // is the $id a ticket number?
-				$data = $data->where('class_number', $id);
-			} else { // is the $id a subject?
-				$data = $data->where('subject', $id);
-			}
-		} 
-		elseif ($id_array_size == 2) // is the $id a subject-catalog_number?
-		{
-			$subject = $id_array[0];
-			$catalog_number = $id_array[1];
-			$data = $data->where('subject', $subject)->where('catalog_number', $catalog_number);
-		}
-		else
-		{
-			//throw some stuff
-		}
-
+		
 		$prepped_data = prepareClassesResponse($data->get());
 
 		$response = array(
@@ -136,8 +109,13 @@ class TermController extends \BaseController {
 	/**
 	 * Get course information for a specific course given a subject,
 	 * all for the given term
-	 * @todo Exceptions in else block
 	 * @link /term/{term}/courses/{id} 	GET
+	 * @internal Examples of possible $id
+	 *		NAME 					EXAMPLE			 
+	 *		association_id			classes:Summer-14:10472 		
+	 * 		class_number			10402
+	 *		subject 				comp
+ 	 *		subject-catalog_number 	comp-160
 	 * @param string $id
 	 * @return course info for a subject, all for the given term
 	 *
@@ -146,28 +124,12 @@ class TermController extends \BaseController {
 	{
 		$term_code = generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::groupBy('term_id')->groupBy('course_id')
+		$data = Classes::whereIdentifier($id)
+			->groupBy('term_id')->groupBy('course_id')
 			->having('term_id', '=', $term_code)
 			->orderBy('subject')->orderBy('catalog_number');
 
-		$id_array = explode('-', $id);
-		$id_array_size = count($id_array);
-
-		if ($id_array_size == 1) // is the $id a subject?
-		{
-			$data = $data->where('subject', $id);
-		} 
-		elseif ($id_array_size == 2) // is the $id a subject-catalog_number
-		{
-			$subject = $id_array[0];
-			$catalog_number = $id_array[1];
-			$data = $data->where('subject', $subject)->where('catalog_number', $catalog_number);
-		}
-		else
-		{
-			//throw some stuff
-		}
-
+	
 		$prepped_data = prepareCoursesResponse($data->get());
 
 		$response = array(
