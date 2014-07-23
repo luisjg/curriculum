@@ -64,7 +64,20 @@ App::error(function(Exception $exception, $code)
 
 App::down(function()
 {
-	return Response::make("Be right back!", 503);
+    $allowed = []; // array('127.0.0.1');
+
+    /* Block non-whitelisted IP Addressess from viewing the API */
+    if ( ! in_array(Request::getClientIp(), $allowed))
+    {
+        $response = array(
+			'status'      => 503,
+			'success'	  => false,
+			'version'     => 'omar-1.0',
+			'messages'	  => ['The API is currently down for maintenance.']
+		);
+
+		return Response::make($response, 503);
+    }   
 });
 
 /*
