@@ -5,6 +5,8 @@ class CourseController extends \BaseController {
 	/**
 	 * Get all course information for the current term
 	 * @link /courses 	GET
+	 * @internal don't allow entire course list for all semesters to be returned without a subject 
+	 * 				until paging or some way to restrict these results is added
 	 * @return all courses for the current term
 	 *
 	 */
@@ -12,8 +14,7 @@ class CourseController extends \BaseController {
 	{
 		$term = getCurrentTermID();
 		
-		$data = Classes::groupBy('term_id')->groupBy('course_id')
-			->having('term_id', '=', $term)
+		$data = Classes::groupAsCourse($term, false)
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = prepareCoursesResponse($data->get());
@@ -43,12 +44,10 @@ class CourseController extends \BaseController {
 		$term = getCurrentTermID();
 
 		$data = Classes::whereIdentifier($id)
-			->groupBy('term_id')->groupBy('course_id')
-			->having('term_id', '=', $term)
+			->groupAsCourse($term, Input::get('showAll', false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = prepareCoursesResponse($data->get());
-
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,

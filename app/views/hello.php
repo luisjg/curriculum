@@ -40,14 +40,19 @@
 		<h2>Examples</h2>
 		<dl>
 			<dt>Course Classes By Subject</dt>
-			<dd><a href="http://curriculum.ptg.csun.edu/classes/comp">http://curriculum.ptg.csun.edu/classes/comp</a></dd>
-			<dd><a href="http://curriculum.ptg.csun.edu/classes/comp-110 ">http://curriculum.ptg.csun.edu/classes/comp-110</a></dd>
+			<dd><?php echo link_to('classes/comp'); ?></dd>
+			<dd><?php echo link_to('classes/comp-110'); ?></dd>
+			<dd><?php echo link_to('terms/Fall-2014/classes/comp-110'); ?></dd>
 
 			<dt>Course Classes Taught by Instructor</dt>
-			<dd><a href="http://curriculum.ptg.csun.edu/classes?instructor=harry.hellenbrand@csun.edu">http://curriculum.ptg.csun.edu/classes?instructor=harry.hellenbrand@csun.edu</a></dd>
+			<dd><?php echo link_to('classes?instructor=harry.hellenbrand@csun.edu'); ?></dd>
 
 			<dt>Single Class</dt>
-			<dd><a href="http://curriculum.ptg.csun.edu/classes/15223">http://curriculum.ptg.csun.edu/classes/15223</a></dd>
+			<dd><?php echo link_to('classes/15223'); ?></dd>
+
+			<dt>Course Listings</dt>
+			<dd><?php echo link_to('courses/comp'); ?></dd>
+			<dd><?php echo link_to('terms/Fall-2014/courses/comp'); ?></dd>
 
 			<!-- NOT IMPLIMENTED YET 
 			<dt>Non-Current Term Classes</dt>

@@ -26,7 +26,7 @@ class Classes extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $appends = array('TermName');
+	protected $appends = array('');
 
 	/**
 	 * Classes have many meetings (one-to-many relationship)
@@ -60,6 +60,23 @@ class Classes extends Eloquent {
 		$query->with(['instructors' => function($query) use ($term) {
 			$query->where('term_id', $term);
 		}]);
+	}
+
+	/** 
+	 * Treat class list as course list
+	 * @internal without a courses table this is the best we can do to get a course list
+	*/
+	public function scopeGroupAsCourse($query, $term, $showAll) {
+		/* Get All Courses */
+		$query->groupBy('course_id')
+			->orderBy('subject')->orderBy('catalog_number');
+
+		/* Filter By Semester Term */
+		$showAll = ($showAll === 'true')?true:false;
+		if ($showAll === false) {
+			$query->groupBy('term_id')
+			->having('term_id', '=', $term);
+		}
 	}
 	/** 
 	 * Search class(es) by several different types of candidate keys and identifiers 
