@@ -13,7 +13,7 @@ class ClassTableSeeder extends Seeder {
 
 		Classes::create(array(
 			'association_id' => 'classes:Fall-2014:12000',
-			'term_id' => 2137,
+			'term_id' => 2147,
 			'term' => 'Fall-2014',
 			'class_number' => 12000,
 			'subject' => 'Comp',
@@ -26,7 +26,7 @@ class ClassTableSeeder extends Seeder {
 
 		Classes::create(array(
 			'association_id' => 'classes:Fall-2014:12100',
-			'term_id' => 2137,
+			'term_id' => 2147,
 			'term' => 'Fall-2014',
 			'class_number' => 12100,
 			'subject' => 'Comp',

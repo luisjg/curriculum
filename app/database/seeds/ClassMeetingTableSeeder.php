@@ -18,8 +18,8 @@ class ClassMeetingTableSeeder extends Seeder {
 			'class_number' => 12000,
 			'meeting_number' => 1,
 			'location' => 'JD1156',
-			'start_time' => date("Y-m-d H:i:s", mktime(9, 30, 0, 5, 23, 2014)),
-			'end_time' => date("Y-m-d H:i:s", mktime(10, 45, 0, 5, 23, 2014)),
+			'start_time' => '0930h',
+			'end_time' => '1045h',
 			'days' => 'TR'
 		));
 
@@ -30,8 +30,8 @@ class ClassMeetingTableSeeder extends Seeder {
 			'class_number' => 12100,
 			'meeting_number' => 2,
 			'location' => 'JD1156',
-			'start_time' => date("Y-m-d H:i:s", mktime(11, 25, 0, 5, 23, 2014)),
-			'end_time' => date("Y-m-d H:i:s", mktime(12, 15, 0, 5, 23, 2014)),
+			'start_time' => '1125h',
+			'end_time' => '1215h',
 			'days' => 'TR',
 		));
 
@@ -42,8 +42,8 @@ class ClassMeetingTableSeeder extends Seeder {
 			'class_number' => 10147,
 			'meeting_number' => 1,
 			'location' => 'AC210',
-			'start_time' => date("Y-m-d H:i:s", mktime(8, 25, 0, 5, 23, 2014)),
-			'end_time' => date("Y-m-d H:i:s", mktime(10, 5, 0, 5, 23, 2014)),
+			'start_time' => '0825h',
+			'end_time' => '1005h',
 			'days' => 'MW'
 		));
 
@@ -54,8 +54,8 @@ class ClassMeetingTableSeeder extends Seeder {
 			'class_number' => 10148,
 			'meeting_number' => 2,
 			'location' => 'AC210',
-			'start_time' => date("Y-m-d H:i:s", mktime(11, 25, 0, 5, 23, 2014)),
-			'end_time' => date("Y-m-d H:i:s", mktime(13, 0, 0, 5, 23, 2014)),
+			'start_time' => '1125h',
+			'end_time' => '1300h',
 			'days' => 'MW',
 		));
 	}

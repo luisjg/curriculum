@@ -17,13 +17,14 @@ class CourseController extends \BaseController {
 		$data = Classes::groupAsCourse($term, false)
 			->orderBy('subject')->orderBy('catalog_number');
 
-		$prepped_data = prepareCoursesResponse($data->get());
+		$prepped_data = prepareCoursesResponse($data->take(50)->get());
 
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
 			'version'     => 'omar-1.0',
 			'type'		  => 'courses',
+			'limit'		  => '50',
 			'courses'	  => $prepped_data
 		);
 

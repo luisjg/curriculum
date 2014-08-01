@@ -21,6 +21,16 @@ class ClassController extends \BaseController {
 		$instructor = Input::get('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor, $term);
+		} else {
+			$response = array(
+				'status'      => 500,
+				'success'	  => false,
+				'version'     => 'omar-1.0',
+				'type'		  => 'errors',
+				'errors'	  => ['No filter paramters set']
+			);
+
+			return Response::make($response, 500);
 		}
 	
 		$prepped_data = prepareClassesResponse($data->get());

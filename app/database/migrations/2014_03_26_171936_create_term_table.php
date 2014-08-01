@@ -14,9 +14,8 @@ class CreateTermTable extends Migration {
 	{
 		Schema::create('terms', function(Blueprint $table){
 			$table->integer('term_id');
-			$table->string('term');
-			$table->string('description');
-			$table->string('description_short');
+			$table->string('term', 15);
+			$table->string('description');	
 			$table->dateTime('begin_date');
 			$table->dateTime('end_date');
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

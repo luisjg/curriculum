@@ -15,14 +15,14 @@ class CreateClassTable extends Migration {
 		Schema::create('classes', function(Blueprint $table){
 			$table->string('association_id');	
 			$table->integer('term_id');
-			$table->string('term');
+			$table->string('term', 15);
 			$table->integer('class_number');
 			$table->string('subject');
-			$table->string('catalog_number');
-			$table->integer('section_id');
+			$table->string('catalog_number', 10);
+			$table->string('section_number', 11);
 			$table->string('title');
 			$table->integer('course_id');
-			$table->string('description');
+			$table->string('description', 2048);
 			$table->integer('units');
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 			$table->timestamp('updated_at')->nullable();

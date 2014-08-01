@@ -16,14 +16,25 @@ class TermController extends \BaseController {
 
 		$data = Classes::withMeetings($term)
 			->withInstructors($term)
-			->where('term_id', $term);
+			->where('term_id', $term)
+			->orderBy('subject')->orderBy('catalog_number');
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor, $term);
-		}
+		} else {
+			$response = array(
+				'status'      => 500,
+				'success'	  => false,
+				'version'     => 'omar-1.0',
+				'type'		  => 'errors',
+				'errors'	  => ['No filter paramters set']
+			);
 
+			return Response::make($response, 500);
+		}
+	
 		$prepped_data = prepareClassesResponse($data->get());
 		
 		$response = array(
@@ -55,13 +66,19 @@ class TermController extends \BaseController {
 	 */
 	public function classesShow($term, $id)
 	{
-		$term_code = generateTermCodeFromSemesterTerm($term);
+		$term_id = generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::withMeetings($term)
-		->withInstructors($term)
-		->whereIdentifier($id)
-		->orderBy('subject')->orderBy('catalog_number')
-		->where('term_id', $term_code);
+		$data = Classes::withMeetings($term_id)
+			->withInstructors($term_id)
+			->where('term_id', $term_id)
+			->whereIdentifier($id)
+			->orderBy('subject')->orderBy('catalog_number');
+	
+		/* APPLY INSTRUCTOR FILTER */
+		$instructor = Input::get('instructor', 0);
+		if($instructor) {
+			$data->hasInstructor($instructor, $term);
+		}
 		
 		$prepped_data = prepareClassesResponse($data->get());
 
