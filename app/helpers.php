@@ -135,7 +135,9 @@ function prepareClassesResponse($collection)
         $data['description'] = $_class->description;
         $data['units'] = $_class->units;
         $data['term'] = $_class->term;
-        
+        $data['meetings'] = [];
+        $data['instructors'] = [];
+
         foreach($_class->meetings as $_meeting) {
             $meeting = [];
             $meeting['meeting_number'] = $_meeting->meeting_number;
