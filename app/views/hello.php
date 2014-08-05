@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Curriculum Web Service (OMAR)</title>
+	<title>Curriculum Web Service</title>
 	<style>
 		@import url(//fonts.googleapis.com/css?family=Lato:700);
 

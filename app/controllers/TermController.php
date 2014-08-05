@@ -26,7 +26,7 @@ class TermController extends \BaseController {
 			$response = array(
 				'status'      => 500,
 				'success'	  => false,
-				'version'     => 'omar-1.0',
+				'version'     => 'curriculum-1.0',
 				'type'		  => 'errors',
 				'errors'	  => ['No filter paramters set']
 			);
