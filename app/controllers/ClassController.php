@@ -13,14 +13,12 @@ class ClassController extends \BaseController {
 	{
 		$term = getCurrentTermID();
 
-		$data = Classes::withMeetings($term)
-			->withInstructors($term)
-			->where('term_id', $term);
+		$data = Classes::with('meetings', 'instructors')->where('term_id', $term);
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
 		if($instructor) {
-			$data->hasInstructor($instructor, $term);
+			$data->hasInstructor($instructor);
 		} else {
 			$response = array(
 				'status'      => 500,
@@ -67,15 +65,14 @@ class ClassController extends \BaseController {
 	{
 		$term_id = getCurrentTermID();
 
-		$data = Classes::withMeetings($term_id)
-			->withInstructors($term_id)
+		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
 			->whereIdentifier($id);
 	
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
 		if($instructor) {
-			$data->hasInstructor($instructor, $term);
+			$data->hasInstructor($instructor);
 		}
 
 		$prepped_data = prepareClassesResponse($data->get());

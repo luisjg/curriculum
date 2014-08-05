@@ -35,7 +35,7 @@ class Classes extends Eloquent {
 	 */  
 	public function meetings()
 	{
-		return $this->hasMany('Meeting', 'class_number', 'class_number');
+		return $this->hasMany('Meeting', 'association_id', 'association_id');
 	}
 
 	/**
@@ -45,21 +45,7 @@ class Classes extends Eloquent {
 	 */  
 	public function instructors()
 	{
-		return $this->hasMany('ClassInstructor', 'class_number', 'class_number');
-	}
-
-	/* with('meetings') */
-	public function scopeWithMeetings($query, $term) {
-		$query->with(['meetings' => function($query) use ($term) {
-			$query->where('term_id', $term);
-		}]);
-	}
-
-	/* with('instructors') */
-	public function scopeWithInstructors($query, $term) {
-		$query->with(['instructors' => function($query) use ($term) {
-			$query->where('term_id', $term);
-		}]);
+		return $this->hasMany('ClassInstructor', 'association_id', 'association_id');
 	}
 
 	/** 
@@ -112,7 +98,7 @@ class Classes extends Eloquent {
 			$catalog_number = $id_array[1];
 		}
 
-		/* ie: classes:Summer-14:10472 */	
+		/* ie: comp */	
 		if (isSubjectID($id)) {
 			$subject = $id;
 		}
@@ -126,9 +112,9 @@ class Classes extends Eloquent {
 	}
 
 	/* Only return classes that have specified instructor set */
-	public function scopeHasInstructor($query, $instructor, $term) {
-		$query->whereHas("instructors", function($q) use ($instructor, $term) {
-			$q->where('instructor', $instructor)->where('term_id', $term);
+	public function scopeHasInstructor($query, $instructor) {
+		$query->whereHas("instructors", function($q) use ($instructor) {
+			$q->where('email', $instructor);
 		});
 	}
 }
