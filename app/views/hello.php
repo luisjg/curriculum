@@ -27,7 +27,7 @@
 			margin: 16px 0 0 0;
 		}
 
-		dl {width:600px;}
+		dl {width:700px;}
 		dt {font-weight:bold;font-size:16px;margin-top:20px;}
 		dd {margin:0;font-weight:normal;}
 	</style>
@@ -54,12 +54,12 @@
 			<dd><?php echo link_to('courses/comp'); ?></dd>
 			<dd><?php echo link_to('terms/Fall-2014/courses/comp'); ?></dd>
 
-			<!-- NOT IMPLIMENTED YET 
+
 			<dt>Non-Current Term Classes</dt>
-			<dd><a href="http://curriculum.ptg.csun.edu/terms/Fall-2013/classes/">http://curriculum.ptg.csun.edu/terms/Fall-2013/classes/</a></dd>
-			<dd><a href="http://curriculum.ptg.csun.edu/terms/Spring-2013/classes/">http://curriculum.ptg.csun.edu/terms/Spring-2013/classes/</a></dd>
-			<dd><a href="http://curriculum.ptg.csun.edu/terms/Fall-2014/classes/">http://curriculum.ptg.csun.edu/terms/Fall-2014/classes/</a></dd>
-			--> 
+			<dd><?php echo link_to('terms/Fall-2013/classes/comp'); ?></dd>
+			<dd><?php echo link_to('terms/Spring-2013/classes/comp'); ?></dd>
+			<dd><?php echo link_to('terms/Fall-2014/classes/comp-322'); ?></dd>
+			<dd><?php echo link_to('terms/Fall-2014/classes?instructor=steven.fitzgerald@csun.edu'); ?></dd>
 		</dl>
 
 	</div>
