@@ -152,7 +152,7 @@ function prepareClassesResponse($collection)
 
         foreach($_class->instructors as $_instructor) {
             $instructor = [];
-            $instructor['instructor'] = $_instructor->instructor;   
+            $instructor['instructor'] = $_instructor->email;   
             
             $data['instructors'][] = $instructor;
         }

@@ -7,7 +7,7 @@ class ClassInstructor extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'class_instructor'; /* pivot */
+	protected $table = 'nemo.classInstructors'; /* pivot */
     
     /**
      * The attributes excluded from the model's JSON form.
