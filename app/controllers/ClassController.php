@@ -23,7 +23,7 @@ class ClassController extends \BaseController {
 			$response = array(
 				'status'      => 500,
 				'success'	  => false,
-				'version'     => 'omar-1.0',
+				'version'     => 'curriculum-1.0',
 				'type'		  => 'errors',
 				'errors'	  => ['No filter paramters set']
 			);
@@ -36,7 +36,7 @@ class ClassController extends \BaseController {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'omar-1.0',
+			'version'     => 'curriculum-1.0',
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
@@ -80,7 +80,7 @@ class ClassController extends \BaseController {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'omar-1.0',
+			'version'     => 'curriculum-1.0',
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
