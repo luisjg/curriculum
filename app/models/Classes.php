@@ -8,7 +8,7 @@ class Classes extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'classes'; 
+	protected $table = 'omar.classes'; 
 	
 	/**
 	 * The attributes excluded from the model's JSON form.

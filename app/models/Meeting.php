@@ -2,6 +2,8 @@
 
 class Meeting extends Eloquent {
 
+	protected $table = 'omar.meetings'; 
+
 	/**
 	 * The database table used by the model.
 	 *
