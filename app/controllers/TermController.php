@@ -14,20 +14,19 @@ class TermController extends \BaseController {
 	{
 		$term = generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::withMeetings($term)
-			->withInstructors($term)
+		$data = Classes::with('meetings','instructors')
 			->where('term_id', $term)
 			->orderBy('subject')->orderBy('catalog_number');
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
 		if($instructor) {
-			$data->hasInstructor($instructor, $term);
+			$data->hasInstructor($instructor);
 		} else {
 			$response = array(
 				'status'      => 500,
 				'success'	  => false,
-				'version'     => 'omar-1.0',
+				'version'     => 'curriculum-1.0',
 				'type'		  => 'errors',
 				'errors'	  => ['No filter paramters set']
 			);
@@ -40,7 +39,7 @@ class TermController extends \BaseController {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'omar-1.0',
+			'version'     => 'curriculum-1.0',
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
@@ -68,8 +67,7 @@ class TermController extends \BaseController {
 	{
 		$term_id = generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::withMeetings($term_id)
-			->withInstructors($term_id)
+		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
 			->whereIdentifier($id)
 			->orderBy('subject')->orderBy('catalog_number');
@@ -77,7 +75,7 @@ class TermController extends \BaseController {
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Input::get('instructor', 0);
 		if($instructor) {
-			$data->hasInstructor($instructor, $term);
+			$data->hasInstructor($instructor);
 		}
 		
 		$prepped_data = prepareClassesResponse($data->get());
@@ -85,7 +83,7 @@ class TermController extends \BaseController {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'omar-1.0',
+			'version'     => 'curriculum-1.0',
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
@@ -116,7 +114,7 @@ class TermController extends \BaseController {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'omar-1.0',
+			'version'     => 'curriculum-1.0',
 			'type'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
@@ -152,7 +150,7 @@ class TermController extends \BaseController {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'omar-1.0',
+			'version'     => 'curriculum-1.0',
 			'type'		  => 'courses',
 			'courses'	  => $prepped_data
 		);

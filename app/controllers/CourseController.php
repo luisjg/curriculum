@@ -22,7 +22,7 @@ class CourseController extends \BaseController {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'omar-1.0',
+			'version'     => 'curriculum-1.0',
 			'type'		  => 'courses',
 			'limit'		  => '50',
 			'courses'	  => $prepped_data
@@ -52,7 +52,7 @@ class CourseController extends \BaseController {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'omar-1.0',
+			'version'     => 'curriculum-1.0',
 			'type'		  => 'courses',
 			'courses'	  => $prepped_data
 		);

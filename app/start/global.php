@@ -72,7 +72,7 @@ App::down(function()
         $response = array(
 			'status'      => 503,
 			'success'	  => false,
-			'version'     => 'omar-1.0',
+			'version'     => 'curriculum-1.0',
 			'messages'	  => ['The API is currently down for maintenance.']
 		);
 
