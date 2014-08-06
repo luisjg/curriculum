@@ -1,6 +1,7 @@
 /app/storage/clockwork
 /bootstrap/compiled.php
 /vendor
+/.idea/
 composer.phar
 .env.local.php
 .env.php
