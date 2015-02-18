@@ -9,12 +9,12 @@ class ClassInstructorTableSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		DB::table('class_instructor')->delete();
+		DB::table('classInstructor')->delete();
 
 		ClassInstructor::create(array(
 			'association_id' => 'classes:Fall-2014:12000',
-			'term_id' => 2147,
-			'term' => 'Fall-2014',
+			'term_id' => 2137,
+			'term' => 'Fall-2013',
 			'class_number' => 12000,
 			'emplid' => '1',
 			'instructor_role' => 'Best role ever',
@@ -23,8 +23,8 @@ class ClassInstructorTableSeeder extends Seeder {
 
 		ClassInstructor::create(array(
 			'association_id' => 'classes:Fall-2014:12100',
-			'term_id' => 2147,
-			'term' => 'Fall-2014',
+			'term_id' => 2137,
+			'term' => 'Fall-2013',
 			'class_number' => 12100,
 			'emplid' => '1',
 			'instructor_role' => 'Best role ever',

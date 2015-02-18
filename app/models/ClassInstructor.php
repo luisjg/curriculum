@@ -7,7 +7,7 @@ class ClassInstructor extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'classInstructors'; /* pivot */
+	protected $table = 'classInstructor'; /* pivot */
     
     /**
      * The attributes excluded from the model's JSON form.
