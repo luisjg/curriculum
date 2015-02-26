@@ -35,7 +35,7 @@ class Classes extends Eloquent {
 	 */  
 	public function meetings()
 	{
-		return $this->hasMany('Meeting', 'association_id', 'association_id');
+		return $this->hasMany('Meeting', 'classes_id', 'classes_id');
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Classes extends Eloquent {
 	 */  
 	public function instructors()
 	{
-		return $this->hasMany('ClassInstructor', 'association_id', 'association_id');
+		return $this->hasMany('ClassInstructor', 'classes_id', 'classes_id');
 	}
 
 	/** 
@@ -69,21 +69,21 @@ class Classes extends Eloquent {
 	 *
 	 * @internal Examples of possible $id
 	 *		NAME 					EXAMPLE			 
-	 *		association_id			classes:Summer-14:10472 		
+	 *		classes_id				classes:Summer-14:10472 		
 	 * 		class_number			10402
 	 *		subject 				comp
  	 *		subject-catalog_number 	comp-160
  	**/
 	public function scopeWhereIdentifier($query, $id) {
 		/* Init Acceptable ID's */ 
-		$association_id = '';
+		$classes_id = '';
 		$subject = '';
 		$catalog_number = '';
 		$class_number = '';
 
 		/* ie: classes:Summer-14:10472 */	
 		if (isAssociationID($id)) {
-			$association_id = $id;
+			$classes_id = $id;
 		}
 		
 		/* ie: 10402 */	
@@ -104,7 +104,7 @@ class Classes extends Eloquent {
 		}
 
 		/* Filter By IDs */
-		if ($association_id) 	$query->where('association_id', $association_id);
+		if ($classes_id) 		$query->where('classes_id', $classes_id);
 		if ($subject) 			$query->where('subject', $subject);				
 		if ($catalog_number) 	$query->where('catalog_number', $catalog_number);
 		if ($class_number) 		$query->where('class_number', $class_number);

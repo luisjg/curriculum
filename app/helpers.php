@@ -20,7 +20,7 @@ function getCurrentTermID(){
 
         /* In between semesters, just use the last semester as default */
         if (!$term) {
-            $term = SemesterTerm::where('end_date', '<', $current_date)->orderBy('end_date', 'desc')->first();
+            $term = Term::where('end_date', '<', $current_date)->orderBy('end_date', 'desc')->first();
         }
 
         /* Return current semester's term_id or 0 if no matches */
