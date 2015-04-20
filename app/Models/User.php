@@ -1,4 +1,4 @@
-<?php namespace Curriculum;
+<?php namespace Curriculum\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
