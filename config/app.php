@@ -39,7 +39,7 @@ return [
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => env('APP_TIMEZONE'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -145,6 +145,9 @@ return [
 		'Curriculum\Providers\EventServiceProvider',
 		'Curriculum\Providers\RouteServiceProvider',
 
+		// HTML and Form facades
+		'Illuminate\Html\HtmlServiceProvider',
+
 	],
 
 	/*
@@ -192,6 +195,10 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+
+		// Form and HTML facades
+		'Form'      => 'Illuminate\Html\FormFacade',
+		'HTML'      => 'Illuminate\Html\HtmlFacade',
 
 	],
 

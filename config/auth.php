@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'model' => 'Curriculum\User',
+	'model' => 'Curriculum\Models\User',
 
 	/*
 	|--------------------------------------------------------------------------
