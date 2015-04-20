@@ -28,7 +28,4 @@ Route::get('terms/{term}/courses', 'TermController@coursesIndex');
 Route::get('terms/{term}/courses/{id}', 'TermController@coursesShow');
 
 // landing page and catch-all
-Route::get('/', function()
-{
-	return view('pages.hello');
-});
+Route::controller('/', 'HomeController');

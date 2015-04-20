@@ -14,23 +14,20 @@ class HomeController extends Controller {
 	*/
 
 	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
+	 * Constructs a new HomeController object.
 	 */
-	public function __construct()
-	{
-		$this->middleware('auth');
+	public function __construct() {
+		parent::__construct();
 	}
 
 	/**
-	 * Show the application dashboard to the user.
+	 * Show the landing screen to the user.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getIndex()
 	{
-		return view('home');
+		return view('pages.hello');
 	}
 
 }
