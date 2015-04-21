@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use Curriculum\Handlers\HandlerUtilities;
+
 /* 'class' is a reserved name */
 class Classes extends Model { 
 
@@ -84,7 +86,7 @@ class Classes extends Model {
 		$class_number = '';
 
 		/* ie: classes:Summer-14:10472 */	
-		if (isAssociationID($id)) {
+		if (HandlerUtilities::isAssociationID($id)) {
 			$classes_id = $id;
 		}
 		
@@ -94,14 +96,14 @@ class Classes extends Model {
 		}
 
 		/* ie: comp-160 */	
-		if (isSubjectCatelogID($id)) {
+		if (HandlerUtilities::isSubjectCatelogID($id)) {
 			$id_array = explode('-', $id);
 			$subject = $id_array[0];
 			$catalog_number = $id_array[1];
 		}
 
 		/* ie: comp */	
-		if (isSubjectID($id)) {
+		if (HandlerUtilities::isSubjectID($id)) {
 			$subject = $id;
 		}
 
