@@ -12,20 +12,20 @@
 */
 
 // class info with current term
-Route::get('classes', 'ClassController@index');
-Route::get('classes/{id}', 'ClassController@show');
+Route::get('api/classes', 'ClassController@index');
+Route::get('api/classes/{id}', 'ClassController@show');
 
 // class info with specific term
-Route::get('terms/{term}/classes', 'TermController@classesIndex');
-Route::get('terms/{term}/classes/{id}', 'TermController@classesShow');
+Route::get('api/terms/{term}/classes', 'TermController@classesIndex');
+Route::get('api/terms/{term}/classes/{id}', 'TermController@classesShow');
 
 // course info with current term
-Route::get('courses', 'CourseController@index');
-Route::get('courses/{id}', 'CourseController@show');
+Route::get('api/courses', 'CourseController@index');
+Route::get('api/courses/{id}', 'CourseController@show');
 
 // course info with specific term
-Route::get('terms/{term}/courses', 'TermController@coursesIndex');
-Route::get('terms/{term}/courses/{id}', 'TermController@coursesShow');
+Route::get('api/terms/{term}/courses', 'TermController@coursesIndex');
+Route::get('api/terms/{term}/courses/{id}', 'TermController@coursesShow');
 
 // landing page and catch-all
 Route::controller('/', 'HomeController');
