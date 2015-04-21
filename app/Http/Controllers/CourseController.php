@@ -29,7 +29,7 @@ class CourseController extends Controller {
 		$data = Classes::groupAsCourse($term, false)
 			->orderBy('subject')->orderBy('catalog_number');
 
-		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->take(50)->get());
+		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
