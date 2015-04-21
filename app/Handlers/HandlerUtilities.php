@@ -38,8 +38,8 @@ class HandlerUtilities
 	 *
 	 */
 	public static function getCurrentTerm(){
-	    $term = getCurrentTermID();
-	    return getTermFromTermID($term);
+	    $term = self::getCurrentTermID();
+	    return self::getTermFromTermID($term);
 
 	}
 

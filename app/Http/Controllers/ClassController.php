@@ -1,5 +1,10 @@
 <?php namespace Curriculum\Http\Controllers;
 
+use Request;
+
+use Curriculum\Handlers\HandlerUtilities;
+use Curriculum\Models\Classes;
+
 class ClassController extends Controller {
 
 	/**
@@ -18,12 +23,12 @@ class ClassController extends Controller {
 	 */
 	public function index()
 	{
-		$term = getCurrentTermID();
+		$term = HandlerUtilities::getCurrentTermID();
 
 		$data = Classes::with('meetings', 'instructors')->where('term_id', $term);
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Input::get('instructor', 0);
+		$instructor = Request::get('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		} else {
@@ -35,10 +40,10 @@ class ClassController extends Controller {
 				'errors'	  => ['No filter paramters set']
 			);
 
-			return Response::make($response, 500);
+			return response($response, 500);
 		}
 	
-		$prepped_data = prepareClassesResponse($data->get());
+		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
@@ -48,7 +53,7 @@ class ClassController extends Controller {
 			'classes'	  => $prepped_data
 		);
 
-		return Response::make($response, 200);
+		return response($response, 200);
 	}
 
 	/**
@@ -70,19 +75,19 @@ class ClassController extends Controller {
 	 */
 	public function show($id)
 	{
-		$term_id = getCurrentTermID();
+		$term_id = HandlerUtilities::getCurrentTermID();
 
 		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
 			->whereIdentifier($id);
 	
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Input::get('instructor', 0);
+		$instructor = Request::get('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
 
-		$prepped_data = prepareClassesResponse($data->get());
+		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
 			'status'      => 200,
@@ -92,7 +97,7 @@ class ClassController extends Controller {
 			'classes'	  => $prepped_data
 		);
 
-		return Response::make($response, 200);
+		return response($response, 200);
 	}
 	
 }

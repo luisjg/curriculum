@@ -1,5 +1,10 @@
 <?php namespace Curriculum\Http\Controllers;
 
+use Request;
+
+use Curriculum\Handlers\HandlerUtilities;
+use Curriculum\Models\Classes;
+
 class CourseController extends Controller {
 
 	/**
@@ -19,12 +24,12 @@ class CourseController extends Controller {
 	 */
 	public function index()
 	{
-		$term = getCurrentTermID();
+		$term = HandlerUtilities::getCurrentTermID();
 		
 		$data = Classes::groupAsCourse($term, false)
 			->orderBy('subject')->orderBy('catalog_number');
 
-		$prepped_data = prepareCoursesResponse($data->take(50)->get());
+		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->take(50)->get());
 
 		$response = array(
 			'status'      => 200,
@@ -35,7 +40,7 @@ class CourseController extends Controller {
 			'courses'	  => $prepped_data
 		);
 
-		return Response::make($response, 200);
+		return response($response, 200);
 	}
 
 	/**
@@ -49,13 +54,13 @@ class CourseController extends Controller {
 	 */
 	public function show($id)
 	{
-		$term = getCurrentTermID();
+		$term = HandlerUtilities::getCurrentTermID();
 
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term, Input::get('showAll', false))
+			->groupAsCourse($term, Request::get('showAll', false))
 			->orderBy('subject')->orderBy('catalog_number');
 
-		$prepped_data = prepareCoursesResponse($data->get());
+		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
@@ -64,7 +69,7 @@ class CourseController extends Controller {
 			'courses'	  => $prepped_data
 		);
 
-		return Response::make($response, 200);
+		return response($response, 200);
 	}
 	
 }
