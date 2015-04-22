@@ -1,1 +1,0 @@
-A first sentence. Testing packaging of Git objects
