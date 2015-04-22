@@ -202,4 +202,34 @@ return [
 
 	],
 
+	/*
+    |--------------------------------------------------------------------------
+    | Entity ID
+    |--------------------------------------------------------------------------
+    |
+    | Entity ID listed as the parent_entity_id column for all child entities in
+    | nemo.memberships.
+    |
+    */
+    'entity_id' => env("ENTITY_ID"),
+
+    /*
+	|--------------------------------------------------------------------------
+	| LDAP configuration
+	|--------------------------------------------------------------------------
+	|
+	| Configuration parameters related to LDAP functionality.
+	|
+	*/
+
+	'ldap' => [
+
+		'host' => env("LDAP_HOST"),
+		'basedn' => env("LDAP_BASE_DN"),
+		'dn' => env("LDAP_DN"),
+		'password' => env("LDAP_PASSWORD"),
+		'allow_no_pass' => env("LDAP_ALLOW_NO_PASS"),
+
+	],
+
 ];
