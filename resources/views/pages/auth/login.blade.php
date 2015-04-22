@@ -2,26 +2,31 @@
 @section('content')
 
 	<div class="row">
-		<div class="col-xs-5">
-			<h1>Login</h1>
+		<p>&nbsp;</p>
+	</div>
 
-			{!! Form::open() !!}
-			<div class="form-group">
-				{!! Form::label('username','Username') !!}
-				{!! Form::input('text', 'username', '', ['class'=>'form-control']) !!}
+	<div class="row">
+		<div class="col-xs-offset-3 col-xs-6">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+			    <h3 class="panel-title text-center">Please Login to Continue</h3>
+			  </div>
+			  <div class="panel-body">
+			    {!! Form::open() !!}
+				<div class="form-group">
+					{!! Form::label('username','Username') !!}
+					{!! Form::input('text', 'username', '', ['class'=>'form-control']) !!}
+				</div>
+				<div class="form-group">
+					{!! Form::label('password','Password') !!}
+					{!! Form::input('password', 'password', '', ['class'=>'form-control']) !!}
+				</div>
+				<div class="form-group">
+					{!! Form::submit('Login', ['class'=>'btn btn-primary']) !!}
+				</div>
+				{!! Form::close() !!}
+			  </div>
 			</div>
-			<div class="form-group">
-				{!! Form::label('password','Password') !!}
-				{!! Form::input('password', 'password', '', ['class'=>'form-control']) !!}
-			</div>
-			<div class="form-group">
-				{!! Form::submit('Login', ['class'=>'btn btn-primary']) !!}
-			</div>
-			{!! Form::close() !!}
-
-			<p>CSUN Member: <a href="#">User ID</a> <a href="#">Password</a></p>
-			<p>Off Campus/Guest: <a href="#">User ID</a> <a href="#">Password</a></p>
-			<p>Need Help? <a href="#">Help</a> <a href="#">Getting Started</a></p>
 		</div>
 	</div>
 

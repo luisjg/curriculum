@@ -3,40 +3,50 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Curriculum Web Service</title>
-	<style>
-		@import url(//fonts.googleapis.com/css?family=Lato:700);
 
-		body {
-			margin:0;
-			font-family:'Lato', sans-serif;
-			color: #999;
-			font-size:14px;
-		}
-
-		.welcome {
-			position: absolute;
-			left: 10px;
-			top: 10px;
-		}
-
-		a, a:visited {
-			text-decoration:none;
-		}
-
-		h1 {
-			margin: 16px 0 0 0;
-		}
-
-		dl {width:700px;}
-		dt {font-weight:bold;font-size:16px;margin-top:20px;}
-		dd {margin:0;font-weight:normal;}
-	</style>
+	<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 </head>
 <body>
 
 	@include('layouts.partials.header')
 
-	@yield('content')
+	<div class="container">
+
+		@if ($errors->count() > 0)
+			<div class="row">
+				<div class="alert alert-danger alert-dismissible" role="alert">
+	  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  					<span aria-hidden="true">&times;</span>
+	  				</button>
+					<p>The following errors occurred:</p>
+					<p>&nbsp;</p>
+					<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+					</ul>
+				</div>
+			</div>
+		@elseif (!empty($success) || Session::has('success'))
+			<div class="row">
+				<div class="alert alert-success alert-dismissible" role="alert">
+	  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  					<span aria-hidden="true">&times;</span>
+	  				</button>
+	  				<p>
+	  					@if (Session::has('success'))
+	  						{{ session('success') }}
+	  					@else
+	  						{{ $success }}
+	  					@endif
+	  				</p>
+	  			</div>
+			</div>
+		@endif
+
+		@yield('content')
+		
+	</div>
 
 </body>
 </html>
