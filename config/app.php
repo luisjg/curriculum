@@ -148,6 +148,12 @@ return [
 		// HTML and Form facades
 		'Illuminate\Html\HtmlServiceProvider',
 
+		// Clockwork
+		'Clockwork\Support\Laravel\ClockworkServiceProvider',
+
+		// META Lab authentication service provider
+		'METALab\Auth\Provider\AuthServiceProvider',
+
 	],
 
 	/*
@@ -199,6 +205,9 @@ return [
 		// Form and HTML facades
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
+
+		// Clockwork
+		'Clockwork' => 'Clockwork\Support\Laravel\Facade',
 
 	],
 

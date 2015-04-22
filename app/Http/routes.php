@@ -11,6 +11,9 @@
 |
 */
 
+// authentication functionality
+Route::controller('/auth', 'AuthController');
+
 // class info with current term
 Route::get('api/classes', 'ClassController@index');
 Route::get('api/classes/{id}', 'ClassController@show');

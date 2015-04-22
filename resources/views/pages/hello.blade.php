@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-basic')
 @section('content')
 	<div class="welcome">
 		<h1>Curriculum Web Service (OMAR)</h1>
