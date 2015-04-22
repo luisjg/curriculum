@@ -67,7 +67,7 @@ class AuthController extends Controller {
 				// "before auth" filter on a route); if intended route cannot
 				// be retrieved for some reason, just redirect to the landing
 				// page instead.
-				return redirect()->intended('/');
+				return redirect()->intended('/admin/courses');
 			}
 			else
 			{
