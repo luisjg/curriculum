@@ -4,8 +4,7 @@ use Auth,
 	Request;
 
 use Curriculum\Exceptions\PermissionDeniedException;
-use Curriculum\Handlers\HandlerPagination;
-use Curriculum\Models\Classes,
+use Curriculum\Models\Course,
 	Curriculum\Models\Term;
 
 class AdminCourseController extends Controller {
@@ -36,10 +35,32 @@ class AdminCourseController extends Controller {
 
 		// grab a set of paginated courses; if the second parameter was set
 		// to 'false', the courses would just be from the current term instead
-		$courses = Classes::groupAsCourse(Term::current()->term_id, 'true')
+		$courses = Course::orderBy('subject')
+			->orderBy('catalog_number')
 			->paginate(25);
-		$courses->setPath('courses');
+		$courses->setPath(url('/admin/courses'));
 
-		return view('pages.admin.courses.index', compact('courses', 'paginator'));
+		return view('pages.admin.courses.index', compact('courses'));
+	}
+
+	/**
+	 * Handles the display of the Create Course screen.
+	 * GET /admin/courses/create
+	 *
+	 * @return View
+	 */
+	public function create() {
+
+	}
+
+	/**
+	 * Handles the display of the Modify Course screen.
+	 * GET /admin/courses/{id}/edit
+	 *
+	 * @param integer $id The ID of the course to modify
+	 * @return View
+	 */
+	public function edit($id) {
+
 	}
 }

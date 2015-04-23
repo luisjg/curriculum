@@ -5,6 +5,7 @@
 	<title>Curriculum Web Service</title>
 
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/util.css') }}" rel="stylesheet" />
 </head>
 <body>
 

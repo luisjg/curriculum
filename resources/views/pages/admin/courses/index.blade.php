@@ -11,17 +11,32 @@
 
 	</div>
 
-	@if($courses->count() > 0)
 	<div class="row">
 
 		<div class="col-xs-12">
 
-			{!! $courses->render() !!}
+			@if($courses->count() > 0)
+			<div class="pull-left">
+
+				{!! $courses->render() !!}
+
+			</div>
+			@endif
+
+			@if(Auth::user()->hasPerm('course.create'))
+			<div class="pull-right">
+
+				<a href="{{ route('admin.courses.create') }}" class="btn btn-primary push-down">
+					<i class="glyphicon glyphicon-plus"></i>
+					Create New Course
+				</a>
+
+			</div>
+			@endif
 
 		</div>
 
 	</div>
-	@endif
 
 	<div class="row">
 
@@ -52,7 +67,12 @@
 						<td>{{ $course->catalog_number }}</td>
 						<td>{{ $course->title }}</td>
 						<td>
-							Actions
+							@if(Auth::user()->hasPerm('course.modify'))
+								<a href="{{ route('admin.courses.edit', [$course->course_id]) }}" title="Modify course {{ $course->subject }} {{ $course->catalog_number }}" class="btn btn-sm btn-warning">
+									<i class="glyphicon glyphicon-pencil"></i>
+									Modify
+								</a>
+							@endif
 						</td>
 
 					</tr>
