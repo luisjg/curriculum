@@ -4,7 +4,9 @@ use Auth,
 	Request;
 
 use Curriculum\Exceptions\PermissionDeniedException;
-use Curriculum\Models\Classes;
+use Curriculum\Handlers\HandlerPagination;
+use Curriculum\Models\Classes,
+	Curriculum\Models\Term;
 
 class AdminCourseController extends Controller {
 
@@ -32,6 +34,12 @@ class AdminCourseController extends Controller {
 			);
 		}
 
-		return view('pages.admin.courses.index');
+		// grab a set of paginated courses; if the second parameter was set
+		// to 'false', the courses would just be from the current term instead
+		$courses = Classes::groupAsCourse(Term::current()->term_id, 'true')
+			->paginate(25);
+		$courses->setPath('courses');
+
+		return view('pages.admin.courses.index', compact('courses', 'paginator'));
 	}
 }
