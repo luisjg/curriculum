@@ -54,6 +54,16 @@ class AdminCourseController extends Controller {
 	}
 
 	/**
+	 * Handles the submission from the Create Course screen.
+	 * POST /admin/courses
+	 *
+	 * @return Response
+	 */
+	public function store() {
+
+	}
+
+	/**
 	 * Handles the display of the Modify Course screen.
 	 * GET /admin/courses/{id}/edit
 	 *
@@ -61,6 +71,16 @@ class AdminCourseController extends Controller {
 	 * @return View
 	 */
 	public function edit($id) {
+
+	}
+
+	/**
+	 * Handles the submission from the Modify Course screen.
+	 * PUT /admin/courses/{id}
+	 *
+	 * @return Response
+	 */
+	public function update($id) {
 
 	}
 }
