@@ -200,7 +200,7 @@ class AdminCourseController extends Controller {
 		$course->touch();
 
 		// redirect with a success message
-		$success = "You have successfully modified a course (" . e($input['subject'])
+		$success = "You have successfully updated a course (" . e($input['subject'])
 			. " " . $input['catalog_number']  . ": " . e($input['title']) . ").";
 		return redirect(route('admin.courses.show', ['id' => $course->course_id]))
 			->with('success', $success);
