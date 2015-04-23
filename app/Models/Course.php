@@ -51,15 +51,6 @@ class Course extends Model {
 	}
 
 	/**
-	 * Scopes unique subjects with their courses.
-	 *
-	 * @return Builder|Model
-	 */
-	public function scopeSubjects($query) {
-		return $query->groupBy('subject');
-	}
-
-	/**
 	 * Scopes courses with the specified subject and catalog number.
 	 *
 	 * @param string $subject The course subject

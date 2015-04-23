@@ -6,6 +6,7 @@ use Auth,
 
 use Curriculum\Exceptions\PermissionDeniedException;
 use Curriculum\Models\Course,
+	Curriculum\Models\Subject,
 	Curriculum\Models\Term;
 
 class AdminCourseController extends Controller {
@@ -58,7 +59,7 @@ class AdminCourseController extends Controller {
 		}
 
 		// grab the subjects so we have something for the drop-down on the view
-		$subjects = Course::subjects()->lists('subject', 'subject');
+		$subjects = Subject::all()->lists('name', 'subject');
 		return view('pages.admin.courses.create', compact('subjects'));
 	}
 
@@ -87,7 +88,7 @@ class AdminCourseController extends Controller {
 			$rules = [
 				'course_id'			=> 'required|numeric|unique:omar.courses,course_id',
 				'title'				=> 'required|max:255',
-				'subject'			=> 'required|exists:omar.courses,subject',
+				'subject'			=> 'required|exists:omar.subjects,subject',
 				'catalog_number'	=> 'required|alpha_num',
 			]
 		);
@@ -136,7 +137,7 @@ class AdminCourseController extends Controller {
 		$course = Course::findOrFailByCourseId($id);
 
 		// grab the subjects so we have something for the drop-down on the view
-		$subjects = Course::subjects()->lists('subject', 'subject');
+		$subjects = Subject::all()->lists('name', 'subject');
 		return view('pages.admin.courses.edit', compact('course', 'subjects'));
 	}
 
@@ -167,7 +168,7 @@ class AdminCourseController extends Controller {
 			],
 			$rules = [
 				'title'				=> 'required|max:255',
-				'subject'			=> 'required|exists:omar.courses,subject',
+				'subject'			=> 'required|exists:omar.subjects,subject',
 				'catalog_number'	=> 'required|alpha_num',
 			]
 		);
