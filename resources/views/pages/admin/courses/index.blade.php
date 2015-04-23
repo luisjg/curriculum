@@ -72,10 +72,14 @@ Manage Courses
 
 						<td>{{ $course->subject }}</td>
 						<td>{{ $course->catalog_number }}</td>
-						<td>{{ $course->title }}</td>
+						<td>
+							<a href="{{ route('admin.courses.show', ['id' => $course->course_id]) }}">
+								{{ $course->title }}
+							</a>
+						</td>
 						<td>
 							@if(Auth::user()->hasPerm('course.modify'))
-								<a href="{{ route('admin.courses.edit', [$course->course_id]) }}" title="Modify course {{ $course->subject }} {{ $course->catalog_number }}" class="btn btn-sm btn-warning">
+								<a href="{{ route('admin.courses.edit', ['id' => $course->course_id]) }}" title="Modify course {{ $course->subject }} {{ $course->catalog_number }}" class="btn btn-sm btn-warning">
 									<i class="glyphicon glyphicon-pencil"></i>
 									Modify
 								</a>

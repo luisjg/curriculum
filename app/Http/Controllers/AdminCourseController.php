@@ -108,12 +108,7 @@ class AdminCourseController extends Controller {
 		}
 
 		// create the new course
-		$course = Course::create([
-			'course_id' => $input['course_id'],
-			'subject' => $input['subject'],
-			'catalog_number' => $input['catalog_number'],
-			'title' => $input['title']
-		]);
+		$course = Course::create(array_only($input, array_keys($rules)));
 		$course->touch();
 
 		// redirect with a success message
@@ -153,7 +148,61 @@ class AdminCourseController extends Controller {
 	 * @return Response
 	 */
 	public function update($id) {
+		// perform permission check
+		if(!Auth::user()->hasPerm('course.modify')) {
+			throw new PermissionDeniedException(
+				"You do not have permission to access this resource."
+			);
+		}
 
+		// grab the course
+		$course = Course::findOrFailByCourseId($id);
+
+		// validate the input
+		$validator = Validator::make(
+			$input = [
+				'title'				=> strtoupper(Request::get('title')),
+				'subject'			=> Request::get('subject'),
+				'catalog_number'	=> Request::get('catalog_number'),
+			],
+			$rules = [
+				'title'				=> 'required|max:255',
+				'subject'			=> 'required|exists:omar.courses,subject',
+				'catalog_number'	=> 'required|alpha_num',
+			]
+		);
+
+		// if the validator fails kick them back
+		if($validator->fails()) {
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		// ensure the course does not already exist before proceeding; this check
+		// only takes place if either the subject or the catalog number has been
+		// modified
+		if($course->subject != $input['subject'] ||
+			$course->catalog_number != $input['catalog_number'])
+		{
+			$courseTest = Course::whereSubjectCatalog(
+				$input['subject'], $input['catalog_number']
+			)->first();
+			if($courseTest != null) {
+				return redirect()->back()->withInput()->withErrors([
+					'exists' => 'A course with that subject and catalog number already exists.'
+				]);
+			}
+		}
+
+		// save the course
+		$course->fill(array_only($input, array_keys($rules)));
+		$course->save();
+		$course->touch();
+
+		// redirect with a success message
+		$success = "You have successfully modified a course (" . e($input['subject'])
+			. " " . $input['catalog_number']  . ": " . e($input['title']) . ").";
+		return redirect(route('admin.courses.show', ['id' => $course->course_id]))
+			->with('success', $success);
 	}
 
 	/**
@@ -164,6 +213,15 @@ class AdminCourseController extends Controller {
 	 * @return View
 	 */
 	public function show($id) {
+		// perform permission check
+		if(!Auth::user()->hasPerm('course.retrieve')) {
+			throw new PermissionDeniedException(
+				"You do not have permission to access this resource."
+			);
+		}
 
+		// grab the course
+		$course = Course::findOrFailByCourseId($id);
+		return view('pages.admin.courses.show', compact('course'));
 	}
 }
