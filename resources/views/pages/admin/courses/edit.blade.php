@@ -41,7 +41,7 @@ Modify Course
 				{!! Form::select('subject', array_merge([""=>""], $subjects), $course->subject, ['class' => 'form-control', 'aria-describedby'=>'help-subject']) !!}
 
 				<span id="help-subject" class="help-block">
-					Example: for <em>ENGL 255</em> the subject would be ENGL.
+					Example: for <em>ENGL 255</em> the subject would be English.
 				</span>
 
 			</div>
