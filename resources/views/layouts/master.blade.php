@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Curriculum Web Service</title>
+	<title>Curriculum Web Service | @yield('title', 'Admin')</title>
 
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 	<link href="{{ asset('css/util.css') }}" rel="stylesheet" />

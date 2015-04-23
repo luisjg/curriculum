@@ -3,6 +3,8 @@
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
+use Curriculum\Models\Course;
+
 class EventServiceProvider extends ServiceProvider {
 
 	/**
@@ -26,7 +28,11 @@ class EventServiceProvider extends ServiceProvider {
 	{
 		parent::boot($events);
 
-		//
+		// register a custom event handler for a Course
+		Course::creating(function($course) {
+			// generate the courses_id for the course
+			$course->courses_id = 'courses:' . $course->course_id;
+		});
 	}
 
 }

@@ -1,5 +1,11 @@
 @extends('layouts.master')
 
+@section('title')
+
+Not Found
+
+@stop
+
 @section('content')
 	
 	<!-- Page Main Content -->

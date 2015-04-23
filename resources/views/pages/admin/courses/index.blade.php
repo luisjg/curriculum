@@ -1,4 +1,11 @@
 @extends('layouts.master')
+
+@section('title')
+
+Manage Courses
+
+@stop
+
 @section('content')
 
 	<div class="row">

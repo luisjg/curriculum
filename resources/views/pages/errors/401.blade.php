@@ -1,5 +1,11 @@
 @extends('layouts.master')
 
+@section('title')
+
+Unauthorized
+
+@stop
+
 @section('content')
 	
 	<!-- Page Main Content -->

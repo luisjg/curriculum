@@ -9,14 +9,21 @@ class Course extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'omar.courses'; 
+	protected $table = 'omar.courses';
+
+	/**
+	 * The attributes that are fillable in the model.
+	 *
+	 * @var array
+	 */
+	protected $fillable = ['course_id', 'subject', 'catalog_number', 'title']; 
 	
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('created_at', 'updated_at');
+	protected $hidden = ['created_at', 'updated_at'];
 
 	/**
 	 * Scopes unique subjects with their courses.
