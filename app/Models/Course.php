@@ -1,6 +1,7 @@
 <?php namespace Curriculum\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model,
+	Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Course extends Model { 
 
@@ -10,6 +11,13 @@ class Course extends Model {
 	 * @var string
 	 */
 	protected $table = 'omar.courses';
+
+	/**
+	 * Defines the primary key on the model.
+	 *
+	 * @var string
+	 */
+	protected $primaryKey = 'courses_id';
 
 	/**
 	 * The attributes that are fillable in the model.
@@ -24,6 +32,23 @@ class Course extends Model {
 	 * @var array
 	 */
 	protected $hidden = ['created_at', 'updated_at'];
+
+	/**
+	 * Finds a course with the specified course_id. Throws ModelNotFoundException
+	 * if the model could not be returned.
+	 *
+	 * @param integer $course_id The course_id value to use when querying
+	 * @throws ModelNotFoundException
+	 * @return Course
+	 */
+	public static function findOrFailByCourseId($course_id) {
+		$course = self::where('course_id', $course_id)->first();
+		if($course == null) {
+			throw new ModelNotFoundException();
+		}
+
+		return $course;
+	}
 
 	/**
 	 * Scopes unique subjects with their courses.

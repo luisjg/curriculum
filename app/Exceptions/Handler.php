@@ -4,7 +4,7 @@ use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\MessageBag;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Handler extends ExceptionHandler {
 
@@ -43,6 +43,9 @@ class Handler extends ExceptionHandler {
 			return response(view('pages.errors.401', compact('e')), 401);
 		}
 		else if($e instanceof NotFoundHttpException) {
+			return response(view('pages.errors.404'), 404);
+		}
+		else if($e instanceof ModelNotFoundException) {
 			return response(view('pages.errors.404'), 404);
 		}
 

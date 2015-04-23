@@ -16,7 +16,7 @@ class AdminCourseController extends Controller {
 	public function __construct() {
 		parent::__construct();
 
-		// ensure the route makes use of authentication functionality
+		// ensure the controller makes use of authentication functionality
 		$this->middleware('auth');
 	}
 
@@ -130,7 +130,19 @@ class AdminCourseController extends Controller {
 	 * @return View
 	 */
 	public function edit($id) {
+		// perform permission check
+		if(!Auth::user()->hasPerm('course.modify')) {
+			throw new PermissionDeniedException(
+				"You do not have permission to access this resource."
+			);
+		}
 
+		// grab the course
+		$course = Course::findOrFailByCourseId($id);
+
+		// grab the subjects so we have something for the drop-down on the view
+		$subjects = Course::subjects()->lists('subject', 'subject');
+		return view('pages.admin.courses.edit', compact('course', 'subjects'));
 	}
 
 	/**
