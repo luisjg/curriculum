@@ -33,4 +33,16 @@ class Course extends Model {
 	public function scopeSubjects($query) {
 		return $query->groupBy('subject');
 	}
+
+	/**
+	 * Scopes courses with the specified subject and catalog number.
+	 *
+	 * @param string $subject The course subject
+	 * @param integer $catalog_number The course catalog number
+	 * @return Builder|Model
+	 */
+	public function scopeWhereSubjectCatalog($query, $subject, $catalog_number) {
+		return $query->where('subject', $subject)
+			->where('catalog_number', $catalog_number);
+	}
 }

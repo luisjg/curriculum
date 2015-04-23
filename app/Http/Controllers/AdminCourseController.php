@@ -88,13 +88,23 @@ class AdminCourseController extends Controller {
 				'course_id'			=> 'required|numeric|unique:omar.courses,course_id',
 				'title'				=> 'required|max:255',
 				'subject'			=> 'required|exists:omar.courses,subject',
-				'catalog_number'	=> 'required|numeric',
+				'catalog_number'	=> 'required|alpha_num',
 			]
 		);
 
 		// if the validator fails kick them back
 		if($validator->fails()) {
 			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		// ensure the course does not already exist before proceeding
+		$courseTest = Course::whereSubjectCatalog(
+			$input['subject'], $input['catalog_number']
+		)->first();
+		if($courseTest != null) {
+			return redirect()->back()->withInput()->withErrors([
+				'exists' => 'A course with that subject and catalog number already exists.'
+			]);
 		}
 
 		// create the new course
@@ -107,7 +117,8 @@ class AdminCourseController extends Controller {
 		$course->touch();
 
 		// redirect with a success message
-		$success = "You have successfully created a new course.";
+		$success = "You have successfully created a new course (" . e($input['subject'])
+			. " " . $input['catalog_number']  . ": " . e($input['title']) . ").";
 		return redirect(route('admin.courses.index'))->with('success', $success);
 	}
 
@@ -126,9 +137,21 @@ class AdminCourseController extends Controller {
 	 * Handles the submission from the Modify Course screen.
 	 * PUT /admin/courses/{id}
 	 *
+	 * @param integer $id The ID of the course to modify
 	 * @return Response
 	 */
 	public function update($id) {
+
+	}
+
+	/**
+	 * Handles the display of a single course.
+	 * GET /admin/courses/{id}
+	 *
+	 * @param integer $id The ID of the course to display
+	 * @return View
+	 */
+	public function show($id) {
 
 	}
 }
