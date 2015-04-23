@@ -17,4 +17,13 @@ class Course extends Model {
 	 * @var array
 	 */
 	protected $hidden = array('created_at', 'updated_at');
+
+	/**
+	 * Scopes unique subjects with their courses.
+	 *
+	 * @return Builder|Model
+	 */
+	public function scopeSubjects($query) {
+		return $query->groupBy('subject');
+	}
 }

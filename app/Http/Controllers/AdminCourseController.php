@@ -33,8 +33,7 @@ class AdminCourseController extends Controller {
 			);
 		}
 
-		// grab a set of paginated courses; if the second parameter was set
-		// to 'false', the courses would just be from the current term instead
+		// grab a set of paginated courses and set the pagination URL
 		$courses = Course::orderBy('subject')
 			->orderBy('catalog_number')
 			->paginate(25);
@@ -50,7 +49,8 @@ class AdminCourseController extends Controller {
 	 * @return View
 	 */
 	public function create() {
-
+		$subjects = Course::subjects()->lists('subject', 'subject');
+		return view('pages.admin.courses.create', compact('subjects'));
 	}
 
 	/**
