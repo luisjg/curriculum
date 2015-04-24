@@ -74,7 +74,7 @@ class AuthController extends Controller {
 				// auth unsuccessful so return to the login page with an
 				// instance of MessageBag containing the message
 				$errorBag = new MessageBag(array(
-					"invalid" => 'Invalid username / password combination or invalid user account.',
+					"invalid" => 'Invalid username / password combination or inactive user account.',
 				));
 				return redirect('auth/login')->with('errors', $errorBag);
 			}
