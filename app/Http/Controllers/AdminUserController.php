@@ -5,7 +5,8 @@ use Auth,
 	Validator;
 
 use Curriculum\Exceptions\PermissionDeniedException;
-use Curriculum\Models\Role,
+use Curriculum\Models\Person,
+	Curriculum\Models\Role,
 	Curriculum\Models\User;
 
 class AdminUserController extends Controller {
@@ -40,9 +41,57 @@ class AdminUserController extends Controller {
 	}
 
 	/**
+	 * Handles the display of the Add User page.
+	 * GET /admin/users/create
+	 *
+	 * @return View
+	 */
+	public function create() {
+		// perform permission check
+		if(!Auth::user()->hasPerm('user.create')) {
+			throw new PermissionDeniedException(
+				"You do not have permission to access this resource."
+			);
+		}
+
+		return view('pages.admin.users.create');
+	}
+
+	/**
+	 * Handles the submission from the Add User page.
+	 * POST /admin/users
+	 *
+	 * @return Response
+	 */
+	public function store() {
+		// perform permission check
+		if(!Auth::user()->hasPerm('user.create')) {
+			throw new PermissionDeniedException(
+				"You do not have permission to access this resource."
+			);
+		}
+
+		// perform the validation
+		$validator = Validator::make(
+			$input = [
+				'person'	=> Request::get('person')
+			],
+			$rules = [
+				'person'	=> 'required|array'
+			]
+		);
+
+		// if the validator fails, knock the user back
+		if($validator->fails()) {
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+	}
+
+	/**
 	 * Handles the display of the Modify User page.
 	 * GET /admin/users/{id}/edit
 	 *
+	 * @param integer $id The ID of the user to modify
 	 * @return View
 	 */
 	public function edit($id) {
@@ -69,6 +118,7 @@ class AdminUserController extends Controller {
 	 * Handles the submission from the Modify User page.
 	 * PUT /admin/users/{id}
 	 *
+	 * @param integer $id The ID of the user to update
 	 * @return Response
 	 */
 	public function update($id) {
@@ -124,5 +174,40 @@ class AdminUserController extends Controller {
 		$success = "You have successfully updated the record for " .
 			$user->individual->common_name . ".";
 		return redirect(route('admin.users.index'))->with('success', $success);
+	}
+
+	/**
+	 * Performs a full-name search for people with a specified query string.
+	 * Returns the results as JSON.
+	 * POST /admin/users/search
+	 *
+	 * @return string
+	 */
+	public function search() {
+		$query = Request::get('query');
+		if(empty($query)) return "{}";
+
+		// now perform the search
+		$tokens = explode(" ", $query);
+		$people = Person::orderBy('last_name', 'ASC');
+
+		// perform the search based on the type of input received
+		if(strpos($query, "@") !== FALSE) {
+			$people = $people->where('email', $query);
+		}
+		else
+		{
+			// iterate over the tokens to narrow down the search
+			foreach($tokens as $token) {
+				$people = $people->where('common_name', 'LIKE', "%{$token}%");
+			}
+		}
+
+		// TODO: remove people from the collection who are already users in the system
+		// after retrieving the collection
+		$results = $people->get();
+
+		// return the records as JSON
+		return $results->toJSON();
 	}
 }

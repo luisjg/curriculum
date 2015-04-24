@@ -6,6 +6,9 @@
 
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 	<link href="{{ asset('css/util.css') }}" rel="stylesheet" />
+
+	<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 </head>
 <body>
 
