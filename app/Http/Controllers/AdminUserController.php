@@ -85,6 +85,28 @@ class AdminUserController extends Controller {
 		if($validator->fails()) {
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
+
+		// iterate over the array of IDs and create the users that do
+		// not already exist
+		foreach($input['person'] as $person) {
+			// create the user
+			$user = new User();
+			$user->individuals_id = $person;
+			$user->save();
+
+			// create a default role for the new user
+			Membership::create([
+				'parent_entities_id' => config('app.entity_id'),
+				'individuals_id' => $person,
+				'role_position' => 'course_manager'
+			]);
+
+			$user->touch();
+		}
+
+		// display a success message
+		$success = "You have successfully added the selected user(s) to the system.";
+		return redirect(route('admin.users.index'))->with('success', $success);
 	}
 
 	/**
