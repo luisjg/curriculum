@@ -79,6 +79,9 @@ class AdminUserController extends Controller {
 			],
 			$rules = [
 				'person'	=> 'required|array'
+			],
+			$messages = [
+				'person.required'	=> 'Please select at least one person to add.'
 			]
 		);
 
@@ -89,25 +92,38 @@ class AdminUserController extends Controller {
 
 		// iterate over the array of IDs and create the users that do
 		// not already exist
+		$numAdded = 0;
 		foreach($input['person'] as $person) {
-			// create the user
-			$user = new User();
-			$user->individuals_id = $person;
-			$user->save();
+			// ensure the user does not already exist
+			if(!User::find($person)) {
+				// create the user
+				$user = new User();
+				$user->individuals_id = $person;
+				$user->save();
 
-			// create a default role for the new user
-			Membership::create([
-				'parent_entities_id' => config('app.entity_id'),
-				'individuals_id' => $person,
-				'role_position' => 'course_manager'
-			]);
+				// create a default role for the new user
+				Membership::create([
+					'parent_entities_id' => config('app.entity_id'),
+					'individuals_id' => $person,
+					'role_position' => 'course_manager'
+				]);
 
-			$user->touch();
+				$user->touch();
+				$numAdded++;
+			}
 		}
 
-		// display a success message
-		$success = "You have successfully added the selected user(s) to the system.";
-		return redirect(route('admin.users.index'))->with('success', $success);
+		// display a success message if any users were added
+		if($numAdded > 0) {
+			$success = "You have successfully added the selected user(s) to the system.";
+			return redirect(route('admin.users.index'))->with('success', $success);
+		}
+		else
+		{
+			// no users added so display a failure message
+			$errors = ['The selected user(s) already exist in the system.'];
+			return redirect()->back()->withInput()->withErrors($errors);
+		}
 	}
 
 	/**
