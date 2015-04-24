@@ -41,7 +41,7 @@ Modify User
 
 				<div class="checkbox">
 				  <label>
-				  	{!! Form::checkbox('roles[]', $role->system_name, Auth::user()->hasRole($role->system_name), []) !!}
+				  	{!! Form::checkbox('roles[]', $role->system_name, $user->hasRole($role->system_name), []) !!}
 				    {{ $role->display_name }}
 				  </label>
 				</div>
@@ -56,7 +56,7 @@ Modify User
 
 				<div class="checkbox">
 				  <label>
-				  	{!! Form::checkbox('active', 'true', Auth::user()->isActive(), []) !!}
+				  	{!! Form::checkbox('active', true, $user->isActive(), []) !!}
 				    Account is Active
 				  </label>
 				</div>

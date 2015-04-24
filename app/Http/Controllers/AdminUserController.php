@@ -71,6 +71,57 @@ class AdminUserController extends Controller {
 	 * @return Response
 	 */
 	public function update($id) {
+		$user = User::findOrFailById($id);
 
+		// perform permission check
+		if(!Auth::user()->hasPerm('user.modify')) {
+			throw new PermissionDeniedException(
+				"You do not have permission to access this resource."
+			);
+		}
+		else if(Auth::user()->individuals_id == $user->individuals_id) {
+			throw new PermissionDeniedException(
+				"You may not modify your own account."
+			);
+		}
+
+		// perform the validation
+		$validator = Validator::make(
+			$input = [
+				'roles'		=> (Request::has('roles') ? Request::get('roles') : []),
+				'active'	=> (Request::has('active') ? Request::get('active') : false)
+			],
+			$rules = [
+				'roles'		=> 'array',
+				'active'	=> 'boolean'
+			]
+		);
+
+		// if the validator failed, knock the user back
+		if($validator->fails()) {
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		// detach the roles first
+		$user->roles()->detach();
+
+		// now attach the new roles if there are any
+		if(!empty($input['roles'])) {
+			// assign the application ID along with each role
+			$user->roles()->attach(
+				$input['roles'],
+				['parent_entities_id' => config('app.entity_id')]
+			);
+		}
+
+		// now process the activity flag
+		$user->status = ($input['active'] ? "Active" : "Inactive");
+		$user->save();
+		$user->touch();
+
+		// send the user back with a success message
+		$success = "You have successfully updated the record for " .
+			$user->individual->common_name . ".";
+		return redirect(route('admin.users.index'))->with('success', $success);
 	}
 }
