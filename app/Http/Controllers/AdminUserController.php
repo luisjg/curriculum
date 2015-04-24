@@ -5,7 +5,8 @@ use Auth,
 	Validator;
 
 use Curriculum\Exceptions\PermissionDeniedException;
-use Curriculum\Models\Person,
+use Curriculum\Models\Membership,
+	Curriculum\Models\Person,
 	Curriculum\Models\Role,
 	Curriculum\Models\User;
 
