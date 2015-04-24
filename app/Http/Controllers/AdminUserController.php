@@ -35,6 +35,7 @@ class AdminUserController extends Controller {
 		}
 
 		$users = User::with('individual')->paginate(25);
+		$users->setPath(url('/admin/users'));
 		return view('pages.admin.users.index', compact('users'));
 	}
 
