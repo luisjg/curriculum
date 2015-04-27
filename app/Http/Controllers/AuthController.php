@@ -36,8 +36,8 @@ class AuthController extends Controller {
 	 */
 	public function postLogin() {
 		// grab the provided input
-		$username = Request::get('username');
-		$password = Request::get('password');
+		$username = Request::input('username');
+		$password = Request::input('password');
 
 		// place the elements into an array
 		$creds = array(
@@ -59,7 +59,7 @@ class AuthController extends Controller {
 				// auth successful, so re-direct back to the landing page unless
 				// we have a return URL specified
 				if(Request::has('return')) {
-					return redirect(urldecode(Request::get('return')));
+					return redirect(urldecode(Request::input('return')));
 				}
 
 				// if no explicit return URL, use the intended route before we

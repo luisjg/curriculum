@@ -80,10 +80,10 @@ class AdminCourseController extends Controller {
 		// validate the input
 		$validator = Validator::make(
 			$input = [
-				'course_id'			=> Request::get('course_id'),
-				'title'				=> strtoupper(Request::get('title')),
-				'subject'			=> Request::get('subject'),
-				'catalog_number'	=> Request::get('catalog_number'),
+				'course_id'			=> Request::input('course_id'),
+				'title'				=> strtoupper(Request::input('title')),
+				'subject'			=> Request::input('subject'),
+				'catalog_number'	=> Request::input('catalog_number'),
 			],
 			$rules = [
 				'course_id'			=> 'required|numeric|unique:omar.courses,course_id',
@@ -162,9 +162,9 @@ class AdminCourseController extends Controller {
 		// validate the input
 		$validator = Validator::make(
 			$input = [
-				'title'				=> strtoupper(Request::get('title')),
-				'subject'			=> Request::get('subject'),
-				'catalog_number'	=> Request::get('catalog_number'),
+				'title'				=> strtoupper(Request::input('title')),
+				'subject'			=> Request::input('subject'),
+				'catalog_number'	=> Request::input('catalog_number'),
 			],
 			$rules = [
 				'title'				=> 'required|max:255',

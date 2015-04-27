@@ -31,7 +31,7 @@ class ClassController extends Controller {
 		$data = Classes::with('meetings', 'instructors')->where('term_id', $term_id);
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::get('instructor', 0);
+		$instructor = Request::input('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		} else {
@@ -87,7 +87,7 @@ class ClassController extends Controller {
 			->whereIdentifier($id);
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::get('instructor', 0);
+		$instructor = Request::input('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
