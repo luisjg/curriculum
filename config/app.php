@@ -222,7 +222,7 @@ return [
     | Version listed in the API data array that comes back.
     |
     */
-    'api_version' => "curriculum-2.0",
+    'api_version' => "curriculum-1.0",
 
 	/*
     |--------------------------------------------------------------------------
