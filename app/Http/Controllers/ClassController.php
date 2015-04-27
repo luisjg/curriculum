@@ -24,9 +24,11 @@ class ClassController extends Controller {
 	 */
 	public function index()
 	{
-		$term = HandlerUtilities::getCurrentTermID();
+		//$term = HandlerUtilities::getCurrentTermID();
+		$term = Term::current();
+		$term_id = ($term ? $term->term_id : 0);
 
-		$data = Classes::with('meetings', 'instructors')->where('term_id', $term);
+		$data = Classes::with('meetings', 'instructors')->where('term_id', $term_id);
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Request::get('instructor', 0);

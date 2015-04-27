@@ -126,7 +126,11 @@ class HandlerUtilities
 	 *
 	 */
 	public static function prepareClassesResponse($collection)
-	{   
+	{
+		// grab all terms as an array so we can transform the ID into
+		// an actual term name
+		$terms = Term::all()->lists('term', 'term_id');
+
 	    $classes = [];
 	    foreach($collection as $_class) {
 	        $data = [];
@@ -138,7 +142,7 @@ class HandlerUtilities
 	        $data['course_id'] = $_class->course_id;
 	        $data['description'] = $_class->description;
 	        $data['units'] = $_class->units;
-	        $data['term'] = $_class->term;
+	        $data['term'] = (array_key_exists($_class->term_id, $terms) ? $terms[$_class->term_id] : "");
 	        $data['meetings'] = [];
 	        $data['instructors'] = [];
 
@@ -175,7 +179,11 @@ class HandlerUtilities
 	 *
 	 */
 	public static function prepareCoursesResponse($collection)
-	{   
+	{
+		// grab all terms as an array so we can transform the ID into
+		// an actual term name
+		$terms = Term::all()->lists('term', 'term_id');
+
 	    $courses = [];
 	    foreach($collection as $_course) {
 	        $data = [];
@@ -186,7 +194,7 @@ class HandlerUtilities
 	        $data['course_id'] = $_course->course_id;
 	        $data['description'] = $_course->description;
 	        $data['units'] = $_course->units;
-	        $data['term'] = $_course->term;
+	        $data['term'] = (array_key_exists($_course->term_id, $terms) ? $terms[$_course->term_id] : "");
 	        
 	        $courses[] = $data;
 	    }
