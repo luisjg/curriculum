@@ -38,25 +38,21 @@ class TermController extends Controller {
 			$response = array(
 				'status'      => 500,
 				'success'	  => false,
-				'version'     => config('app.api_version'),
 				'type'		  => 'errors',
 				'errors'	  => ['No filter paramters set']
 			);
 
-			return response($response, 500);
+			return HandlerUtilities::sendResponse($response);
 		}
 	
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 		
 		$response = array(
-			'status'      => 200,
-			'success'	  => true,
-			'version'     => config('app.api_version'),
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
 
-		return response($response, 200);
+		return HandlerUtilities::sendResponse($response);
 	}
 
 	/**
@@ -93,14 +89,11 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'status'      => 200,
-			'success'	  => true,
-			'version'     => config('app.api_version'),
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
 
-		return response($response, 200);
+		return HandlerUtilities::sendResponse($response);
 	}
 
 	/**
@@ -124,14 +117,11 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'status'      => 200,
-			'success'	  => true,
-			'version'     => config('app.api_version'),
 			'type'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
 
-		return response($response, 200);
+		return HandlerUtilities::sendResponse($response);
 	}
 
 	/**
@@ -160,14 +150,11 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'status'      => 200,
-			'success'	  => true,
-			'version'     => config('app.api_version'),
 			'type'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
 
-		return response($response, 200);
+		return HandlerUtilities::sendResponse($response);
 	}
 	
 }

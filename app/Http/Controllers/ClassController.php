@@ -38,25 +38,21 @@ class ClassController extends Controller {
 			$response = array(
 				'status'      => 500,
 				'success'	  => false,
-				'version'     => config('app.api_version'),
 				'type'		  => 'errors',
 				'errors'	  => ['No filter paramters set']
 			);
 
-			return response($response, 500);
+			return HandlerUtilities::sendResponse($response, $response['status']);
 		}
 	
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'status'      => 200,
-			'success'	  => true,
-			'version'     => config('app.api_version'),
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
 
-		return response($response, 200);
+		return HandlerUtilities::sendResponse($response);
 	}
 
 	/**
@@ -95,14 +91,11 @@ class ClassController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'status'      => 200,
-			'success'	  => true,
-			'version'     => config('app.api_version'),
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
 
-		return response($response, 200);
+		return HandlerUtilities::sendResponse($response);
 	}
 	
 }

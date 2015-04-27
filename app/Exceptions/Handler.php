@@ -6,6 +6,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+use Curriculum\Handlers\HandlerUtilities;
+
 class Handler extends ExceptionHandler {
 
 	/**
@@ -48,11 +50,10 @@ class Handler extends ExceptionHandler {
 				$response = [
 					'status'      => 404,
 					'success'	  => false,
-					'version'     => config('app.api_version'),
 					'type'		  => 'errors',
 					'errors'	  => ['Resource could not be resolved']
 				];
-				return response($response, 404);
+				return HandlerUtilities::sendResponse($response);
 			}
 
 			// front-end 404 errors get the 404 page

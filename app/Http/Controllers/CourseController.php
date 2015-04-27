@@ -34,15 +34,12 @@ class CourseController extends Controller {
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'status'      => 200,
-			'success'	  => true,
-			'version'     => config('app.api_version'),
 			'type'		  => 'courses',
 			'limit'		  => '50',
 			'courses'	  => $prepped_data
 		);
 
-		return response($response, 200);
+		return HandlerUtilities::sendResponse($response);
 	}
 
 	/**
@@ -66,14 +63,11 @@ class CourseController extends Controller {
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 		$response = array(
-			'status'      => 200,
-			'success'	  => true,
-			'version'     => config('app.api_version'),
 			'type'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
 
-		return response($response, 200);
+		return HandlerUtilities::sendResponse($response);
 	}
 	
 }
