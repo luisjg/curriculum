@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler {
 		}
 		else if($e instanceof NotFoundHttpException) {
 			// handle API 404 errors differently
-			if(strpos($request->url(), '/api/') !== FALSE) {
+			if(starts_with($request->path(), 'api/')) {
 				$response = [
 					'status'      => 404,
 					'success'	  => false,
