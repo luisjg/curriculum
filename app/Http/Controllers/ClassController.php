@@ -38,7 +38,7 @@ class ClassController extends Controller {
 			$response = array(
 				'status'      => 500,
 				'success'	  => false,
-				'version'     => 'curriculum-1.0',
+				'version'     => config('app.api_version'),
 				'type'		  => 'errors',
 				'errors'	  => ['No filter paramters set']
 			);
@@ -51,7 +51,7 @@ class ClassController extends Controller {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'curriculum-1.0',
+			'version'     => config('app.api_version'),
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
@@ -97,7 +97,7 @@ class ClassController extends Controller {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'curriculum-1.0',
+			'version'     => config('app.api_version'),
 			'type'		  => 'classes',
 			'classes'	  => $prepped_data
 		);

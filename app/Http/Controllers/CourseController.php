@@ -24,9 +24,11 @@ class CourseController extends Controller {
 	 */
 	public function index()
 	{
-		$term = HandlerUtilities::getCurrentTermID();
+		//$term = HandlerUtilities::getCurrentTermID();
+		$term = Term::current();
+		$term_id = ($term ? $term->term_id : 0);
 		
-		$data = Classes::groupAsCourse($term, false)
+		$data = Classes::groupAsCourse($term_id, false)
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
@@ -34,7 +36,7 @@ class CourseController extends Controller {
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'curriculum-1.0',
+			'version'     => config('app.api_version'),
 			'type'		  => 'courses',
 			'limit'		  => '50',
 			'courses'	  => $prepped_data
@@ -54,17 +56,19 @@ class CourseController extends Controller {
 	 */
 	public function show($id)
 	{
-		$term = HandlerUtilities::getCurrentTermID();
+		//$term = HandlerUtilities::getCurrentTermID();
+		$term = Term::current();
+		$term_id = ($term ? $term->term_id : 0);
 
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term, Request::get('showAll', false))
+			->groupAsCourse($term_id, Request::get('showAll', false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 		$response = array(
 			'status'      => 200,
 			'success'	  => true,
-			'version'     => 'curriculum-1.0',
+			'version'     => config('app.api_version'),
 			'type'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
