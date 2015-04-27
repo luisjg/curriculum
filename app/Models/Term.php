@@ -28,12 +28,21 @@ class Term extends Model {
 	}
 
 	/**
-	 * Select first semester that ends soonest after today 
+	 * Select first semester that ends soonest after today. If no matching
+	 * term can be found, use the very last term instead.
 	 *
 	 * @return Term
 	 */
 	public function scopeCurrent($query) {
-		return $query->nowAndNext()->first();
+		$current_date = date("Y-m-d H:i:s");
+		$term = $query->nowAndNext()->first();
+		if(!$term) {
+			$term = $query->where('end_date', '<', $current_date)
+				->orderBy('end_date', 'DESC')
+				->first();
+		}
+
+		return $term;
 	}
 
 	/**

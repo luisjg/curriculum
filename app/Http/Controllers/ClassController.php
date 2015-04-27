@@ -77,7 +77,8 @@ class ClassController extends Controller {
 	public function show($id)
 	{
 		//$term_id = HandlerUtilities::getCurrentTermID();
-		$term_id = Term::current()->term_id;
+		$term = Term::current();
+		$term_id = ($term ? $term->term_id : 0);
 
 		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
