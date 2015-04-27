@@ -36,8 +36,12 @@ class AdminUserController extends Controller {
 			);
 		}
 
-		$users = User::with('individual')->paginate(25);
-		$users->setPath(url('/admin/users'));
+		$users = User::with('individual')->get();
+		// sort the users by last name
+		$users->sort(function($a, $b) {
+			return strcmp($a->individual->last_name, $b->individual->last_name);
+		});
+
 		return view('pages.admin.users.index', compact('users'));
 	}
 
