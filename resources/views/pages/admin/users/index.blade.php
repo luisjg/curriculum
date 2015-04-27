@@ -45,22 +45,6 @@ Manage Users
 
 		<div class="col-xs-12">
 
-			@if($users->count() > 0)
-			<div class="pull-left">
-
-				{!! $users->render() !!}
-
-			</div>
-			@endif
-
-		</div>
-
-	</div>
-
-	<div class="row">
-
-		<div class="col-xs-12">
-
 			<table class="table">
 
 				<thead>
