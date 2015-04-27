@@ -36,13 +36,10 @@ class ClassController extends Controller {
 			$data->hasInstructor($instructor);
 		} else {
 			$response = array(
-				'status'      => 500,
-				'success'	  => false,
-				'type'		  => 'errors',
 				'errors'	  => ['No filter paramters set']
 			);
 
-			return HandlerUtilities::sendResponse($response, $response['status']);
+			return HandlerUtilities::sendErrorResponse($response);
 		}
 	
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());

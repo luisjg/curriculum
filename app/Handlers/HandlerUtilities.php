@@ -205,12 +205,37 @@ class HandlerUtilities
 	}
 
 	/**
+	 * Returns the JSON response with optional response code. This method also
+	 * logs the request information for statistical purposes.
+	 *
+	 * @param array $data The error data to send back to the browser
+	 * @param integer $code Optional error response code to send back
+	 *
+	 * @return Response
+	 */
+	public static function sendErrorResponse($data, $code=500) {
+		// additional data to add that should exist for all responses
+		$additional = [
+			'type' => 'errors',
+			'success' => false,
+			'status' => $code
+		];
+
+		// add the additional data to the response if it does not
+		// already exist
+		foreach($additional as $key => $value) {
+			$data = array_add($data, $key, $value);
+		}
+
+		// complete the response
+		return self::sendResponse($data);
+	}
+
+	/**
 	 * Returns the JSON response with the response code. This method also
 	 * logs the request information for statistical purposes.
 	 *
 	 * @param array $data The data to send back to the browser
-	 * @param integer $code The response code to send back
-	 *
 	 * @return Response
 	 */
 	public static function sendResponse($data) {

@@ -48,12 +48,9 @@ class Handler extends ExceptionHandler {
 			// handle API 404 errors differently
 			if(starts_with($request->path(), 'api/')) {
 				$response = [
-					'status'      => 404,
-					'success'	  => false,
-					'type'		  => 'errors',
 					'errors'	  => ['Resource could not be resolved']
 				];
-				return HandlerUtilities::sendResponse($response);
+				return HandlerUtilities::sendErrorResponse($response, 404);
 			}
 
 			// front-end 404 errors get the 404 page
