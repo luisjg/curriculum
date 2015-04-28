@@ -85,7 +85,7 @@ Add User
 				{
 					// start the table
 					$("#search-results").append(
-						"<table class='table'><thead><tr><th>Subject</th><th>Catalog Number</th><th>Title</th><th>Actions</th></tr></thead><tbody>"
+						"<table class='table'><thead><tr><th>Subject</th><th>Catalog #</th><th>Title</th><th>Actions</th></tr></thead><tbody>"
 					);
 
 					// iterate over the returned data and build the table
