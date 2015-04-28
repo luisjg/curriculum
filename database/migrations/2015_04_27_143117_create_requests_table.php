@@ -20,6 +20,7 @@ class CreateRequestsTable extends Migration {
 		    $table->string('path', 255);
 		    $table->integer('response_code');
 		    $table->boolean('success')->default(true);
+		    $table->integer('results');
 		    $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		    $table->timestamp('updated_at')->nullable();
 		});

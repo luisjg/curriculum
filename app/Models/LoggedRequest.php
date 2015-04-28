@@ -23,5 +23,5 @@ class LoggedRequest extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['ip', 'path', 'response_code', 'success'];
+	protected $fillable = ['ip', 'path', 'response_code', 'success', 'results'];
 }

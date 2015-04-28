@@ -256,12 +256,22 @@ class HandlerUtilities
 		$ip = Request::ip();
 		$path = Request::path();
 
+		// figure out the result count
+		$dataCount = 0;
+		if($data['type'] == 'classes') {
+			$dataCount = count($data['classes']);
+		}
+		else if($data['type'] == 'courses') {
+			$dataCount = count($data['courses']);
+		}
+
 		// log the request for statistical purposes
 		LoggedRequest::create([
 			'ip' => $ip,
 			'path' => $path,
 			'response_code' => $data['status'],
-			'success' => $data['success']
+			'success' => $data['success'],
+			'results' => $dataCount
 		]);
 
 		// now send the response code and data back
