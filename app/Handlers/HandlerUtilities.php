@@ -254,7 +254,10 @@ class HandlerUtilities
 
 		// grab the necessary Request information
 		$ip = Request::ip();
-		$path = Request::path();
+
+		// resolve the URL portion beginning with /api to include the
+		// query string provided, if any
+		$path = str_replace(Request::root(), "", urldecode(Request::fullUrl()));
 
 		// figure out the result count
 		$dataCount = 0;
