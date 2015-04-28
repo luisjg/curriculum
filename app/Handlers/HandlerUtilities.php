@@ -257,7 +257,7 @@ class HandlerUtilities
 
 		// resolve the URL portion beginning with /api to include the
 		// query string provided, if any
-		$path = str_replace(Request::root(), "", urldecode(Request::fullUrl()));
+		$path = urldecode(str_replace(Request::root(), "", Request::fullUrl()));
 
 		// figure out the result count
 		$dataCount = 0;
