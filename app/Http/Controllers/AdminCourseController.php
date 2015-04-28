@@ -272,7 +272,8 @@ class AdminCourseController extends Controller {
 			// catalog designation using two letters with a space in-between
 			if(count($tokens) == 3
 				&& strlen($tokens[0]) < 3
-				&& strlen($tokens[1]) < 3) {
+				&& strlen($tokens[1]) < 3
+				&& strpbrk($tokens[2], '0123456789') !== FALSE) {
 					$courses = Course::where('subject', "{$tokens[0]} {$tokens[1]}")
 						->where('catalog_number', $tokens[2]);
 			}
