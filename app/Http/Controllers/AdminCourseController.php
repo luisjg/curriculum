@@ -263,8 +263,8 @@ class AdminCourseController extends Controller {
 				->get();
 		}
 
-		if(count($tokens) == 2) {
-			// could be catalog designation if the second token is alphanumeric
+		if(count($tokens) == 2 && strpbrk($tokens[1], '0123456789') !== FALSE) {
+			// could be catalog designation if the second token has a number in it
 			$courses = Course::where('subject', $tokens[0])->where('catalog_number', $tokens[1]);
 		}
 		else
