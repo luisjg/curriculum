@@ -269,7 +269,8 @@ class AdminCourseController extends Controller {
 		}
 		else
 		{
-			// catalog designation using two letters with a space in-between
+			// catalog designation using two tokens with a space in-between and
+			// terminating with a numerical third token
 			if(count($tokens) == 3
 				&& strlen($tokens[0]) < 3
 				&& strlen($tokens[1]) < 3
