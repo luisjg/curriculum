@@ -263,7 +263,7 @@ class AdminCourseController extends Controller {
 				->get();
 		}
 
-		if(count($tokens) == 2 && strpbrk($tokens[1], '0123456789') !== FALSE) {
+		if(count($tokens) == 2 && preg_match("/[0-9]+/", $tokens[1])) {
 			// could be catalog designation if the second token has a number in it
 			$courses = Course::where('subject', $tokens[0])->where('catalog_number', $tokens[1]);
 		}
@@ -273,7 +273,7 @@ class AdminCourseController extends Controller {
 			if(count($tokens) == 3
 				&& strlen($tokens[0]) < 3
 				&& strlen($tokens[1]) < 3
-				&& strpbrk($tokens[2], '0123456789') !== FALSE) {
+				&& preg_match("/[0-9]+/", $tokens[2])) {
 					$courses = Course::where('subject', "{$tokens[0]} {$tokens[1]}")
 						->where('catalog_number', $tokens[2]);
 			}
