@@ -61,7 +61,7 @@ class AdminCourseController extends Controller {
 		}
 
 		// grab the subjects so we have something for the drop-down on the view
-		$subjects = Subject::all()->lists('name', 'subject');
+		$subjects = Subject::orderBy('name')->get()->lists('name', 'subject');
 		return view('pages.admin.courses.create', compact('subjects'));
 	}
 
@@ -139,7 +139,7 @@ class AdminCourseController extends Controller {
 		$course = Course::findOrFailByCourseId($id);
 
 		// grab the subjects so we have something for the drop-down on the view
-		$subjects = Subject::all()->lists('name', 'subject');
+		$subjects = Subject::orderBy('name')->get()->lists('name', 'subject');
 		return view('pages.admin.courses.edit', compact('course', 'subjects'));
 	}
 
