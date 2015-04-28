@@ -29,10 +29,10 @@ class EventServiceProvider extends ServiceProvider {
 		parent::boot($events);
 
 		// register a custom event handler for a Course
-		Course::creating(function($course) {
+		/*Course::creating(function($course) {
 			// generate the courses_id for the course
 			$course->courses_id = 'courses:' . str_pad($course->course_id, 6, '0', STR_PAD_LEFT);
-		});
+		});*/
 	}
 
 }
