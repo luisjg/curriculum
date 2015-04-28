@@ -228,6 +228,7 @@ class HandlerUtilities
 		}
 
 		// complete the response
+		$data = array_reverse($data);
 		return self::sendResponse($data);
 	}
 
@@ -248,9 +249,11 @@ class HandlerUtilities
 
 		// add the additional data to the response if it does not
 		// already exist
+		$data = array_reverse($data);
 		foreach($additional as $key => $value) {
 			$data = array_add($data, $key, $value);
 		}
+		$data = array_reverse($data);
 
 		// grab the necessary Request information
 		$ip = Request::ip();
