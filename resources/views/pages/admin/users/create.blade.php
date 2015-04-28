@@ -84,7 +84,7 @@ Add User
 			$("#search-results").empty();
 			$("#search-results").append("<p>Searching. Please wait...");
 
-			$.post("{{ url('admin/users/search') }}", {'query' : $('#search').val(), '_token': '{{ Session::token() }}' }, function(data) {
+			$.post("{{ url('admin/users/search') }}", {'query' : $('#search').val() }, function(data) {
 				$("#search-results").empty();
 
 				// ensure there were records retrieved before proceeding
