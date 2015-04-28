@@ -4,6 +4,8 @@ use Auth,
 	Request,
 	Validator;
 
+use Illuminate\Support\Collection;
+
 use Curriculum\Exceptions\PermissionDeniedException;
 use Curriculum\Models\Course,
 	Curriculum\Models\Subject,
@@ -237,20 +239,62 @@ class AdminCourseController extends Controller {
 	}
 
 	/**
-	 * Handles the submission from the Search Courses page.
+	 * Handles the submission from the Search Courses page. Returns the
+	 * results as JSON.
 	 * POST /admin/courses/search
 	 *
-	 * @return Response
+	 * @return JSON
 	 */
 	public function postSearch() {
-		$query = Request::input('query');
+		$query = trim(Request::input('query'));
 		if(empty($query)) return "{}";
 
 		// figure out the possible format of the query
 		$tokens = explode(" ", $query);
+		$subjCourses = new Collection();
+
+		// one/two token(s) could also mean "give me everything with this subject"
+		// or "give me everything with this catalog number" so this will be
+		// regarded as extra course information
+		if(count($tokens) == 1 || count($tokens) == 2) {
+			$subjCourses = Course::where('subject', implode(" ", $tokens))
+				->orWhere('catalog_number', $tokens[0])
+				->orderBy('subject')->orderBy('catalog_number')
+				->get();
+		}
+
 		if(count($tokens) == 2) {
 			// could be catalog designation if the second token is alphanumeric
-			
+			$courses = Course::where('subject', $tokens[0])->where('catalog_number', $tokens[1]);
 		}
+		else
+		{
+			// catalog designation using two letters with a space in-between
+			if(count($tokens) == 3
+				&& strlen($tokens[0]) < 3
+				&& strlen($tokens[1]) < 3) {
+					$courses = Course::where('subject', "{$tokens[0]} {$tokens[1]}")
+						->where('catalog_number', $tokens[2]);
+			}
+			else
+			{
+				// narrow the search down by course title instead
+				$courses = Course::where('title', 'LIKE', "%" . array_shift($tokens) . "%");
+				foreach($tokens as $token) {
+					$courses = $courses->where('title', 'LIKE', "%{$token}%");
+				}
+			}
+		}
+
+		// grab the results
+		$results = $courses->orderBy('subject')->orderBy('catalog_number')->get();
+
+		// if there is extra stuff, merge it with the results
+		if(!$subjCourses->isEmpty()) {
+			$results = $subjCourses->merge($results);
+		}
+
+		// return everything as JSON
+		return $results->toJSON();
 	}
 }

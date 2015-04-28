@@ -19,6 +19,10 @@
       <ul class="nav navbar-nav">
 
         @if(Auth::user()->hasPerm('course.retrieve.all'))
+        <li><a href="{{ url('/admin/courses/search') }}"><span class="glyphicon glyphicon-search"></span> Search</a></li>
+        @endif
+
+        @if(Auth::user()->hasPerm('course.retrieve.all'))
         <li><a href="{{ url('/admin/courses') }}"><span class="glyphicon glyphicon-book"></span> Courses</a></li>
         @endif
 
