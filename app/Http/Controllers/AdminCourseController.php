@@ -110,8 +110,8 @@ class AdminCourseController extends Controller {
 
 		// create the new course
 		$course = new Course();
-		$course->courses_id = 'courses:' . str_pad($course->course_id, 6, '0', STR_PAD_LEFT);
 		$course->fill(array_only($input, array_keys($rules)));
+		$course->courses_id = 'courses:' . str_pad($course->course_id, 6, '0', STR_PAD_LEFT);
 		//$course = Course::create(array_only($input, array_keys($rules)));
 		$course->save();
 		$course->touch();
