@@ -148,6 +148,12 @@ return [
 		// HTML and Form facades
 		'Illuminate\Html\HtmlServiceProvider',
 
+		// Clockwork
+		'Clockwork\Support\Laravel\ClockworkServiceProvider',
+
+		// META Lab authentication service provider
+		'METALab\Auth\Provider\AuthServiceProvider',
+
 	],
 
 	/*
@@ -196,9 +202,45 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
+		// Added
+		'Carbon'        => 'Carbon\Carbon',
+
 		// Form and HTML facades
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
+
+		// Clockwork
+		'Clockwork' => 'Clockwork\Support\Laravel\Facade',
+
+	],
+
+	/*
+    |--------------------------------------------------------------------------
+    | Entity ID
+    |--------------------------------------------------------------------------
+    |
+    | Entity ID listed as the parent_entity_id column for all child entities in
+    | nemo.memberships.
+    |
+    */
+    'entity_id' => env("ENTITY_ID"),
+
+    /*
+	|--------------------------------------------------------------------------
+	| LDAP configuration
+	|--------------------------------------------------------------------------
+	|
+	| Configuration parameters related to LDAP functionality.
+	|
+	*/
+
+	'ldap' => [
+
+		'host' => env("LDAP_HOST"),
+		'basedn' => env("LDAP_BASE_DN"),
+		'dn' => env("LDAP_DN"),
+		'password' => env("LDAP_PASSWORD"),
+		'allow_no_pass' => env("LDAP_ALLOW_NO_PASS"),
 
 	],
 

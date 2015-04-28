@@ -12,6 +12,13 @@
 */
 
 
+// authentication functionality
+Route::controller('/auth', 'AuthController');
+
+// admin course functionality
+Route::get('/admin', 'AdminCourseController@index');
+Route::resource('/admin/courses', 'AdminCourseController');
+
 // class info with current term
 Route::get('api/classes', 'ClassController@index');
 Route::get('api/classes/{id}', 'ClassController@show');

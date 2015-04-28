@@ -25,8 +25,7 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getIndex()
-	{
+	public function getIndex() {
 		return view('pages.hello');
 	}
 

@@ -1,7 +1,10 @@
 <?php namespace Curriculum\Exceptions;
 
 use Exception;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Handler extends ExceptionHandler {
 
@@ -11,7 +14,7 @@ class Handler extends ExceptionHandler {
 	 * @var array
 	 */
 	protected $dontReport = [
-		'Symfony\Component\HttpKernel\Exception\HttpException'
+		//'Symfony\Component\HttpKernel\Exception\HttpException'
 	];
 
 	/**
@@ -36,6 +39,16 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
+		if($e instanceof PermissionDeniedException) {
+			return response(view('pages.errors.401', compact('e')), 401);
+		}
+		else if($e instanceof NotFoundHttpException) {
+			return response(view('pages.errors.404'), 404);
+		}
+		else if($e instanceof ModelNotFoundException) {
+			return response(view('pages.errors.404'), 404);
+		}
+
 		return parent::render($request, $e);
 	}
 

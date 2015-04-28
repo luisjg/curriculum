@@ -14,7 +14,15 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		// $this->call('UserTableSeeder');
+		$this->call('UserTableSeeder');
+		$this->call('RoleTableSeeder');
+		$this->call('PermissionTableSeeder');
+
+		// add all memberships first but ensure the application is on a local
+		// environment before doing so
+		if(app()->environment() == "local") {
+			$this->call('MembershipsTableSeeder');
+		}
 	}
 
 }
