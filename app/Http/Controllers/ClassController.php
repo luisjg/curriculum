@@ -17,7 +17,7 @@ class ClassController extends Controller {
 
 	/**
 	 * Get all class information from the current term
-	 * @link /classes 	GET
+	 * @link /api/classes 	GET
 	 * @return all classes, including the class_meeting and
 	 * class_instructors for those classes
 	 *
@@ -58,7 +58,7 @@ class ClassController extends Controller {
 	 *	catalog_number if subject-catalog_number is given. All the information
 	 *  is for the current term
 	 * @todo Exceptions in else block, and is_numeric check on ticket number
-	 * @link /classes/{id} 	GET
+	 * @link /api/classes/{id} 	GET
 	 * @internal Examples of possible $id
 	 *		NAME 					EXAMPLE			 
 	 *		association_id			classes:Summer-14:10472 		

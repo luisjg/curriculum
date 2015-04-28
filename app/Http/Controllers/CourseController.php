@@ -16,7 +16,7 @@ class CourseController extends Controller {
 
 	/**
 	 * Get all course information for the current term
-	 * @link /courses 	GET
+	 * @link /api/courses 	GET
 	 * @internal don't allow entire course list for all semesters to be returned without a subject 
 	 * 				until paging or some way to restrict these results is added
 	 * @return all courses for the current term
@@ -46,7 +46,7 @@ class CourseController extends Controller {
 	 * Get course information for a specific course, given a subject,
 	 *  for the current term
 	 * @todo Exceptions in else block
-	 * @link /courses/{id} 	GET
+	 * @link /api/courses/{id} 	GET
 	 * @param string $id
 	 * @return course info for a subject, all for the current term
 	 *
