@@ -225,4 +225,32 @@ class AdminCourseController extends Controller {
 		$course = Course::findOrFailByCourseId($id);
 		return view('pages.admin.courses.show', compact('course'));
 	}
+
+	/**
+	 * Handles the display of the Search Courses page.
+	 * GET /admin/courses/search
+	 *
+	 * @return View
+	 */
+	public function getSearch() {
+		return view('pages.admin.courses.search');
+	}
+
+	/**
+	 * Handles the submission from the Search Courses page.
+	 * POST /admin/courses/search
+	 *
+	 * @return Response
+	 */
+	public function postSearch() {
+		$query = Request::input('query');
+		if(empty($query)) return "{}";
+
+		// figure out the possible format of the query
+		$tokens = explode(" ", $query);
+		if(count($tokens) == 2) {
+			// could be catalog designation if the second token is alphanumeric
+			
+		}
+	}
 }

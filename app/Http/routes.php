@@ -16,6 +16,8 @@ Route::controller('/auth', 'AuthController');
 
 // admin course functionality
 Route::get('/admin', 'AdminCourseController@index');
+Route::get('/admin/courses/search', 'AdminCourseController@getSearch');
+Route::post('/admin/courses/search', 'AdminCourseController@postSearch');
 Route::resource('/admin/courses', 'AdminCourseController');
 
 // admin user functionality
