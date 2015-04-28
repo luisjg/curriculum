@@ -3,7 +3,8 @@
 use Request;
 
 use Curriculum\Handlers\HandlerUtilities;
-use Curriculum\Models\Classes;
+use Curriculum\Models\Classes,
+	Curriculum\Models\Term;
 
 class CourseController extends Controller {
 
