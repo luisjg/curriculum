@@ -12,7 +12,8 @@
 		<li><a href="#examples">Example</a></li>	
 	</ul>
 
-	<a href="http://curriculum.ptg.csun.edu/pdfs/CurriculumWebService.pdf" class="download" target="_blank">
+	
+	<a href="{!! asset('pdfs/CurriculumWebService.pdf') !!}" class="download" target="_blank">
 		<span class="glyphicons glyphicons-download-alt"></span>
 		System Description
 	</a>
