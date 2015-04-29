@@ -162,7 +162,7 @@
 			    <div role="tabpanel" class="tab-pane active" id="php">
 			    	<pre class="prettyprint">
 
-// query all courses
+// query all CompSci courses
 $url = '{{ url('api/courses/comp') }}';
 
 // call url, you can also use CURL or guzzle -> https://github.com/guzzle/guzzle
@@ -191,7 +191,7 @@ print_r($course_codes);
 import urllib2
 import json
 
-#query all courses
+#query all CompSci courses
 url = u'{{ url('api/courses/comp') }}'
 
 #try to read the data	
@@ -222,6 +222,7 @@ print course_codes
 // this example assumes jQuery integration for ease of use
 // and a &lt;div&gt; element with the ID of "course-results"
 
+// query all CompSci courses
 var url = '{{ url('api/courses/comp') }}';
 $(document).ready(function() {
 
