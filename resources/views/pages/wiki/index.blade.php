@@ -163,7 +163,7 @@
 			    	<pre class="prettyprint">
 
 // query all courses
-$url = 'http://curriculum.ptg.csun.edu/api/courses';
+$url = '{{ url('api/courses/comp') }}';
 
 // call url, you can also use CURL or guzzle -> https://github.com/guzzle/guzzle
 $data = file_get_contents($url);
@@ -192,7 +192,7 @@ import urllib2
 import json
 
 #query all courses
-url = u'http://curriculum.ptg.csun.edu/api/courses'
+url = u'{{ url('api/courses/comp') }}'
 
 #try to read the data	
 try:
@@ -222,7 +222,7 @@ print course_codes
 // this example assumes jQuery integration for ease of use
 // and a &lt;div&gt; element with the ID of "course-results"
 
-var url = '{{ url('api/courses') }}';
+var url = '{{ url('api/courses/comp') }}';
 $(document).ready(function() {
 
 	// perform a shorthand AJAX call to grab the information
@@ -230,10 +230,10 @@ $(document).ready(function() {
 
 		// iterate over the returned courses
 		var courses = data.courses;
-		$(courses).each(function(course) {
+		$(courses).each(function(index, course) {
 
 			// append each course to the content of the element
-			$('#course-results').append(course.subject + ' ' + course.catalog_number);
+			$('#course-results').append('&lt;p&gt;' + course.subject + ' ' + course.catalog_number + '&lt;/p&gt;');
 
 		});
 		
