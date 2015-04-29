@@ -11,6 +11,7 @@
 |
 */
 
+
 // authentication functionality
 Route::controller('/auth', 'AuthController');
 
