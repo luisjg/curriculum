@@ -50,7 +50,13 @@ class User extends MetaUser implements MetaAuthenticatableContract {
 			->first();
 
 		// if there was an actual record, update the last login time
+		// if necessary
 		if(!empty($u)) {
+			// if the account is not active, take that into consideration
+			if(!$u->isActive()) {
+				return null;
+			}
+
 			$u->last_login_at = Carbon::now()->toDateTimeString();
 			$u->save();
 		}
@@ -74,7 +80,13 @@ class User extends MetaUser implements MetaAuthenticatableContract {
 			->first();
 
 		// if there was an actual record, update the last login time
+		// if necessary
 		if(!empty($u)) {
+			// if the account is not active, take that into consideration
+			if(!$u->isActive()) {
+				return null;
+			}
+
 			$u->last_login_at = Carbon::now()->toDateTimeString();
 			$u->save();
 		}
@@ -196,6 +208,23 @@ class User extends MetaUser implements MetaAuthenticatableContract {
 	| Any function that is used in the ORM due to model relationships
 	|
 	*/
+
+	/**
+	 * Finds a user with the specified integer ID. Throws ModelNotFoundException
+	 * if the model could not be returned.
+	 *
+	 * @param integer $user_id The ID value to use when querying
+	 * @throws ModelNotFoundException
+	 * @return User
+	 */
+	public static function findOrFailById($user_id) {
+		$user = self::where('id', $user_id)->first();
+		if($user == null) {
+			throw new ModelNotFoundException();
+		}
+
+		return $user;
+	}
 
 	/**
 	 * Returns the individual associated with this user account.

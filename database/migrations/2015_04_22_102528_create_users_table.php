@@ -15,14 +15,12 @@ class CreateUsersTable extends Migration {
 		// users table
 		Schema::create('users', function($table)
 		{
+			$table->increments('id');
 		    $table->string('individuals_id', 100);
 		    $table->timestamp('last_login_at')->nullable();
 		    $table->string('status', 30)->default("Active");
 		    $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		    $table->timestamp('updated_at')->nullable();
-
-		    // make sure the primary key is set
-		    $table->primary('individuals_id');
 		});
 	}
 

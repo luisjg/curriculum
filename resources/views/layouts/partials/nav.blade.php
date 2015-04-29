@@ -18,7 +18,13 @@
       @if(Auth::check())
       <ul class="nav navbar-nav">
 
+        @if(Auth::user()->hasPerm('course.retrieve.all'))
         <li><a href="{{ url('/admin/courses') }}"><span class="glyphicon glyphicon-book"></span> Courses</a></li>
+        @endif
+
+        @if(Auth::user()->hasPerm('user.retrieve.all'))
+        <li><a href="{{ url('/admin/users') }}"><span class="glyphicon glyphicon-user"></span> Users</a></li>
+        @endif
 
       </ul>
       @endif

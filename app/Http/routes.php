@@ -19,6 +19,9 @@ Route::controller('/auth', 'AuthController');
 Route::get('/admin', 'AdminCourseController@index');
 Route::resource('/admin/courses', 'AdminCourseController');
 
+// admin user functionality
+Route::resource('/admin/users', 'AdminUserController');
+
 // class info with current term
 Route::get('api/classes', 'ClassController@index');
 Route::get('api/classes/{id}', 'ClassController@show');

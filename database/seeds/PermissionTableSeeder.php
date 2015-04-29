@@ -18,13 +18,17 @@ class PermissionTableSeeder extends Seeder {
 		DB::table('permission_role')->delete();
 		DB::table('permissions')->delete();
 
-		// create some sample permissions
+		// create some permissions
 		DB::table('permissions')->insert([
 			['system_name' => 'app.debug.view', 			'description' => 'View application debug data'],
 			['system_name' => 'course.create', 				'description' => 'Create a new course'],
 			['system_name' => 'course.retrieve', 			'description' => 'View an existing course'],
 			['system_name' => 'course.retrieve.all', 		'description' => 'View all existing courses'],
 			['system_name' => 'course.modify', 				'description' => 'Modify an existing course'],
+			['system_name' => 'user.create', 				'description' => 'Add a user to the system'],
+			['system_name' => 'user.retrieve', 				'description' => 'View an existing user'],
+			['system_name' => 'user.retrieve.all', 			'description' => 'View all existing users'],
+			['system_name' => 'user.modify', 				'description' => 'Modify an existing user'],
 		]);
 
 		/* ADMIN PERMISSIONS  */
