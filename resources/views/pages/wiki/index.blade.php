@@ -152,6 +152,8 @@
 		    <li role="presentation" class="active"><a href="#php" aria-controls="php" role="tab" data-toggle="tab">PHP</a></li>
 
 		    <li role="presentation"><a href="#python" aria-controls="messages" role="tab" data-toggle="tab">Python</a></li>
+
+		    <li role="presentation"><a href="#js" aria-controls="messages" role="tab" data-toggle="tab">JavaScript</a></li>
 		 
 		  </ul>
 
@@ -210,6 +212,35 @@ for course in data['courses']:
 	course_codes.append(course['subject']+ ' ' + course['catalog_number'])
 
 print course_codes
+					</pre>
+			    </div>
+
+
+			    <div role="tabpanel" class="tab-pane" id="js">	    	
+			    	<pre class="prettyprint">
+
+// this example assumes jQuery integration for ease of use
+// and a &lt;div&gt; element with the ID of "course-results"
+
+var url = '{{ url('api/courses') }}';
+$(document).ready(function() {
+
+	// perform a shorthand AJAX call to grab the information
+	$.get(url, function(data) {
+
+		// iterate over the returned courses
+		var courses = data.courses;
+		$(courses).each(function(course) {
+
+			// append each course to the content of the element
+			$('#course-results').append(course.subject + ' ' + course.catalog_number);
+
+		});
+		
+	});
+
+});
+
 					</pre>
 			    </div>
 			</div>
