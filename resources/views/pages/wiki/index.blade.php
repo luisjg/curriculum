@@ -120,7 +120,7 @@
 		<p class="urls">{!! link_to('api/classes/15223') !!}</p>
 
 		<h5>Single Course</h5>
-		<p class="urls">{!! link_to('api/courses/10080') !!}</p>
+		<p class="urls">{!! link_to('api/courses/comp-100') !!}</p>
 
 	</div>
 
