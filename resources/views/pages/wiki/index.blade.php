@@ -36,28 +36,28 @@
 		
 		<pre class="prettyprint introduction">
 {
-	"status": 200,
-	"success": true,
-	"version": "omar­1.0",
+	"status": "200",
+	"success": "true",
+	"version": "curriculum-1.0",
 	"type": "courses",
 	"courses": [
 		{
 			"subject": "COMP",
 			"catalog_number": "100",
-			"title": "Computers: Their Impact and Use",
-			"course_id": "19187",
+			"title": "COMPTRS/IMPCT-USE",
+			"course_id": "10080",
 			"description": "Not open to ...",
 			"units" : "3",
-			"term": "Fall­2014"
+			"term": "Spring-2015"
 		},
 		{
 			"subject": "COMP",
-			"catalog_number": "101",
-			"title": "Introduction to Algorithms",
-			"course_id": "19185",
+			"catalog_number": "110",
+			"title": "INTRO ALGRTH/PROG",
+			"course_id": "18237",
 			"description": "Not open to ...",
 			"units": "2",
-			"term": "Fall­2014"
+			"term": "Spring-2015"
 		},
 		...
 	]
