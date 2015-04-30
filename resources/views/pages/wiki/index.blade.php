@@ -74,10 +74,10 @@
 			<p>Find the usage that fits your need. Browse through subcollections, instances and query types to help you craft your URI.</p>
 
 			<span class="list-type">2</span> <span class="title">Provide the data</span>
-			<p>Use the URI to query your data. See the Example session.</p>
+			<p>Use the URI to query your data. See the Usage Example session.</p>
 
 			<span class="list-type">3</span> <span class="title">Show the results</span>
-			<p>Loop through the data to display its information. See the Example session.</p>
+			<p>Loop through the data to display its information. See the Usage Example session.</p>
 		</div>
 	
 	</div>
