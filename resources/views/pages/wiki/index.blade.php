@@ -29,8 +29,8 @@
 			The curriculum web service gives information about courses and classes.
 			This information is derived from the CSUN catalog and SOLAR.
 			The web service provides a gateway to access the information via a REST-ful API.
-			The usage is composed by creating an URI giving values to filter the data. 
-			The information that is returned is a JSON object that contains a set of courses or classes, 
+			The information is retrieved by creating a specific URI and giving values to filter the data. 
+			The information that is returned is a JSON object that contains a set of courses or classes; 
 			the format of the JSON object is as follows:
 		</p>
 		
@@ -71,13 +71,13 @@
 
 		<div class="list-box">
 			<span class="list-type">1</span> <span class="title">Generate the URI</span>
-			<p>Find the usage that fits your need, browse through subcolection, instace and query types to help you to craft it.</p>
+			<p>Find the usage that fits your need. Browse through subcollections, instances and query types to help you craft your URI.</p>
 
 			<span class="list-type">2</span> <span class="title">Provide the data</span>
 			<p>Use the URI to query your data. See the Example session.</p>
 
 			<span class="list-type">3</span> <span class="title">Show the results</span>
-			<p>Loop through the data displaying their information. See the Example session.</p>
+			<p>Loop through the data to display its information. See the Example session.</p>
 		</div>
 	
 	</div>
@@ -98,6 +98,10 @@
 		<p class="urls">{!! link_to('api/classes/comp') !!}</p>
 		<p class="urls">{!! link_to('api/classes/comp-110') !!}</p>
 		<p class="urls">{!! link_to('api/terms/Fall-2014/classes/comp-110') !!}</p>
+
+		<h5>Course Listings</h5>
+		<p class="urls">{!! link_to('api/courses/comp') !!}</p>
+		<p class="urls">{!! link_to('api/terms/Fall-2014/courses/comp') !!}</p>
 	</div>
 	
 
@@ -115,9 +119,8 @@
 		<h5>Single Class</h5>
 		<p class="urls">{!! link_to('api/classes/15223') !!}</p>
 
-		<h5>Course Listings</h5>
-		<p class="urls">{!! link_to('api/courses/comp') !!}</p>
-		<p class="urls">{!! link_to('api/terms/Fall-2014/courses/comp') !!}</p>
+		<h5>Single Course</h5>
+		<p class="urls">{!! link_to('api/courses/10080') !!}</p>
 
 	</div>
 
