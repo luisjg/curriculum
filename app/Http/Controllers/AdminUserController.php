@@ -5,7 +5,9 @@ use Auth,
 	Validator;
 
 use Curriculum\Exceptions\PermissionDeniedException;
-use Curriculum\Models\Role,
+use Curriculum\Models\Membership,
+	Curriculum\Models\Person,
+	Curriculum\Models\Role,
 	Curriculum\Models\User;
 
 class AdminUserController extends Controller {
@@ -44,9 +46,95 @@ class AdminUserController extends Controller {
 	}
 
 	/**
+	 * Handles the display of the Add User page.
+	 * GET /admin/users/create
+	 *
+	 * @return View
+	 */
+	public function create() {
+		// perform permission check
+		if(!Auth::user()->hasPerm('user.create')) {
+			throw new PermissionDeniedException(
+				"You do not have permission to access this resource."
+			);
+		}
+
+		return view('pages.admin.users.create');
+	}
+
+	/**
+	 * Handles the submission from the Add User page.
+	 * POST /admin/users
+	 *
+	 * @return Response
+	 */
+	public function store() {
+		// perform permission check
+		if(!Auth::user()->hasPerm('user.create')) {
+			throw new PermissionDeniedException(
+				"You do not have permission to access this resource."
+			);
+		}
+
+		// perform the validation
+		$validator = Validator::make(
+			$input = [
+				'person'	=> Request::get('person')
+			],
+			$rules = [
+				'person'	=> 'required|array'
+			],
+			$messages = [
+				'person.required'	=> 'Please select at least one person to add.'
+			]
+		);
+
+		// if the validator fails, knock the user back
+		if($validator->fails()) {
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		// iterate over the array of IDs and create the users that do
+		// not already exist
+		$numAdded = 0;
+		foreach($input['person'] as $person) {
+			// ensure the user does not already exist
+			if(!User::find($person)) {
+				// create the user
+				$user = new User();
+				$user->individuals_id = $person;
+				$user->save();
+
+				// create a default role for the new user
+				Membership::create([
+					'parent_entities_id' => config('app.entity_id'),
+					'individuals_id' => $person,
+					'role_position' => 'course_manager'
+				]);
+
+				$user->touch();
+				$numAdded++;
+			}
+		}
+
+		// display a success message if any users were added
+		if($numAdded > 0) {
+			$success = "You have successfully added the selected user(s) to the system.";
+			return redirect(route('admin.users.index'))->with('success', $success);
+		}
+		else
+		{
+			// no users added so display a failure message
+			$errors = ['The selected user(s) already exist in the system.'];
+			return redirect()->back()->withInput()->withErrors($errors);
+		}
+	}
+
+	/**
 	 * Handles the display of the Modify User page.
 	 * GET /admin/users/{id}/edit
 	 *
+	 * @param integer $id The ID of the user to modify
 	 * @return View
 	 */
 	public function edit($id) {
@@ -73,6 +161,7 @@ class AdminUserController extends Controller {
 	 * Handles the submission from the Modify User page.
 	 * PUT /admin/users/{id}
 	 *
+	 * @param integer $id The ID of the user to update
 	 * @return Response
 	 */
 	public function update($id) {
@@ -128,5 +217,40 @@ class AdminUserController extends Controller {
 		$success = "You have successfully updated the record for " .
 			$user->individual->common_name . ".";
 		return redirect(route('admin.users.index'))->with('success', $success);
+	}
+
+	/**
+	 * Performs a full-name search for people with a specified query string.
+	 * Returns the results as JSON.
+	 * POST /admin/users/search
+	 *
+	 * @return string
+	 */
+	public function search() {
+		$query = Request::get('query');
+		if(empty($query)) return "{}";
+
+		// now perform the search
+		$tokens = explode(" ", $query);
+		$people = Person::orderBy('last_name', 'ASC');
+
+		// perform the search based on the type of input received
+		if(strpos($query, "@") !== FALSE) {
+			$people = $people->where('email', $query);
+		}
+		else
+		{
+			// iterate over the tokens to narrow down the search
+			foreach($tokens as $token) {
+				$people = $people->where('common_name', 'LIKE', "%{$token}%");
+			}
+		}
+
+		// TODO: remove people from the collection who are already users in the system
+		// after retrieving the collection
+		$results = $people->get();
+
+		// return the records as JSON
+		return $results->toJSON();
 	}
 }

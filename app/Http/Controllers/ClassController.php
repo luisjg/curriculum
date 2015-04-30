@@ -3,7 +3,8 @@
 use Request;
 
 use Curriculum\Handlers\HandlerUtilities;
-use Curriculum\Models\Classes;
+use Curriculum\Models\Classes,
+	Curriculum\Models\Term;
 
 class ClassController extends Controller {
 
@@ -23,9 +24,11 @@ class ClassController extends Controller {
 	 */
 	public function index()
 	{
-		$term = HandlerUtilities::getCurrentTermID();
+		//$term = HandlerUtilities::getCurrentTermID();
+		$term = Term::current();
+		$term_id = ($term ? $term->term_id : 0);
 
-		$data = Classes::with('meetings', 'instructors')->where('term_id', $term);
+		$data = Classes::with('meetings', 'instructors')->where('term_id', $term_id);
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Request::get('instructor', 0);
@@ -75,12 +78,14 @@ class ClassController extends Controller {
 	 */
 	public function show($id)
 	{
-		$term_id = HandlerUtilities::getCurrentTermID();
+		//$term_id = HandlerUtilities::getCurrentTermID();
+		$term = Term::current();
+		$term_id = ($term ? $term->term_id : 0);
 
 		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
 			->whereIdentifier($id);
-	
+
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Request::get('instructor', 0);
 		if($instructor) {

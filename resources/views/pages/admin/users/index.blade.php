@@ -18,6 +18,29 @@ Manage Users
 
 	</div>
 
+	@if(Auth::user()->hasPerm('user.create'))
+
+	<div class="row">
+
+		<div class="col-xs-12">
+
+			<div class="pull-right">
+
+				<a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+
+					<i class="glyphicon glyphicon-plus"></i>
+					Add User
+
+				</a>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	@endif
+
 	<div class="row">
 
 		<div class="col-xs-12">
