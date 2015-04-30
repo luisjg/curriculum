@@ -9,7 +9,7 @@
 		<li class="featured"><a href="#subcollection">Subcollection</a></li>
 		<li class="featured"><a href="#instance">Instance</a></li>
 		<li class="featured"><a href="#query">Query</a></li>
-		<li><a href="#examples">Example</a></li>	
+		<li><a href="#examples">Usage Example</a></li>	
 	</ul>
 
 	
