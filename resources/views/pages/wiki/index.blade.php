@@ -95,13 +95,13 @@
 		<h3 class="highlighted">Examples</h3>
 		
 		<h5>Course Classes By Subject</h5>
-		<p class="urls">{!! link_to('api/classes/comp') !!}</p>
-		<p class="urls">{!! link_to('api/classes/comp-110') !!}</p>
-		<p class="urls">{!! link_to('api/terms/Fall-2014/classes/comp-110') !!}</p>
+		<p class="urls">{!! link_to('api/classes/comp', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/classes/comp-110', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/terms/Fall-2014/classes/comp-110', null, ['target' => '_blank']) !!}</p>
 
 		<h5>Course Listings</h5>
-		<p class="urls">{!! link_to('api/courses/comp') !!}</p>
-		<p class="urls">{!! link_to('api/terms/Fall-2014/courses/comp') !!}</p>
+		<p class="urls">{!! link_to('api/courses/comp', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/terms/Fall-2014/courses/comp', null, ['target' => '_blank']) !!}</p>
 	</div>
 	
 
@@ -117,10 +117,10 @@
 		<h3 class="highlighted">Examples</h3>
 
 		<h5>Single Class</h5>
-		<p class="urls">{!! link_to('api/classes/15223') !!}</p>
+		<p class="urls">{!! link_to('api/classes/15223', null, ['target' => '_blank']) !!}</p>
 
 		<h5>Single Course</h5>
-		<p class="urls">{!! link_to('api/courses/comp-100') !!}</p>
+		<p class="urls">{!! link_to('api/courses/comp-100', null, ['target' => '_blank']) !!}</p>
 
 	</div>
 
@@ -136,13 +136,13 @@
 		<h3 class="highlighted">Examples</h3>
 
 		<h5>Non-Current Term Classes</h5>
-		<p class="urls">{!! link_to('api/terms/Fall-2013/classes/comp') !!}</p>
-		<p class="urls">{!! link_to('api/terms/Spring-2013/classes/comp') !!}</p>
-		<p class="urls">{!! link_to('api/terms/Fall-2014/classes/comp-322') !!}</p>
-		<p class="urls">{!! link_to('api/terms/Fall-2014/classes?instructor=steven.fitzgerald@csun.edu') !!}</p>
+		<p class="urls">{!! link_to('api/terms/Fall-2013/classes/comp', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/terms/Spring-2013/classes/comp', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/terms/Fall-2014/classes/comp-322', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/terms/Fall-2014/classes?instructor=steven.fitzgerald@csun.edu', null, ['target' => '_blank']) !!}</p>
 
 		<h5>Course Classes Taught by Instructor</h5>
-		<p class="urls">{!! link_to('api/classes?instructor=harry.hellenbrand@csun.edu') !!}</p>
+		<p class="urls">{!! link_to('api/classes?instructor=steven.fitzgerald@csun.edu', null, ['target' => '_blank']) !!}</p>
 	</div>
 
 
