@@ -39,7 +39,7 @@ return [
 	|
 	*/
 
-	'timezone' => env('APP_TIMEZONE'),
+	'timezone' => env('APP_TIMEZONE', 'America/Los_Angeles'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -222,7 +222,7 @@ return [
     | Version listed in the API data array that comes back.
     |
     */
-    'api_version' => env("APP_VERSION"),
+    'api_version' => env("APP_VERSION", "curriculum-1.0"),
 
 	/*
     |--------------------------------------------------------------------------

@@ -31,7 +31,7 @@ class TermController extends Controller {
 			->orderBy('subject')->orderBy('catalog_number');
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::get('instructor', 0);
+		$instructor = Request::input('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		} else {
@@ -85,7 +85,7 @@ class TermController extends Controller {
 			->orderBy('subject')->orderBy('catalog_number');
 	
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::get('instructor', 0);
+		$instructor = Request::input('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
@@ -153,7 +153,7 @@ class TermController extends Controller {
 		$term_code = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term_code, Request::get('showAll',false))
+			->groupAsCourse($term_code, Request::input('showAll',false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 	

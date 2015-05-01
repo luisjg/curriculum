@@ -79,7 +79,7 @@ class AdminUserController extends Controller {
 		// perform the validation
 		$validator = Validator::make(
 			$input = [
-				'person'	=> Request::get('person')
+				'person'	=> Request::input('person')
 			],
 			$rules = [
 				'person'	=> 'required|array'
@@ -182,8 +182,8 @@ class AdminUserController extends Controller {
 		// perform the validation
 		$validator = Validator::make(
 			$input = [
-				'roles'		=> (Request::has('roles') ? Request::get('roles') : []),
-				'active'	=> (Request::has('active') ? Request::get('active') : false)
+				'roles'		=> (Request::has('roles') ? Request::input('roles') : []),
+				'active'	=> (Request::has('active') ? Request::input('active') : false)
 			],
 			$rules = [
 				'roles'		=> 'array',
@@ -227,7 +227,7 @@ class AdminUserController extends Controller {
 	 * @return string
 	 */
 	public function search() {
-		$query = Request::get('query');
+		$query = Request::input('query');
 		if(empty($query)) return "{}";
 
 		// now perform the search

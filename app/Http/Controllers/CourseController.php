@@ -61,7 +61,7 @@ class CourseController extends Controller {
 		$term_id = ($term ? $term->term_id : 0);
 
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term_id, Request::get('showAll', false))
+			->groupAsCourse($term_id, Request::input('showAll', false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
