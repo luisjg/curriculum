@@ -43,6 +43,19 @@ class Handler extends ExceptionHandler {
 			return response(view('pages.errors.401', compact('e')), 401);
 		}
 		else if($e instanceof NotFoundHttpException) {
+			// handle API 404 errors differently
+			if(starts_with($request->path(), 'api/')) {
+				$response = [
+					'status'      => 404,
+					'success'	  => false,
+					'version'     => config('app.api_version'),
+					'type'		  => 'errors',
+					'errors'	  => ['Resource could not be resolved']
+				];
+				return response($response, 404);
+			}
+
+			// front-end 404 errors get the 404 page
 			return response(view('pages.errors.404'), 404);
 		}
 		else if($e instanceof ModelNotFoundException) {
