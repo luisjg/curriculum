@@ -1,6 +1,8 @@
 <?php namespace Curriculum\Handlers;
 
-use Curriculum\Models\Term;
+use Request;
+use Curriculum\Models\LoggedRequest,
+	Curriculum\Models\Term;
 
 class HandlerUtilities
 {
@@ -200,6 +202,86 @@ class HandlerUtilities
 	    }
 
 	   return $courses; 
+	}
+
+	/**
+	 * Returns the JSON response with optional response code. This method also
+	 * logs the request information for statistical purposes.
+	 *
+	 * @param array $data The error data to send back to the browser
+	 * @param integer $code Optional error response code to send back
+	 *
+	 * @return Response
+	 */
+	public static function sendErrorResponse($data, $code=500) {
+		// additional data to add that should exist for all responses
+		$additional = [
+			'type' => 'errors',
+			'success' => false,
+			'status' => $code
+		];
+
+		// add the additional data to the response if it does not
+		// already exist
+		foreach($additional as $key => $value) {
+			$data = array_add($data, $key, $value);
+		}
+
+		// complete the response
+		$data = array_reverse($data);
+		return self::sendResponse($data);
+	}
+
+	/**
+	 * Returns the JSON response with the response code. This method also
+	 * logs the request information for statistical purposes.
+	 *
+	 * @param array $data The data to send back to the browser
+	 * @return Response
+	 */
+	public static function sendResponse($data) {
+		// additional data to add that should exist for all responses
+		$additional = [
+			'version' => config('app.api_version'),
+			'success' => true,
+			'status' => 200,
+		];
+
+		// add the additional data to the response if it does not
+		// already exist
+		$data = array_reverse($data);
+		foreach($additional as $key => $value) {
+			$data = array_add($data, $key, $value);
+		}
+		$data = array_reverse($data);
+
+		// grab the necessary Request information
+		$ip = Request::ip();
+
+		// resolve the URL portion beginning with /api to include the
+		// query string provided, if any
+		$path = urldecode(str_replace(Request::root(), "", Request::fullUrl()));
+
+		// figure out the result count
+		$dataCount = 0;
+		if($data['type'] == 'classes') {
+			$dataCount = count($data['classes']);
+		}
+		else if($data['type'] == 'courses') {
+			$dataCount = count($data['courses']);
+		}
+
+		// log the request for statistical purposes
+		LoggedRequest::create([
+			'ip' => $ip,
+			'path' => $path,
+			'response_code' => $data['status'],
+			'success' => $data['success'],
+			'results' => $dataCount
+		]);
+
+		// now send the response code and data back
+		return response($data, $data['status']);
 	}
 
 	/**
