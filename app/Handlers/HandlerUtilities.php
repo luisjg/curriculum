@@ -217,7 +217,7 @@ class HandlerUtilities
 		// additional data to add that should exist for all responses
 		$additional = [
 			'type' => 'errors',
-			'success' => false,
+			'success' => 'false',
 			'status' => $code
 		];
 
@@ -243,8 +243,8 @@ class HandlerUtilities
 		// additional data to add that should exist for all responses
 		$additional = [
 			'version' => config('app.api_version'),
-			'success' => true,
-			'status' => 200,
+			'success' => 'true',
+			'status' => '200',
 		];
 
 		// add the additional data to the response if it does not

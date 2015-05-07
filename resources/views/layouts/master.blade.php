@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Curriculum Web Service | @yield('title', 'Admin')</title>
 
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
@@ -9,6 +10,7 @@
 
 	<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
 </head>
 <body>
 

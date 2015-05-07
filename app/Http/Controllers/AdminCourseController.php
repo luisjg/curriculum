@@ -4,6 +4,8 @@ use Auth,
 	Request,
 	Validator;
 
+use Illuminate\Support\Collection;
+
 use Curriculum\Exceptions\PermissionDeniedException;
 use Curriculum\Models\Course,
 	Curriculum\Models\Subject,
@@ -59,7 +61,7 @@ class AdminCourseController extends Controller {
 		}
 
 		// grab the subjects so we have something for the drop-down on the view
-		$subjects = Subject::all()->lists('name', 'subject');
+		$subjects = Subject::orderBy('name')->get()->lists('name', 'subject');
 		return view('pages.admin.courses.create', compact('subjects'));
 	}
 
@@ -140,7 +142,7 @@ class AdminCourseController extends Controller {
 		$course = Course::findOrFailByCourseId($id);
 
 		// grab the subjects so we have something for the drop-down on the view
-		$subjects = Subject::all()->lists('name', 'subject');
+		$subjects = Subject::orderBy('name')->get()->lists('name', 'subject');
 		return view('pages.admin.courses.edit', compact('course', 'subjects'));
 	}
 
@@ -227,5 +229,77 @@ class AdminCourseController extends Controller {
 		// grab the course
 		$course = Course::findOrFailByCourseId($id);
 		return view('pages.admin.courses.show', compact('course'));
+	}
+
+	/**
+	 * Handles the display of the Search Courses page.
+	 * GET /admin/courses/search
+	 *
+	 * @return View
+	 */
+	public function getSearch() {
+		return view('pages.admin.courses.search');
+	}
+
+	/**
+	 * Handles the submission from the Search Courses page. Returns the
+	 * results as JSON.
+	 * POST /admin/courses/search
+	 *
+	 * @return JSON
+	 */
+	public function postSearch() {
+		$query = trim(Request::input('query'));
+		if(empty($query)) return "{}";
+
+		// figure out the possible format of the query
+		$tokens = explode(" ", $query);
+		$subjCourses = new Collection();
+
+		// one/two token(s) could also mean "give me everything with this subject"
+		// or "give me everything with this catalog number" so this will be
+		// regarded as extra course information
+		if(count($tokens) == 1 || count($tokens) == 2) {
+			$subjCourses = Course::where('subject', implode(" ", $tokens))
+				->orWhere('catalog_number', $tokens[0])
+				->orderBy('subject')->orderBy('catalog_number')
+				->get();
+		}
+
+		if(count($tokens) == 2 && preg_match("/[0-9]+/", $tokens[1])) {
+			// could be catalog designation if the second token has a number in it
+			$courses = Course::where('subject', $tokens[0])->where('catalog_number', $tokens[1]);
+		}
+		else
+		{
+			// catalog designation using two tokens with a space in-between and
+			// terminating with a numerical third token
+			if(count($tokens) == 3
+				&& strlen($tokens[0]) < 3
+				&& strlen($tokens[1]) < 3
+				&& preg_match("/[0-9]+/", $tokens[2])) {
+					$courses = Course::where('subject', "{$tokens[0]} {$tokens[1]}")
+						->where('catalog_number', $tokens[2]);
+			}
+			else
+			{
+				// narrow the search down by course title instead
+				$courses = Course::where('title', 'LIKE', "%" . array_shift($tokens) . "%");
+				foreach($tokens as $token) {
+					$courses = $courses->where('title', 'LIKE', "%{$token}%");
+				}
+			}
+		}
+
+		// grab the results
+		$results = $courses->orderBy('subject')->orderBy('catalog_number')->get();
+
+		// if there is extra stuff, merge it with the results
+		if(!$subjCourses->isEmpty()) {
+			$results = $subjCourses->merge($results);
+		}
+
+		// return everything as JSON
+		return $results->toJSON();
 	}
 }

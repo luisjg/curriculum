@@ -16,7 +16,7 @@ class TermController extends Controller {
 
 	/**
 	 * Get all class information from the given term
-	 * @link /term/{term}/classes 	GET
+	 * @link /api/term/{term}/classes 	GET
 	 * @param string $term
 	 * @return all classes, including the class_meeting and
 	 *  class_instructors for those classes
@@ -57,7 +57,7 @@ class TermController extends Controller {
 	 *	or class information for all classes with a specific subject and
 	 *	catalog_number if subject-catalog_number is given. All the information
 	 *  is for the current term
-	 * @link /term/{term}/classes/{id} 	GET
+	 * @link /api/term/{term}/classes/{id} 	GET
 	 * @internal Examples of possible $id
 	 *		NAME 					EXAMPLE			 
 	 *		association_id			classes:Summer-14:10472 		
@@ -95,7 +95,7 @@ class TermController extends Controller {
 
 	/**
 	 * Get all course information for the given term
-	 * @link /term/{term}/courses 	GET
+	 * @link /api/term/{term}/courses 	GET
 	 * @internal {term} looks like [semester (fall, spring, etc)]-[year]
 	 * @internal don't allow entire course list for all semesters to be returned without a subject 
 	 * 				until paging or some way to restrict these results is added
@@ -124,7 +124,7 @@ class TermController extends Controller {
 	/**
 	 * Get course information for a specific course given a subject,
 	 * all for the given term
-	 * @link /term/{term}/courses/{id} 	GET
+	 * @link /api/term/{term}/courses/{id} 	GET
 	 * @internal Examples of possible $id
 	 *		NAME 					EXAMPLE			 
 	 *		association_id			classes:Summer-14:10472 		
