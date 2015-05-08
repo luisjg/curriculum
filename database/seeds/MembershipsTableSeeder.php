@@ -15,7 +15,7 @@ class MembershipsTableSeeder extends Seeder {
 		$memberships = [
 			['id' => 'members:103166750', 'role_position' => 'admin'], // matt
 			['id' => 'members:102287170', 'role_position' => 'admin'], // trevor
-			['id' => 'members:101739662', 'role_position' => 'course_manager'], // ryan
+			['id' => 'members:000420312', 'role_position' => 'course_manager'], // nerces
 		];
 
 		// add some memberships

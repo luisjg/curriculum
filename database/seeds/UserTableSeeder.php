@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder {
 			['individuals_id' => 'members:102287170'], // trevor - tmg47373
 
 			// Course Manager
-			['individuals_id' => 'members:101739662'], // ryan - rsc93168
+			['individuals_id' => 'members:000420312'], // nerces - nkk47318
 		]);
 	}
 }
