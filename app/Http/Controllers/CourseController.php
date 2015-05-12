@@ -4,6 +4,7 @@ use Request;
 
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Classes,
+	Curriculum\Models\Course,
 	Curriculum\Models\Term;
 
 class CourseController extends Controller {

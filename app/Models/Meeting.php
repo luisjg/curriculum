@@ -5,7 +5,7 @@ use DateTime;
 
 class Meeting extends Model {
 
-	protected $table = 'omar.meetings'; 
+	protected $table = 'omar.classMeetings'; 
 
 	/**
 	 * The database table used by the model.
