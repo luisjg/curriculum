@@ -276,7 +276,7 @@ class HandlerUtilities
 			'ip' => $ip,
 			'path' => $path,
 			'response_code' => $data['status'],
-			'success' => ($data['success'] == 'true' ? true : false),
+			'success' => ($data['success'] == 'true'), // string->boolean
 			'results' => $dataCount
 		]);
 
