@@ -9,7 +9,7 @@ class ClassInstructor extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'nemo.classinstructors'; /* pivot */
+	protected $table = 'nemo.classInstructors'; /* pivot */
     
     /**
      * The attributes excluded from the model's JSON form.
