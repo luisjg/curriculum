@@ -18,11 +18,8 @@ class DatabaseSeeder extends Seeder {
 		$this->call('RoleTableSeeder');
 		$this->call('PermissionTableSeeder');
 
-		// add all memberships first but ensure the application is on a local
-		// environment before doing so
-		if(app()->environment() == "local") {
-			$this->call('MembershipsTableSeeder');
-		}
+		// load the initial memberships
+		$this->call('MembershipsTableSeeder');
 	}
 
 }
