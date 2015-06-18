@@ -175,14 +175,15 @@ $data = file_get_contents($url);
 $data = json_decode($data, true);
 
 // setup a blank array
-$course_codes = [];
+$course_list = [];
 
-// loop through results and add to subject_numbers array
+// loop through results and add each courses's subject
+// and catalog number to course_list array (i.e. COMP 100)
 foreach($data['courses'] as $course){
-	$course_codes[] = $course['subject'].' '.$course['catalog_number'];
+	$course_list[] = $course['subject'].' '.$course['catalog_number'];
 }
 
-print_r($course_codes);
+print_r($course_list);
 					</pre>
 				</div>
 
@@ -208,14 +209,38 @@ except Exception as e:
 data = json.loads(data)
 
 #setup a blank array
-course_codes = []
+course_list = []
 
-#loop through results and add to subject_numbers array
+#loop through results and add each course's subject
+#and catalog number to course_list array (i.e COMP 100)
 for course in data['courses']:
-	course_codes.append(course['subject']+ ' ' + course['catalog_number'])
+	course_list.append(course['subject'] + ' ' + course['catalog_number'])
 
-print course_codes
+print course_list
 					</pre>
+			    </div>
+
+			    <div role="tabpanel" class="tab-pane" id="ruby">
+
+			    	<pre class="prettyprint">
+
+require 'net/http'
+require 'json'
+
+#query all CompSci courses
+source = '{{ url('api/courses/comp') }}'
+
+#call data
+response = Net::HTTP.get_response(URI.parse(source))
+
+#get body of the response
+data = response.body
+
+#put the parsed data
+puts JSON.parse(data)
+
+			    	</pre>
+
 			    </div>
 
 
