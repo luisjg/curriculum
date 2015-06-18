@@ -154,11 +154,11 @@
 		  <ul class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active"><a href="#php" aria-controls="php" role="tab" data-toggle="tab">PHP</a></li>
 
-		    <li role="presentation"><a href="#python" aria-controls="messages" role="tab" data-toggle="tab">Python</a></li>
+		    <li role="presentation"><a href="#python" aria-controls="python" role="tab" data-toggle="tab">Python</a></li>
 
-		    <li role="presentation"><a href="#ruby" aria-controls="messages" role="tab" data-toggle="tab">Ruby</a></li>
+		    <li role="presentation"><a href="#ruby" aria-controls="ruby" role="tab" data-toggle="tab">Ruby</a></li>
 
-		    <li role="presentation"><a href="#js" aria-controls="messages" role="tab" data-toggle="tab">JavaScript</a></li>
+		    <li role="presentation"><a href="#js" aria-controls="js" role="tab" data-toggle="tab">JavaScript</a></li>
 		 
 		  </ul>
 
