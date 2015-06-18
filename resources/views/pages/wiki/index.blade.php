@@ -156,6 +156,8 @@
 
 		    <li role="presentation"><a href="#python" aria-controls="messages" role="tab" data-toggle="tab">Python</a></li>
 
+		    <li role="presentation"><a href="#ruby" aria-controls="messages" role="tab" data-toggle="tab">Ruby</a></li>
+
 		    <li role="presentation"><a href="#js" aria-controls="messages" role="tab" data-toggle="tab">JavaScript</a></li>
 		 
 		  </ul>
