@@ -98,10 +98,12 @@
 		<p class="urls">{!! link_to('api/classes/comp', null, ['target' => '_blank']) !!}</p>
 		<p class="urls">{!! link_to('api/classes/comp-110', null, ['target' => '_blank']) !!}</p>
 		<p class="urls">{!! link_to('api/terms/Spring-2015/classes/comp-110', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/terms/2153/classes/comp-110', null, ['target' => '_blank']) !!}</p>
 
 		<h5>Course Listings</h5>
 		<p class="urls">{!! link_to('api/courses/comp', null, ['target' => '_blank']) !!}</p>
 		<p class="urls">{!! link_to('api/terms/Spring-2015/courses/comp', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/terms/2153/courses/comp', null, ['target' => '_blank']) !!}</p>
 	</div>
 	
 
@@ -139,6 +141,7 @@
 		<p class="urls">{!! link_to('api/terms/Spring-2015/classes/comp', null, ['target' => '_blank']) !!}</p>
 		<p class="urls">{!! link_to('api/terms/Spring-2015/classes/comp-322', null, ['target' => '_blank']) !!}</p>
 		<p class="urls">{!! link_to('api/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/terms/2153/classes?instructor=steven.fitzgerald@csun.edu', null, ['target' => '_blank']) !!}</p>
 
 		<h5>Course Classes Taught by Instructor</h5>
 		<p class="urls">{!! link_to('api/classes?instructor=steven.fitzgerald@csun.edu', null, ['target' => '_blank']) !!}</p>
