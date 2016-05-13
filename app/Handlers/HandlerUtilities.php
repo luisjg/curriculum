@@ -57,13 +57,22 @@ class HandlerUtilities
 	}
 
 	/**
-	 * Generates the Term Code given the current Semester and Year
+	 * Generates the Term Code given the current Semester and Year. If the
+	 * value of the term parameter is already a four-digit term code it will
+	 * just return the value back without doing anything else.
+	 *
 	 * @todo Throw exceptions in each if block
 	 * @param  string $term (e.g Fall-2014)
 	 * @return Generated Term Code (e.g 2147)
 	 *
 	 */
 	public static function generateTermCodeFromSemesterTerm($term){
+
+		// does the term code already exist as a four-digit format?
+		if(is_numeric($term) && strlen($term) == 4) {
+			// return the term code back
+			return $term;
+		}
 
 	    /*
 	        Creating term code from semester and year (e.g Fall-2014):
