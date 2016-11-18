@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        @include('layouts.partials.csun-footer')
+        {{-- @include('layouts.partials.csun-footer') --}}
         @include('layouts.partials.metalab-footer')
         {!! HTML::script('js/metaphor.js') !!}
     </body>
