@@ -26,7 +26,7 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function getIndex() {
-		return view('pages.wiki.index');
+		return view('pages.wiki.index-metaphor');
 	}
 
 }
