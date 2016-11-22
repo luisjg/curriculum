@@ -8,12 +8,16 @@
         <title>Curriculum Web Service</title>
         <link rel="icon" href="{!! asset('favicon.png') !!}" type="image/png">
         <link rel="icon" href="{!! asset('favicon.ico') !!}" type="image/x-icon">
-        {!! HTML::style('css/metaphor.css') !!}
         {!! HTML::script('https://use.typekit.net/gfb2mjm.js') !!}
         {!! HTML::style('https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic') !!}
         {!! HTML::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css') !!}
-        
-        <script>try{Typekit.load();}catch(e){}</script>
+        {!! HTML::style('css/metaphor.css') !!}
+        {!! Html::style('css/tomorrow.min.css') !!}
+        {{-- {!! HTML::style('css/prism.css') !!} --}}
+        <style type="text/css">
+            .metalab-footer .metalab-branding img {
+              width: 110px; }
+        </style>
     </head>
     <body>
         <div class="section section--sm">
@@ -36,6 +40,9 @@
         </div>
         {{-- @include('layouts.partials.csun-footer') --}}
         @include('layouts.partials.metalab-footer')
+        <script>try{Typekit.load();}catch(e){}</script>
         {!! HTML::script('js/metaphor.js') !!}
+        {{-- {!! HTML::script('js/prism.js') !!} --}}
+        {!! Html::script('https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js') !!}
     </body>
 </html>
