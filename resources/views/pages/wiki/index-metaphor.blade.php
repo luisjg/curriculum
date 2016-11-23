@@ -59,17 +59,17 @@
 	</div>
 	<h3 class="type--thin">Examples</h3>
 	<strong>Course Classes By Subject</strong>
-	<ul class="list">
-		<li class="list__item">{!! link_to('api/classes/comp', null, ['target' => '_blank']) !!}</li>
-		<li class="list__item">{!! link_to('api/classes/comp-110', null, ['target' => '_blank']) !!}</li>
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp-110', null, ['target' => '_blank']) !!}</li>
-		<li class="list__item">{!! link_to('api/terms/2153/classes/comp-110', null, ['target' => '_blank']) !!}</li>
+	<ul class="list--underlined">
+		<li class="list__item">{!! link_to('api/classes/comp') !!}</li>
+		<li class="list__item">{!! link_to('api/classes/comp-110') !!}</li>
+		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp-110') !!}</li>
+		<li class="list__item">{!! link_to('api/terms/2153/classes/comp-110') !!}</li>
 	</ul>
 	<strong>Course Listings</strong>
-	<ul class="list">
-		<li class="list__item">{!! link_to('api/courses/comp', null, ['target' => '_blank']) !!}</li>
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/courses/comp', null, ['target' => '_blank']) !!}</li>
-		<li class="list__item">{!! link_to('api/terms/2153/courses/comp', null, ['target' => '_blank']) !!}</li>
+	<ul class="list--underlined">
+		<li class="list__item">{!! link_to('api/courses/comp') !!}</li>
+		<li class="list__item">{!! link_to('api/terms/Spring-2015/courses/comp') !!}</li>
+		<li class="list__item">{!! link_to('api/terms/2153/courses/comp') !!}</li>
 	</ul>
 	
 	<h3 class="type--header type--thin" id="instance">Instance</h3>	
@@ -81,12 +81,12 @@
 	</div>
 	<h3 class="type--thin">Examples</h3>
 	<strong>Single Class</strong>
-	<ul class="list">
-		<li class="list__item">{!! link_to('api/classes/15223', null, ['target' => '_blank']) !!}</li>
+	<ul class="list--underlined">
+		<li class="list__item">{!! link_to('api/classes/15223') !!}</li>
 	</ul>
 	<strong>Single Course</strong>
-	<ul class="list">
-		<li class="list__item">{!! link_to('api/courses/comp-100', null, ['target' => '_blank']) !!}</li>
+	<ul class="list--underlined">
+		<li class="list__item">{!! link_to('api/courses/comp-100') !!}</li>
 	</ul>
 
 	<h3 class="type--header type--thin" id="query">Query</h3>
@@ -98,15 +98,15 @@
 	</div>
 	<h3 class="type--thin">Examples</h3>
 	<strong>Non-Current Term Classes</strong>
-	<ul class="list">
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp', null, ['target' => '_blank']) !!}</li>
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp-322', null, ['target' => '_blank']) !!}</li>
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu', null, ['target' => '_blank']) !!}	</li>
-		<li class="list__item">{!! link_to('api/terms/2153/classes?instructor=steven.fitzgerald@csun.edu', null, ['target' => '_blank']) !!}</li>
+	<ul class="list--underlined">
+		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp') !!}</li>
+		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp-322') !!}</li>
+		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu') !!}	</li>
+		<li class="list__item">{!! link_to('api/terms/2153/classes?instructor=steven.fitzgerald@csun.edu') !!}</li>
 	</ul>
 	<strong>Course Classes Taught by Instructor</strong>
-	<ul class="list">
-		<li class="list__item">{!! link_to('api/classes?instructor=steven.fitzgerald@csun.edu', null, ['target' => '_blank']) !!}</li>
+	<ul class="list--underlined">
+		<li class="list__item">{!! link_to('api/classes?instructor=steven.fitzgerald@csun.edu') !!}</li>
 	</ul>
 
 	<h3 class="type--header type--thin" id="examples">Usage Example</h3>
@@ -145,7 +145,7 @@ $(document).ready(function() {
     	<pre>
     	<code class="prettyprint lang-php">
 // query all CompSci courses
-$url = '{{ url('api/courses/comp') }}';
+$url = '{!! url('api/courses/comp') !!}';
 
 // call url, you can also use CURL or guzzle -> https://github.com/guzzle/guzzle
 $data = file_get_contents($url);
@@ -175,7 +175,7 @@ import urllib2
 import json
 
 #query all CompSci courses
-url = u'{{ url('api/courses/comp') }}'
+url = u'{!! url('api/courses/comp') !!}'
 
 #try to read the data	
 try:
@@ -207,7 +207,7 @@ require 'net/http'
 require 'json'
 
 #query all CompSci courses
-source = '{{ url('api/courses/comp') }}'
+source = '{!! url('api/courses/comp') !!}'
 
 #call data
 response = Net::HTTP.get_response(URI.parse(source))
