@@ -9,7 +9,7 @@
 		The information that is returned is a JSON object that contains a set of courses or classes; 
 		the format of the JSON object is as follows:
 	</p>
-	<pre><code class="prettyprint lang-json">
+	<pre><code>
 {
 	"status": "200",
 	"success": "true",
@@ -59,14 +59,14 @@
 	</div>
 	<h3 class="type--thin">Examples</h3>
 	<strong>Course Classes By Subject</strong>
-	<ul class="list--underlined">
+	<ul class="list--unstyled">
 		<li class="list__item">{!! link_to('api/classes/comp') !!}</li>
 		<li class="list__item">{!! link_to('api/classes/comp-110') !!}</li>
 		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp-110') !!}</li>
 		<li class="list__item">{!! link_to('api/terms/2153/classes/comp-110') !!}</li>
 	</ul>
 	<strong>Course Listings</strong>
-	<ul class="list--underlined">
+	<ul class="list--unstyled">
 		<li class="list__item">{!! link_to('api/courses/comp') !!}</li>
 		<li class="list__item">{!! link_to('api/terms/Spring-2015/courses/comp') !!}</li>
 		<li class="list__item">{!! link_to('api/terms/2153/courses/comp') !!}</li>
@@ -81,11 +81,11 @@
 	</div>
 	<h3 class="type--thin">Examples</h3>
 	<strong>Single Class</strong>
-	<ul class="list--underlined">
+	<ul class="list--unstyled">
 		<li class="list__item">{!! link_to('api/classes/15223') !!}</li>
 	</ul>
 	<strong>Single Course</strong>
-	<ul class="list--underlined">
+	<ul class="list--unstyled">
 		<li class="list__item">{!! link_to('api/courses/comp-100') !!}</li>
 	</ul>
 
@@ -98,14 +98,14 @@
 	</div>
 	<h3 class="type--thin">Examples</h3>
 	<strong>Non-Current Term Classes</strong>
-	<ul class="list--underlined">
+	<ul class="list--unstyled">
 		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp') !!}</li>
 		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp-322') !!}</li>
 		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu') !!}	</li>
 		<li class="list__item">{!! link_to('api/terms/2153/classes?instructor=steven.fitzgerald@csun.edu') !!}</li>
 	</ul>
 	<strong>Course Classes Taught by Instructor</strong>
-	<ul class="list--underlined">
+	<ul class="list--unstyled">
 		<li class="list__item">{!! link_to('api/classes?instructor=steven.fitzgerald@csun.edu') !!}</li>
 	</ul>
 
