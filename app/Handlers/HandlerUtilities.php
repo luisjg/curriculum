@@ -279,6 +279,9 @@ class HandlerUtilities
 		else if($data['type'] == 'courses') {
 			$dataCount = count($data['courses']);
 		}
+		else if($data['type'] == 'plans') {
+			$dataCount = count($data['plans']);
+		}
 
 		// log the request for statistical purposes
 		LoggedRequest::create([
