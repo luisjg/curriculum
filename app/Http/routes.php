@@ -45,6 +45,7 @@ Route::group(['prefix' => '/api'], function() {
 
 	// plan information
 	Route::get('/plans', 'PlanController@index');
+	Route::get('/plans/graduate', 'PlanController@graduateIndex');
 	Route::get('/plans/{plan}', 'PlanController@show');
 });
 

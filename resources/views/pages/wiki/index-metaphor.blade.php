@@ -64,8 +64,8 @@
 	<h3 class="type--header type--thin" id="subcollection">Subcollection</h3>
 	<div class="panel">
 		<div class="panel__content">
-		The subcollection URI allows the consumer to obtain a list of courses or classes that are
-		either part of a single program or Class Name.
+		The subcollection URI allows the consumer to obtain a list of courses, classes, or degree plans that are
+		either part of a single program, a class name, or a set of degree plans.
 		</div>
 	</div>
 	<h3 class="type--thin">Examples</h3>
@@ -81,6 +81,10 @@
 		<li class="list__item">{!! link_to('api/courses/comp') !!}</li>
 		<li class="list__item">{!! link_to('api/terms/Spring-2015/courses/comp') !!}</li>
 		<li class="list__item">{!! link_to('api/terms/2153/courses/comp') !!}</li>
+	</ul>
+	<strong>Degree Plan Listings</strong>
+	<ul class="list--unstyled">
+		<li class="list__item">{!! link_to('api/plans/graduate') !!}</li>
 	</ul>
 	
 	<h3 class="type--header type--thin" id="instance">Instance</h3>	
