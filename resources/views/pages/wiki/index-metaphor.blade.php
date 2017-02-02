@@ -50,6 +50,17 @@
 		<li><strong>Show the results</strong><br>
 		Loop through the data to display its information. See the Usage Example session.</li>
 	</ol>
+	<h3 class="type--header type--thin" id="subcollection">Collection</h3>
+	<div class="panel">
+		<div class="panel__content">
+		The collection URI allows the consumer to obtain a list of degree plans.
+		</div>
+	</div>
+	<h3 class="type--thin">Examples</h3>
+	<strong>Degree Plans</strong>
+	<ul class="list--unstyled">
+		<li class="list__item">{!! link_to('api/plans') !!}</li>
+	</ul>
 	<h3 class="type--header type--thin" id="subcollection">Subcollection</h3>
 	<div class="panel">
 		<div class="panel__content">
@@ -76,7 +87,7 @@
 	<div class="panel">
 		<div class="panel__content">
 			The instance URI allows the consumer to obtain information
-			about a single course or a single class.
+			about a single course, class, or degree plan.
 		</div>
 	</div>
 	<h3 class="type--thin">Examples</h3>
@@ -87,6 +98,10 @@
 	<strong>Single Course</strong>
 	<ul class="list--unstyled">
 		<li class="list__item">{!! link_to('api/courses/comp-100') !!}</li>
+	</ul>
+	<strong>Single Degree Plan</strong>
+	<ul class="list--unstyled">
+		<li class="list__item">{!! link_to('api/plans/561208') !!}</li>
 	</ul>
 
 	<h3 class="type--header type--thin" id="query">Query</h3>
