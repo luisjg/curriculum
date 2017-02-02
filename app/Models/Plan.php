@@ -30,5 +30,5 @@ class Plan extends Model {
 	 *
 	 * @var array
 	 */
-	protected $hidden = ['created_at', 'updated_at'];
+	protected $hidden = ['administrative_department_id', 'created_at', 'updated_at'];
 }
