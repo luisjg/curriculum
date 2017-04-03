@@ -6,13 +6,12 @@
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
         <meta name="description" content="@yield('description')">
         <title>Curriculum Web Service</title>
-        <link rel="icon" href="{!! asset('favicon.png') !!}" type="image/png">
-        <link rel="icon" href="{!! asset('favicon.ico') !!}" type="image/x-icon">
+        <link rel="icon" href="//www.csun.edu/sites/default/themes/csun/favicon.ico" type="image/x-icon" />
         {!! HTML::script('https://use.typekit.net/gfb2mjm.js') !!}
         {!! HTML::style('https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic') !!}
         {!! HTML::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css') !!}
         {!! HTML::style('css/metaphor.css') !!}
-        {!! Html::style('css/tomorrow.min.css') !!}
+        {!! Html::style('css/tomorrow.css.min') !!}
         <style type="text/css">
             .metalab-footer .metalab-branding img {
               width: 110px; }
