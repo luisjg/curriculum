@@ -1,9 +1,6 @@
-/app/storage/clockwork
-/bootstrap/compiled.php
 /vendor
-/.idea/
-composer.phar
-.env.local.php
-.env.php
-.DS_Store
-Thumbs.db
+/node_modules
+/.idea
+.env
+.env.*
+!.env.example

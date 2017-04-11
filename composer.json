@@ -3,26 +3,34 @@
 	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
+	"type": "project",
 	"require": {
-		"laravel/framework": "4.2.*",
-		"doctrine/dbal": "2.3.4"
+		"laravel/framework": "5.0.*",
+		"doctrine/dbal": "2.3.4",
+		"illuminate/html": "5.*",
+		"tiesa/ldap": "dev-master",
+		"csun-metalab/laravel-proxypass": "^1.0"
 	},
 	"require-dev": {
-        "itsgoingd/clockwork": "1.*",
-    	"way/generators": "2.*",
-		"fzaninotto/faker": "1.*"
+		"phpunit/phpunit": "~4.0",
+		"phpspec/phpspec": "~2.1",
+		"fzaninotto/faker": "1.*",
+		"laracasts/generators": "~1.1",
+		"itsgoingd/clockwork": "~1.6"
 	},
 	"autoload": {
 		"classmap": [
-			"app/commands",
-			"app/controllers",
-			"app/models",
-			"app/database/migrations",
-			"app/database/seeds",
-			"app/tests/TestCase.php"
+			"database",
+			"app/Auth",
+			"app/Models"
 		],
-		"files": [
-			"app/helpers.php"
+		"psr-4": {
+			"Curriculum\\": "app/"
+		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/TestCase.php"
 		]
 	},
 	"scripts": {
@@ -35,11 +43,11 @@
 			"php artisan optimize"
 		],
 		"post-create-project-cmd": [
+			"php -r \"copy('.env.example', '.env');\"",
 			"php artisan key:generate"
 		]
 	},
 	"config": {
 		"preferred-install": "dist"
-	},
-	"minimum-stability": "stable"
+	}
 }
