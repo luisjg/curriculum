@@ -154,6 +154,9 @@ return [
 		// META Lab authentication service provider
 		'METALab\Auth\Provider\AuthServiceProvider',
 
+		// make Laravel play nice with a proxy
+		'CSUNMetaLab\ProxyPass\Providers\ProxyPassServiceProvider',
+
 	],
 
 	/*
