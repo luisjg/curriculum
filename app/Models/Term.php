@@ -59,6 +59,6 @@ class Term extends Model {
 	 */
 	public function scopeNowAndNext($query, $take=2) {
 		return $query->where('end_date', '>', Carbon::now())
-		->orderBy('end_date')->take($take);
+		->orderBy('end_date')->take($take + 1);
 	}
 }
