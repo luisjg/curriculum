@@ -4,7 +4,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="metalab-branding">
-              <img src="{!! asset('/imgs/meta-logo-horz.png') !!}" alt="CSUN META Lab Logo">
+              <img src="//www.csun.edu/faculty/imgs/meta-logo-horz.png" alt="CSUN META Lab Logo">
               <ul class="list--unstyled">
                 <li><a href="http://metalab.csun.edu">metalab.csun.edu</a></li>
               </ul>

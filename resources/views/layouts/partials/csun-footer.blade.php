@@ -4,7 +4,7 @@
         <div class="col-sm-5">
           <div class="row">
             <div class="col-sm-3 footer-seal">
-              <img src="{!! asset('/imgs/footer-seal.png') !!}" alt="Seal for California State University, Northridge">
+              <img src="//www.csun.edu/faculty/imgs/footer-seal.png" alt="Seal for California State University, Northridge">
             </div>
             <div class="col-sm-9">
               <ul class="list--unstyled">
