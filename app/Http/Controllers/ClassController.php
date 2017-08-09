@@ -94,5 +94,10 @@ class ClassController extends Controller {
 
 		return HandlerUtilities::sendResponse($response);
 	}
-	
+
+	public function countStudents($term , $id){
+
+
+
+    }
 }
