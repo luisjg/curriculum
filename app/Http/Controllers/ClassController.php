@@ -5,6 +5,7 @@ use Request;
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Classes,
 	Curriculum\Models\Term;
+use Curriculum\Models\ClassMembershipRoster;
 
 class ClassController extends Controller {
 
@@ -97,7 +98,8 @@ class ClassController extends Controller {
 
 	public function countStudents($term , $id){
 
-
+	    $variable = ClassMembershipRoster::first();
+        dd($variable);
 
     }
 }
