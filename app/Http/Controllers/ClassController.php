@@ -96,10 +96,11 @@ class ClassController extends Controller {
 		return HandlerUtilities::sendResponse($response);
 	}
 
-	public function countStudents($term , $id){
+	public function countStudents($term_id , $class_number){
 
-	    $variable = ClassMembershipRoster::first();
-        dd($variable);
+	    $data = ClassMembershipRoster::where('term_id', $term_id)->where('class_number', $class_number)->get();
+	    dd($data);
+
 
     }
 }
