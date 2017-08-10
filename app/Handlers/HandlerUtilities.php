@@ -177,7 +177,7 @@ class HandlerUtilities
 	            $data['instructors'][] = $instructor;
 	        }
 
-	        $classes[] = $data;q
+	        $classes[] = $data;
 	    }
 
 	   return $classes;
