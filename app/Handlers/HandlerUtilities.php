@@ -1,5 +1,6 @@
 <?php namespace Curriculum\Handlers;
 
+use Curriculum\Models\ClassMembershipRoster;
 use Request;
 use Curriculum\Models\LoggedRequest,
 	Curriculum\Models\Term;
@@ -176,10 +177,10 @@ class HandlerUtilities
 	            $data['instructors'][] = $instructor;
 	        }
 
-	        $classes[] = $data;
+	        $classes[] = $data;q
 	    }
 
-	   return $classes; 
+	   return $classes;
 	}
 
 	/**
@@ -212,6 +213,7 @@ class HandlerUtilities
 
 	   return $courses; 
 	}
+
 
 	/**
 	 * Returns the JSON response with optional response code. This method also

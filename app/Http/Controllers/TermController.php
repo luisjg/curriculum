@@ -143,7 +143,7 @@ class TermController extends Controller {
 			->groupAsCourse($term_code, Request::input('showAll',false))
 			->orderBy('subject')->orderBy('catalog_number');
 
-	
+
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(

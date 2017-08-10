@@ -1,5 +1,6 @@
 <?php namespace Curriculum\Http\Controllers;
 
+use Curriculum\Exceptions\Handler;
 use Request;
 
 use Curriculum\Handlers\HandlerUtilities;
@@ -73,13 +74,15 @@ class ClassController extends Controller {
 	public function show($id)
 	{
 		//$term_id = HandlerUtilities::getCurrentTermID();
-		$term = Term::current();
-		$term_id = ($term ? $term->term_id : 0);
+
+		/*$term = Term::current();
+		$term_id = ($term ? $term->term_id : 0);*/
+
+		$term_id = 2153;
 
 		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
 			->whereIdentifier($id);
-
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Request::input('instructor', 0);
 		if($instructor) {
@@ -87,20 +90,14 @@ class ClassController extends Controller {
 		}
 
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
-
+		$roster_data = ClassMembershipRoster::where('term_id', $term_id)
+                                            ->where('class_number', $id)->get();
 		$response = array(
 			'type'		  => 'classes',
-			'classes'	  => $prepped_data
+			'classes'	  => $prepped_data,
+            'class size'  => count($roster_data)
 		);
 
 		return HandlerUtilities::sendResponse($response);
 	}
-
-	public function countStudents($term_id , $class_number){
-
-	    $data = ClassMembershipRoster::where('term_id', $term_id)->where('class_number', $class_number)->get();
-	    dd($data);
-
-
-    }
 }
