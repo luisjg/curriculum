@@ -75,10 +75,9 @@ class ClassController extends Controller {
 	{
 		//$term_id = HandlerUtilities::getCurrentTermID();
 
-		/*$term = Term::current();
-		$term_id = ($term ? $term->term_id : 0);*/
+		$term = Term::current();
+		$term_id = ($term ? $term->term_id : 0);
 
-		$term_id = 2153;
 
 		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
