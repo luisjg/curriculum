@@ -146,6 +146,7 @@ class HandlerUtilities
 	    $classes = [];
 	    foreach($collection as $_class) {
 	        $data = [];
+	        $data['class_size'] = $_class->class_size;
 	        $data['class_number'] = $_class->class_number;
 	        $data['subject'] = $_class->subject;
 	        $data['catalog_number'] = $_class->catalog_number;

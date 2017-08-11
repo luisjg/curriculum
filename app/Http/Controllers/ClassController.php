@@ -82,6 +82,7 @@ class ClassController extends Controller {
 		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
 			->whereIdentifier($id);
+
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Request::input('instructor', 0);
 		if($instructor) {
@@ -89,12 +90,10 @@ class ClassController extends Controller {
 		}
 
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
-		$roster_data = ClassMembershipRoster::where('term_id', $term_id)
-                                            ->where('class_number', $id)->get();
+
 		$response = array(
 			'type'		  => 'classes',
-			'classes'	  => $prepped_data,
-            'class size'  => count($roster_data)
+			'classes'	  => $prepped_data
 		);
 
 		return HandlerUtilities::sendResponse($response);

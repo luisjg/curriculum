@@ -30,7 +30,7 @@ class Classes extends Model {
 	 *
 	 * @var array
 	 */
-	protected $appends = array('');
+	protected $appends = array('class_size');
 
 	/**
 	 * Classes have many meetings (one-to-many relationship)
@@ -121,4 +121,17 @@ class Classes extends Model {
 			$q->where('email', $instructor);
 		});
 	}
+
+    public function getClassSizeAttribute(){
+        $term_id = $this->term_id;
+        $class_number = $this->class_number;
+        $roster_data = ClassMembershipRoster::where('term_id', $term_id)
+            ->where('class_number', $class_number)->get();
+        return count($roster_data);
+    }
+
+
+
+
+
 }
