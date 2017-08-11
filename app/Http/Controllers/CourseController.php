@@ -71,9 +71,5 @@ class CourseController extends Controller {
 
 		return HandlerUtilities::sendResponse($response);
 	}
-
-	public function countStudents($id){
-
-    }
 	
 }
