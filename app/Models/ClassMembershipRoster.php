@@ -6,4 +6,5 @@ class ClassMembershipRoster extends Model {
 
 	protected $table = 'nemo.classMemberships_roster';
 
+    protected $primaryKey = 'classes_id';
 }
