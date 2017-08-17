@@ -10,8 +10,7 @@
         {!! HTML::script('//use.typekit.net/gfb2mjm.js') !!}
         <script>try{Typekit.load();}catch(e){}</script>
         {!! HTML::style('//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic') !!}
-        {!! HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css') !!}
-        {!! HTML::style('//cdn.metalab.csun.edu/metaphor/css/metaphor.css') !!}
+        {!! HTML::style('css/metaphor.css') !!}
         {!! Html::style('css/tomorrow.css.min') !!}
     </head>
     <body>
@@ -35,7 +34,7 @@
         </div>
         {{-- @include('layouts.partials.csun-footer') --}}
         @include('layouts.partials.metalab-footer')
-        {!! HTML::script('//cdn.metalab.csun.edu/metaphor/js/metaphor.js') !!}
-        {!! Html::script('//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js') !!}
+        {!! HTML::script('js/metaphor.js') !!}
+        {!! Html::script('js/run_prettify.js') !!}
     </body>
 </html>
