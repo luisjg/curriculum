@@ -76,13 +76,12 @@ class TermController extends Controller {
 			->where('term_id', $term_id)
 			->whereIdentifier($id)
 			->orderBy('subject')->orderBy('catalog_number');
-	
+
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Request::input('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
-		
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(

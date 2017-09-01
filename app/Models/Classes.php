@@ -30,7 +30,7 @@ class Classes extends Model {
 	 *
 	 * @var array
 	 */
-	protected $appends = array('class_size');
+	protected $appends = array('enrollment_count');
 
 	/**
 	 * Classes have many meetings (one-to-many relationship)
@@ -122,7 +122,7 @@ class Classes extends Model {
 		});
 	}
 
-    public function getClassSizeAttribute(){
+    public function getEnrollmentCountAttribute(){
         $term_id = $this->term_id;
         $class_number = $this->class_number;
         $roster_data = ClassMembershipRoster::where('term_id', $term_id)
