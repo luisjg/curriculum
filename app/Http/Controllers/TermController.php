@@ -45,9 +45,17 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 		
 		$response = array(
-			'type'		  => 'classes',
+			'collection'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
+
+        if(strpos(Request::url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'classes',
+                'classes'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
 
 		return HandlerUtilities::sendResponse($response);
 	}
@@ -71,7 +79,6 @@ class TermController extends Controller {
 	public function classesShow($term, $id)
 	{
 		$term_id = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
-
 		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
 			->whereIdentifier($id)
@@ -86,9 +93,17 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'classes',
+			'collection'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
+
+        if(strpos(Request::url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'classes',
+                'classes'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
 
 		return HandlerUtilities::sendResponse($response);
 	}
@@ -114,9 +129,17 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'courses',
+			'collection'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
+
+        if(strpos(Request::url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'courses',
+                'courses'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
 
 		return HandlerUtilities::sendResponse($response);
 	}
@@ -147,9 +170,17 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'courses',
+			'collection'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
+
+        if(strpos(Request::url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'courses',
+                'courses'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
 
 		return HandlerUtilities::sendResponse($response);
 	}
