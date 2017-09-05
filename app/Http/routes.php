@@ -54,31 +54,6 @@ Route::group(['prefix' => '/api'], function() {
 
 });
 
-// API routes Version 1.0
-Route::group(['prefix' => '/api'], function() {
-    
-        // class info with current term
-        Route::get('/classes', 'ClassController@index');
-        Route::get('/classes/{id}', 'ClassController@show');
-
-        // class info with specific term
-        Route::get('/terms/{term}/classes', 'TermController@classesIndex');
-        Route::get('/terms/{term}/classes/{id}', 'TermController@classesShow');
-
-        // course info with current term
-        Route::get('/courses', 'CourseController@index');
-        Route::get('/courses/{id}', 'CourseController@show');
-
-        // course info with specific term
-        Route::get('/terms/{term}/courses', 'TermController@coursesIndex');
-        Route::get('/terms/{term}/courses/{id}', 'TermController@coursesShow');
-
-        // plan information
-        Route::get('/plans', 'PlanController@index');
-        Route::get('/plans/graduate', 'PlanController@graduateIndex');
-        Route::get('/plans/{plan}', 'PlanController@show');
-
-});
 
 // ------------------------------------------------
 //
