@@ -30,7 +30,7 @@ class ClassController extends Controller {
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
 
-		$data = Classes::with('meetings', 'instructors')->where('term_id', $term_id);
+		$data = Classes::with('meetings', 'instructors','enrolled')->where('term_id', $term_id);
 
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = Request::input('instructor', 0);
@@ -79,7 +79,7 @@ class ClassController extends Controller {
 		$term_id = ($term ? $term->term_id : 0);
 
 
-		$data = Classes::with('meetings', 'instructors')
+		$data = Classes::with('meetings', 'instructors','enrolled')
 			->where('term_id', $term_id)
 			->whereIdentifier($id);
 

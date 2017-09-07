@@ -26,7 +26,7 @@ class TermController extends Controller {
 	{
 		$term = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::with('meetings','instructors')
+		$data = Classes::with('meetings','instructors','enrolled')
 			->where('term_id', $term)
 			->orderBy('subject')->orderBy('catalog_number');
 
@@ -72,7 +72,7 @@ class TermController extends Controller {
 	{
 		$term_id = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::with('meetings', 'instructors')
+		$data = Classes::with('meetings', 'instructors','enrolled')
 			->where('term_id', $term_id)
 			->whereIdentifier($id)
 			->orderBy('subject')->orderBy('catalog_number');
