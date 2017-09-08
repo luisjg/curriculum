@@ -18,7 +18,7 @@ class HandlerUtilities
 	 */
 	public static function getCurrentTermID(){
 	        $current_date = date("Y-m-d H:i:s");
-	        
+
 	        /* Get First term that that falls between these days */
 	        /* Note: muliple semesters avaiable at the same time during the summer and GRAD/UGRD */
 	        $term = Term::where('begin_date', '<=', $current_date)
@@ -31,6 +31,7 @@ class HandlerUtilities
 	        }
 
 	        /* Return current semester's term_id or 0 if no matches */
+
 	        return $term ? $term->term_id : 0;
 	}
 

@@ -29,20 +29,24 @@ class ClassController extends Controller {
 		//$term = HandlerUtilities::getCurrentTermID();
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
-
 		$data = Classes::with('meetings', 'instructors','enrolled')->where('term_id', $term_id);
 
-		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::input('instructor', 0);
-		if($instructor) {
-			$data->hasInstructor($instructor);
-		} else {
-			$response = array(
-				'errors'	  => ['No filter paramters set']
-			);
+        /* APPLY ID AND INSTRUCTOR FILTER */
+        $id = Request::input('id', 0);
+        $instructor = Request::input('instructor', 0);
+        if($id) {
+            $data->whereIdentifier($id);
+        }
+        if($instructor){
+            $data->hasInstructor($instructor);
+        }
+        if(!$id && !$instructor){
+            $response = array(
+                'errors'	  => ['No filter paramters set']
+            );
 
-			return HandlerUtilities::sendErrorResponse($response);
-		}
+            return HandlerUtilities::sendErrorResponse($response);
+        }
 	
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 

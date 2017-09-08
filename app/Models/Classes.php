@@ -127,11 +127,16 @@ class Classes extends Model {
 	}
 
 	/* Only return classes that have specified instructor set */
-	public function scopeHasInstructor($query, $instructor) {
-		$query->whereHas("instructors", function($q) use ($instructor) {
-			$q->where('email', $instructor);
-		});
-	}
+    public function scopeHasInstructor($query, $instructor) {
+        $query->whereHas("instructors", function($q) use ($instructor) {
+            $q->where('email', $instructor);
+        });
+    }
+    public function scopeHasClassId($query, $id) {
+        $query->whereHas("instructors", function($q) use ($instructor) {
+            $q->where('email', $instructor);
+        });
+    }
 
     public function getEnrollmentCountAttribute(){
         return $this->enrolled->count();
