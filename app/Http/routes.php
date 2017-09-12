@@ -76,6 +76,11 @@ Route::get('/terms/{term}/courses/{id}', ['uses' => 'TermController@coursesShow'
 // END TEMPORARY LEGACY ROUTES
 //
 // ------------------------------------------------
+Route::get('/about/version-history', function(){
+    return view('pages.about.version-history');
+});
 
 // landing page and catch-all
 Route::controller('/', 'HomeController');
+
+

@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Curriculum Web Service | @yield('title', 'Admin')</title>
+	<link href="{{ asset('css/metaphor.css') }}" rel="stylesheet" />
 
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 	<link href="{{ asset('css/util.css') }}" rel="stylesheet" />
