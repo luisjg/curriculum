@@ -28,25 +28,25 @@ Route::resource('/admin/users', 'AdminUserController');
 // API routes
 Route::group(['prefix' => '/api'], function() {
 	// class info with current term
-	Route::get('/classes', 'ClassController@index');
-	Route::get('/classes/{id}', 'ClassController@show');
+	Route::get('/classes', ['uses' => 'ClassController@index', 'version' => '1.1']);
+	Route::get('/classes/{id}', ['uses' => 'ClassController@show', 'version' => '1.1']);
 
 	// class info with specific term
-	Route::get('/terms/{term}/classes', 'TermController@classesIndex');
-	Route::get('/terms/{term}/classes/{id}', 'TermController@classesShow');
+	Route::get('/terms/{term}/classes', ['uses' => 'TermController@classesIndex', 'version' => '1.1']);
+	Route::get('/terms/{term}/classes/{id}', ['uses' => 'TermController@classesShow', 'version' => '1.1']);
 
 	// course info with current term
-	Route::get('/courses', 'CourseController@index');
-	Route::get('/courses/{id}', 'CourseController@show');
+	Route::get('/courses', ['uses' => 'CourseController@index', 'version' => '1.1']);
+	Route::get('/courses/{id}', ['uses' => 'CourseController@show', 'version' => '1.1']);
 
 	// course info with specific term
-	Route::get('/terms/{term}/courses', 'TermController@coursesIndex');
-	Route::get('/terms/{term}/courses/{id}', 'TermController@coursesShow');
+	Route::get('/terms/{term}/courses', ['uses' => 'TermController@coursesIndex', 'version' => '1.1']);
+	Route::get('/terms/{term}/courses/{id}', ['uses' => 'TermController@coursesShow', 'version' => '1.1']);
 
 	// plan information
-	Route::get('/plans', 'PlanController@index');
-	Route::get('/plans/graduate', 'PlanController@graduateIndex');
-	Route::get('/plans/{plan}', 'PlanController@show');
+	Route::get('/plans', ['uses' => 'PlanController@index', 'version' => '1.1']);
+	Route::get('/plans/graduate', ['uses' => 'PlanController@graduateIndex', 'version' => '1.1']);
+	Route::get('/plans/{plan}', ['uses' => 'PlanController@show', 'version' => '1.1']);
 });
 
 // ------------------------------------------------
@@ -56,20 +56,20 @@ Route::group(['prefix' => '/api'], function() {
 // ------------------------------------------------
 
 // class info with current term
-Route::get('/classes', 'ClassController@index');
-Route::get('/classes/{id}', 'ClassController@show');
+Route::get('/classes', ['uses' => 'ClassController@index', 'version' => '1.0']);
+Route::get('/classes/{id}', ['uses' => 'ClassController@show', 'version' => '1.0']);
 
 // class info with specific term
-Route::get('/terms/{term}/classes', 'TermController@classesIndex');
-Route::get('/terms/{term}/classes/{id}', 'TermController@classesShow');
+Route::get('/terms/{term}/classes', ['uses' => 'TermController@classesIndex', 'version' => '1.0']);
+Route::get('/terms/{term}/classes/{id}', ['uses' => 'TermController@classesShow', 'version' => '1.0']);
 
 // course info with current term
-Route::get('/courses', 'CourseController@index');
-Route::get('/courses/{id}', 'CourseController@show');
+Route::get('/courses', ['uses' => 'CourseController@index', 'version' => '1.0']);
+Route::get('/courses/{id}', ['uses' => 'CourseController@show', 'version' => '1.0']);
 
 // course info with specific term
-Route::get('/terms/{term}/courses', 'TermController@coursesIndex');
-Route::get('/terms/{term}/courses/{id}', 'TermController@coursesShow');
+Route::get('/terms/{term}/courses', ['uses' => 'TermController@coursesIndex', 'version' => '1.0']);
+Route::get('/terms/{term}/courses/{id}', ['uses' => 'TermController@coursesShow', 'version' => '1.0']);
 
 // ------------------------------------------------
 //

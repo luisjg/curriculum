@@ -248,14 +248,13 @@ class HandlerUtilities
 	 * @param array $data The data to send back to the browser
 	 * @return Response
 	 */
-    public static function sendResponse($data) {
+    public static function sendResponse($data, $version) {
         // additional data to add that should exist for all responses
         $additional = [
-            'version' => config('app.api_version'),
+            'version' => $version,
             'success' => 'true',
             'status' => '200',
             'api' => 'curriculum',
-            'version' => env('CURRENT_VERSION')
 
         ];
 
@@ -299,14 +298,14 @@ class HandlerUtilities
         return response($data, $data['status']);
     }
 
+    //sendLegacyResponse is required if you need to return the JSON with 'type' as it did in version 1.0
     public static function sendLegacyResponse($data) {
         // additional data to add that should exist for all responses
         $additional = [
-            'version' => config('app.api_version'),
             'success' => 'true',
             'status' => '200',
             'api' => 'curriculum',
-            'version' => env('CURRENT_VERSION')
+            'version' => '1.0'
 
         ];
 

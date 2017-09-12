@@ -1,6 +1,7 @@
 <?php namespace Curriculum\Http\Controllers;
 
-use Request;
+use Illuminate\Http\Request;
+use Request as RequestInput;
 
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Classes,
@@ -22,8 +23,9 @@ class ClassController extends Controller {
 	 * class_instructors for those classes
 	 *
 	 */
-	public function index()
+	public function index(Request $request)
 	{
+        $version= $request->route()->getAction()['version'];
 		//$term = HandlerUtilities::getCurrentTermID();
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
@@ -31,7 +33,7 @@ class ClassController extends Controller {
 		$data = Classes::with('meetings', 'instructors')->where('term_id', $term_id);
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::input('instructor', 0);
+		$instructor = RequestInput::input('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		} else {
@@ -45,11 +47,18 @@ class ClassController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'classes',
+            'collection'	  => 'classes',
 			'classes'	  => $prepped_data
 		);
+        if(strpos(RequestInput::url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'classes',
+                'classes'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
 
-		return HandlerUtilities::sendResponse($response);
+		return HandlerUtilities::sendResponse($responsec,$version);
 	}
 
 	/**
@@ -69,8 +78,9 @@ class ClassController extends Controller {
 	 * @return class
 	 *
 	 */
-	public function show($id)
+	public function show($id, Request $request)
 	{
+        $version= $request->route()->getAction()['version'];
 		//$term_id = HandlerUtilities::getCurrentTermID();
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
@@ -80,7 +90,7 @@ class ClassController extends Controller {
 			->whereIdentifier($id);
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::input('instructor', 0);
+		$instructor = RequestInput::input('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
@@ -88,11 +98,19 @@ class ClassController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'classes',
+			'collection'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
 
-		return HandlerUtilities::sendResponse($response);
+        if(strpos(RequestInput::url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'classes',
+                'classes'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
+
+		return HandlerUtilities::sendResponse($response,$version);
 	}
 	
 }
