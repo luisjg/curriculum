@@ -1,7 +1,9 @@
 <?php namespace Curriculum\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Curriculum\Models\ClassMembershipRoster;
+use Curriculum\Models\ClassInstructor;
+use Curriculum\Models\Meeting;
 use Curriculum\Handlers\HandlerUtilities;
 
 /* 'class' is a reserved name */
@@ -39,7 +41,7 @@ class Classes extends Model {
 	 */  
 	public function meetings()
 	{
-		return $this->hasMany('Curriculum\Models\Meeting', 'classes_id', 'classes_id');
+		return $this->hasMany(Meeting::Class, 'classes_id', 'classes_id');
 	}
 
 	/**
@@ -49,7 +51,7 @@ class Classes extends Model {
      */
 	public function instructors()
 	{
-		return $this->hasMany('Curriculum\Models\ClassInstructor', 'classes_id', 'classes_id');
+		return $this->hasMany(ClassInstructor::Class, 'classes_id', 'classes_id');
 	}
 
     /**
@@ -59,7 +61,7 @@ class Classes extends Model {
      */
 	public function enrolled()
     {
-        return $this->hasMany('Curriculum\Models\ClassMembershipRoster','classes_id', 'classes_id')
+        return $this->hasMany(ClassMembershipRoster::Class,'classes_id', 'classes_id')
                     ->where('role_position','not like','%Instructor');
     }
 
