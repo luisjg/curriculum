@@ -23,7 +23,8 @@ class PlanController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-        $version= $request->route()->getAction()['version'];
+
+    $version= $request->route()->getAction()['version'];
 		$data = Plan::orderBy('name', 'ASC')->get();
 
 		$response = array(

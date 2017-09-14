@@ -1,11 +1,13 @@
 <?php namespace Curriculum\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Request as RequestInput;
 
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Classes,
 	Curriculum\Models\Term;
+use Curriculum\Models\ClassMembershipRoster;
 
 class ClassController extends Controller {
 
@@ -29,7 +31,6 @@ class ClassController extends Controller {
 		//$term = HandlerUtilities::getCurrentTermID();
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
-
 		$data = Classes::with('meetings', 'instructors')->where('term_id', $term_id);
 
 		/* APPLY INSTRUCTOR FILTER */
@@ -82,15 +83,19 @@ class ClassController extends Controller {
 	{
         $version= $request->route()->getAction()['version'];
 		//$term_id = HandlerUtilities::getCurrentTermID();
+
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
 
-		$data = Classes::with('meetings', 'instructors')
+
+		$data = Classes::with('meetings', 'instructors','enrolled')
 			->where('term_id', $term_id)
 			->whereIdentifier($id);
 
 		/* APPLY INSTRUCTOR FILTER */
+
 		$instructor = RequestInput::input('instructor', 0);
+
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
@@ -112,5 +117,4 @@ class ClassController extends Controller {
 
 		return HandlerUtilities::sendResponse($response,$version);
 	}
-	
 }

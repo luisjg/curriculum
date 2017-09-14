@@ -39,6 +39,7 @@ Route::group(['prefix' => '/api'], function() {
 	Route::get('/courses', ['uses' => 'CourseController@index', 'version' => '1.1']);
 	Route::get('/courses/{id}', ['uses' => 'CourseController@show', 'version' => '1.1']);
 
+
 	// course info with specific term
 	Route::get('/terms/{term}/courses', ['uses' => 'TermController@coursesIndex', 'version' => '1.1']);
 	Route::get('/terms/{term}/courses/{id}', ['uses' => 'TermController@coursesShow', 'version' => '1.1']);

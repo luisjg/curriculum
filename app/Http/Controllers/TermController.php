@@ -26,10 +26,9 @@ class TermController extends Controller {
 	public function classesIndex($term, Request $request)
 	{
         $version= $request->route()->getAction()['version'];
-
         $term = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::with('meetings','instructors')
+		$data = Classes::with('meetings','instructors','enrolled')
 			->where('term_id', $term)
 			->orderBy('subject')->orderBy('catalog_number');
 
@@ -37,7 +36,8 @@ class TermController extends Controller {
 		$instructor = RequestInput::input('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
-		} else {
+		}
+		if(!$id && !$instructor){
 			$response = array(
 				'errors'	  => ['No filter paramters set']
 			);
@@ -87,13 +87,12 @@ class TermController extends Controller {
 			->where('term_id', $term_id)
 			->whereIdentifier($id)
 			->orderBy('subject')->orderBy('catalog_number');
-	
+
 		/* APPLY INSTRUCTOR FILTER */
 		$instructor = RequestInput::input('instructor', 0);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
-		
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
@@ -125,11 +124,17 @@ class TermController extends Controller {
 	{
         $version= $request->route()->getAction()['version'];
 		$term_code = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
-		
-		$data = Classes::groupAsCourse($term_code, false)
-			->orderBy('subject')->orderBy('catalog_number')
-			->get()
-			->toArray();
+
+        $id = Request::input('id', 0);
+        if($id){
+            $data = Classes::whereIdentifier($id)
+                ->groupAsCourse($term_code, Request::input('showAll', false))
+                ->orderBy('subject')->orderBy('catalog_number');
+        }
+        else{
+            $data = Classes::groupAsCourse($term_code, false)
+                ->orderBy('subject')->orderBy('catalog_number');
+        }
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
@@ -172,7 +177,7 @@ class TermController extends Controller {
 			->groupAsCourse($term_code, RequestInput::input('showAll',false))
 			->orderBy('subject')->orderBy('catalog_number');
 
-	
+
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
