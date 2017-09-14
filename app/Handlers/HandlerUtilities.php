@@ -143,37 +143,38 @@ class HandlerUtilities
 		$terms = Term::all()->lists('term', 'term_id');
 
 	    $classes = [];
-	    foreach($collection as $_class) {
-	        $data = [];
-	        $data['class_number'] = $_class->class_number;
-	        $data['subject'] = $_class->subject;
-	        $data['catalog_number'] = $_class->catalog_number;
-	        $data['section_number'] = $_class->section_number;
-	        $data['title'] = $_class->title;
-	        $data['course_id'] = $_class->course_id;
-	        $data['description'] = $_class->description;
-	        $data['units'] = $_class->units;
-	        $data['term'] = (array_key_exists($_class->term_id, $terms) ? $terms[$_class->term_id] : "");
-	        $data['meetings'] = [];
-	        $data['instructors'] = [];
+	    foreach($collection as $class) {
+	        $data = [
 
-	        foreach($_class->meetings as $_meeting) {
-	            $meeting = [];
-	            $meeting['meeting_number'] = $_meeting->meeting_number;
-	            $meeting['location'] = $_meeting->location;
-	            $meeting['start_time'] = $_meeting->start_time;
-	            $meeting['end_time'] = $_meeting->end_time; 
-	            $meeting['days'] = $_meeting->days; 
-	            
-	            $data['meetings'][] = $meeting;
-
+	        'enrollment_count' => $class->enrollment_count,
+	        'class_number' => $class->class_number,
+	        'subject' => $class->subject,
+	        'catalog_number' => $class->catalog_number,
+	        'section_number' => $class->section_number,
+	        'title' => $class->title,
+	        'course_id' => $class->course_id,
+	        'description' => $class->description,
+	        'units' => $class->units,
+	        'term' => (array_key_exists($class->term_id, $terms) ? $terms[$class->term_id] : ""),
+	        'meetings' => [],
+	        'instructors' => []
+            ];
+	        foreach($class->meetings as $meeting) {
+	            $meeting = [
+	            'meeting_number' => $meeting->meeting_number,
+	            'location' => $meeting->location,
+	            'start_time' => $meeting->start_time,
+	            'end_time' => $meeting->end_time,
+	            'days' => $meeting->days,
+                ];
+	            $data['meetings'] = $meeting;
 	        }
 
-	        foreach($_class->instructors as $_instructor) {
-	            $instructor = [];
-	            $instructor['instructor'] = $_instructor->email;   
-	            
-	            $data['instructors'][] = $instructor;
+	        foreach($class->instructors as $instructor) {
+	            $instructors = [
+	                'instructor' => $instructor->email
+	            ];
+	            $data['instructors'] = $instructors;
 	        }
 
 	        $classes[] = $data;
