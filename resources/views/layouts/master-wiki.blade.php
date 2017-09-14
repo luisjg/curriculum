@@ -14,7 +14,7 @@
     </head>
 
     <body>
-        
+
         <div class="wrapper" id="content">
             <div class="container">
                 <div class="row">
@@ -35,7 +35,7 @@
 
         {{-- APP SCRIPTS --}}
         {!! HTML::script('js/app.js') !!}
-    
+
 
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

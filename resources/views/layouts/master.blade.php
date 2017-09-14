@@ -17,7 +17,7 @@
 
 	@include('layouts.partials.header')
 
-	<div class="container">
+	<div class="main main--metalab">
 
 		@if ($errors->count() > 0)
 			<div class="row">
@@ -52,7 +52,7 @@
 		@endif
 
 		@yield('content')
-		
+
 	</div>
 
 </body>

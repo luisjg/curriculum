@@ -24,24 +24,19 @@
 			<div class="col-sm-10">
 
 
-				<h2>Curriculum 1.1 <small>Pilot Release Date: 07/27/15</small></h2>
+				<h2>Curriculum 1.1 <small>Release Date:</small></h2>
 				<p>
 					<strong>New Features:</strong>
 				<ol>
-					<li>Curriculum Stories</li>
-					<li>Curriculum Hangouts</li>
-					<li>Managing Personal Information</li>
-					<li>Managing Office Hours</li>
-					<li>Showcasing Connections</li>
-					<li>Showcasing Courses Taught</li>
-					<li>Uploading Syllabi for Courses</li>
-					<li>Managing your profile image</li>
+					<li>Placeholder</li>
+
+
 				</ol>
 				</p>
 				<hr>
 
-				<h2>Curriculum 1.0 <small>Stunt Release Date: 01/07/15</small></h2>
-				<p>A stunt is a set of days dedicated to building core functionality for an application. Stunts allow teams to identify pro/cons in workflow, areas with missing data, and provides overall exposure to better solutions for building an application. Most importantly, stunts improve team interactions and communication. Teamwork makes the dream work :)</p>
+				<h2>Curriculum 1.0 <small>Release Date:</small></h2>
+				<p>Initial Release</p>
 
 			</div>
 		</div>

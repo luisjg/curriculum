@@ -14,25 +14,29 @@
         {!! HTML::style('//cdn.metalab.csun.edu/metaphor/css/metaphor.css') !!}
         {!! Html::style('css/tomorrow.css.min') !!}
     </head>
-    <body>
-        <div class="section section--sm">
-          <div class="container type--center">
-            <h1 class="giga type--thin">Curriculum Web Service</h1>
-            <h3 class="h1 type--thin type--gray">Delivering CSUN course information</h3>
-          </div>
-        </div>
-        <div class="section" id="menu">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3" id="sidebar">
-                        @include('layouts.partials.side-nav')
-                    </div>
-                    <div class="col-md-9" id="page">
-                        @yield('content')
+
+            <div class="section section--sm">
+                <div class="container type--center">
+                    <h1 class="giga type--thin">Curriculum Web Service</h1>
+                    <h3 class="h1 type--thin type--gray">Delivering CSUN course information</h3>
+                </div>
+            </div>
+            <div class="main main--metalab" style="min-height: calc(100vh - 130px);">
+
+                <div class="section" id="menu">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3" id="sidebar">
+                                @include('layouts.partials.side-nav')
+                            </div>
+                            <div class="col-md-9" id="page">
+                                @yield('content')
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
         {{-- @include('layouts.partials.csun-footer') --}}
         @include('layouts.partials.metalab-footer')
         {!! HTML::script('//cdn.metalab.csun.edu/metaphor/js/metaphor.js') !!}
