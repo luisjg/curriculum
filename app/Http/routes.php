@@ -39,6 +39,7 @@ Route::group(['prefix' => '/api'], function() {
 	Route::get('/courses', 'CourseController@index');
 	Route::get('/courses/{id}', 'CourseController@show');
 
+
 	// course info with specific term
 	Route::get('/terms/{term}/courses', 'TermController@coursesIndex');
 	Route::get('/terms/{term}/courses/{id}', 'TermController@coursesShow');

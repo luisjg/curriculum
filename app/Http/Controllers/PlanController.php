@@ -22,7 +22,14 @@ class PlanController extends Controller {
 	 */
 	public function index()
 	{
-		$data = Plan::orderBy('name', 'ASC')->get();
+        $id = Request::input('id', false);
+        if($id){
+            $data = Plan::findOrFail($id);
+}
+        else{
+            $data = Plan::orderBy('name', 'ASC')->get();
+    }
+
 
 		$response = array(
 			'type'		  => 'plans',
