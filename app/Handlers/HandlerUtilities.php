@@ -143,8 +143,6 @@ class HandlerUtilities
 		// grab all terms as an array so we can transform the ID into
 		// an actual term name
 		$terms = Term::all()->lists('term', 'term_id');
-//        $collection = App\Classes::with('enrollment_count')->get();
-
 	    $classes = [];
 	    foreach($collection as $_class) {
 	        $data = [];

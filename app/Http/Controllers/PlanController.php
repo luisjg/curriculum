@@ -22,7 +22,7 @@ class PlanController extends Controller {
 	 */
 	public function index()
 	{
-        $id = Request::input('id', 0);
+        $id = Request::input('id', false);
         if($id){
             $data = Plan::findOrFail($id);
 }

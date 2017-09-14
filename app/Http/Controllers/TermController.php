@@ -32,8 +32,8 @@ class TermController extends Controller {
 			->where('term_id', $term)
 			->orderBy('subject')->orderBy('catalog_number');
         /* APPLY ID AND INSTRUCTOR FILTER */
-        $id = Request::input('id', 0);
-        $instructor = Request::input('instructor', 0);
+        $id = Request::input('id', false);
+        $instructor = Request::input('instructor', false);
         if($id) {
             $data->whereIdentifier($id);
         }
@@ -84,7 +84,7 @@ class TermController extends Controller {
 			->orderBy('subject')->orderBy('catalog_number');
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::input('instructor', 0);
+		$instructor = Request::input('instructor', false);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}

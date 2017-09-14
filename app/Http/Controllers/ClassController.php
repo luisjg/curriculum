@@ -32,8 +32,8 @@ class ClassController extends Controller {
 		$data = Classes::with('meetings', 'instructors','enrolled')->where('term_id', $term_id);
 
         /* APPLY ID AND INSTRUCTOR FILTER */
-        $id = Request::input('id', 0);
-        $instructor = Request::input('instructor', 0);
+        $id = Request::input('id', false);
+        $instructor = Request::input('instructor', false);
         if($id) {
             $data->whereIdentifier($id);
         }
@@ -42,7 +42,7 @@ class ClassController extends Controller {
         }
         if(!$id && !$instructor){
             $response = array(
-                'errors'	  => ['No filter paramters set']
+                'errors'	  => ['No filter parameters set']
             );
 
             return HandlerUtilities::sendErrorResponse($response);
@@ -88,7 +88,7 @@ class ClassController extends Controller {
 			->whereIdentifier($id);
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::input('instructor', 0);
+		$instructor = Request::input('instructor', false);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
