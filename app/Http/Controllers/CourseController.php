@@ -1,11 +1,12 @@
 <?php namespace Curriculum\Http\Controllers;
 
-use Request;
-
+use Illuminate\Http\Request;;
+use Request as RequestInput;
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Classes,
 	Curriculum\Models\Course,
 	Curriculum\Models\Term;
+
 
 class CourseController extends Controller {
 
@@ -24,8 +25,9 @@ class CourseController extends Controller {
 	 * @return all courses for the current term
 	 *
 	 */
-	public function index()
+	public function index(Request $request)
 	{
+        $version= $request->route()->getAction()['version'];
 		//$term = HandlerUtilities::getCurrentTermID();
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
@@ -48,8 +50,15 @@ class CourseController extends Controller {
 			'limit'		  => '50',
 			'courses'	  => $prepped_data
 		);
+        if(strpos(RequestInput::url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'courses',
+                'courses'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
 
-		return HandlerUtilities::sendResponse($response);
+		return HandlerUtilities::sendResponse($response,$version);
 	}
 
 	/**
@@ -61,22 +70,31 @@ class CourseController extends Controller {
 	 * @return course info for a subject, all for the current term
 	 *
 	 */
-	public function show($id)
+	public function show($id, Request $request)
 	{
+        $version= $request->route()->getAction()['version'];
 		//$term = HandlerUtilities::getCurrentTermID();
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term_id, Request::input('showAll', false))
+			->groupAsCourse($term_id, RequestInput::input('showAll', false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 		$response = array(
-			'type'		  => 'courses',
+			'collection'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
 
-		return HandlerUtilities::sendResponse($response);
+        if(strpos(RequestInput::url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'courses',
+                'courses'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
+
+		return HandlerUtilities::sendResponse($response ,$version);
 	}
 	
 }

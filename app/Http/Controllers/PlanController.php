@@ -1,6 +1,7 @@
 <?php namespace Curriculum\Http\Controllers;
 
-use Request;
+use Illuminate\Http\Request;
+use Request as RequestInput;
 
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Plan;
@@ -20,24 +21,19 @@ class PlanController extends Controller {
 	 * @return all degree plans
 	 *
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-        $id = Request::input('id', false);
-        if($id){
-            $data = Plan::findOrFail($id);
-}
-        else{
-            $data = Plan::orderBy('name', 'ASC')->get();
-    }
 
+    $version= $request->route()->getAction()['version'];
+		$data = Plan::orderBy('name', 'ASC')->get();
 
 		$response = array(
-			'type'		  => 'plans',
+			'collection'		  => 'plans',
 			'limit'		  => '150',
 			'plans'	  	  => $data
 		);
 
-		return HandlerUtilities::sendResponse($response);
+		return HandlerUtilities::sendResponse($response, $version);
 	}
 
 	/**
@@ -46,19 +42,27 @@ class PlanController extends Controller {
 	 * @return all graduate degree plans
 	 *
 	 */
-	public function graduateIndex()
+	public function graduateIndex(Request $request)
 	{
+        $version= $request->route()->getAction()['version'];
 		$data = Plan::where('plan_type', 'GRADUATE')
 			->orderBy('name', 'ASC')
 			->get();
 
 		$response = array(
-			'type'		  => 'plans',
+			'collection'		  => 'plans',
 			'limit'		  => '150',
 			'plans'	  	  => $data
 		);
+        if(strpos(RequestInput::url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'plans',
+                'plans'	  => $data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
 
-		return HandlerUtilities::sendResponse($response);
+		return HandlerUtilities::sendResponse($response, $version);
 	}
 
 	/**
@@ -68,16 +72,25 @@ class PlanController extends Controller {
 	 * @return information for a specific degree plan
 	 *
 	 */
-	public function show($id)
+	public function show($id, Request $request)
 	{
+        $version= $request->route()->getAction()['version'];
 		$data = Plan::findOrFail($id);
 
 		$response = array(
-			'type'		  => 'plan',
-			'plan'	  	  => $data
+			'collection'    => 'plan',
+			'plan'	  	    => $data
 		);
 
-		return HandlerUtilities::sendResponse($response);
+        if(strpos(RequestInput::url(),'api' ) == false){
+            $response = array(
+                'type'	    => 'plans',
+                'plans'	    => $data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
+
+		return HandlerUtilities::sendResponse($response, $version);
 	}
 	
 }
