@@ -2,7 +2,6 @@
 
 
 use Illuminate\Http\Request;
-use Request as RequestInput;
 
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Classes,
@@ -28,13 +27,12 @@ class ClassController extends Controller {
 	public function index(Request $request)
 	{
         $version= $request->route()->getAction()['version'];
-		//$term = HandlerUtilities::getCurrentTermID();
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
 		$data = Classes::with('meetings', 'instructors')->where('term_id', $term_id);
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = RequestInput::input('instructor', 0);
+		$instructor = $request->input('instructor', false);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		} else {
@@ -51,7 +49,7 @@ class ClassController extends Controller {
             'collection'	  => 'classes',
 			'classes'	  => $prepped_data
 		);
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'		  => 'classes',
                 'classes'	  => $prepped_data
@@ -59,7 +57,7 @@ class ClassController extends Controller {
             return HandlerUtilities::sendLegacyResponse($response);
         }
 
-		return HandlerUtilities::sendResponse($responsec,$version);
+		return HandlerUtilities::sendResponse($response,$version);
 	}
 
 	/**
@@ -82,7 +80,6 @@ class ClassController extends Controller {
 	public function show($id, Request $request)
 	{
         $version= $request->route()->getAction()['version'];
-		//$term_id = HandlerUtilities::getCurrentTermID();
 
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
@@ -94,7 +91,7 @@ class ClassController extends Controller {
 
 		/* APPLY INSTRUCTOR FILTER */
 
-		$instructor = RequestInput::input('instructor', 0);
+		$instructor = $request->input('instructor', false);
 
 		if($instructor) {
 			$data->hasInstructor($instructor);
@@ -103,11 +100,11 @@ class ClassController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'collection'		  => 'classes',
-			'classes'	  => $prepped_data
+			'collection'	=> 'classes',
+			'classes'	    => $prepped_data
 		);
 
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'		  => 'classes',
                 'classes'	  => $prepped_data
