@@ -25,9 +25,12 @@ Route::resource('/admin/courses', 'AdminCourseController');
 Route::post('/admin/users/search', 'AdminUserController@search');
 Route::resource('/admin/users', 'AdminUserController'); 
 
-// API routes
+// API routes Version 1.1
 Route::group(['prefix' => '/api'], function() {
-	// class info with current term
+
+    Route::group(['prefix' => '/1.1'], function(){
+
+        // class info with current term
 	Route::get('/classes', ['uses' => 'ClassController@index', 'version' => '1.1']);
 	Route::get('/classes/{id}', ['uses' => 'ClassController@show', 'version' => '1.1']);
 
@@ -48,7 +51,11 @@ Route::group(['prefix' => '/api'], function() {
 	Route::get('/plans', ['uses' => 'PlanController@index', 'version' => '1.1']);
 	Route::get('/plans/graduate', ['uses' => 'PlanController@graduateIndex', 'version' => '1.1']);
 	Route::get('/plans/{plan}', ['uses' => 'PlanController@show', 'version' => '1.1']);
+    });
+
+
 });
+
 
 // ------------------------------------------------
 //
@@ -71,6 +78,12 @@ Route::get('/courses/{id}', ['uses' => 'CourseController@show', 'version' => '1.
 // course info with specific term
 Route::get('/terms/{term}/courses', ['uses' => 'TermController@coursesIndex', 'version' => '1.0']);
 Route::get('/terms/{term}/courses/{id}', ['uses' => 'TermController@coursesShow', 'version' => '1.0']);
+
+// plan information
+Route::get('/plans', 'PlanController@index');
+Route::get('/plans/graduate', 'PlanController@graduateIndex');
+Route::get('/plans/{plan}', 'PlanController@show');
+
 
 // ------------------------------------------------
 //
