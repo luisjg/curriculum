@@ -1,7 +1,6 @@
 <?php namespace Curriculum\Http\Controllers;
 
-use Request;
-
+use Illuminate\Http\Request;
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Classes;
 
@@ -22,19 +21,22 @@ class TermController extends Controller {
 	 *  class_instructors for those classes
 	 *
 	 */
-	public function classesIndex($term)
+	public function classesIndex($term, Request $request)
 	{
-		$term = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
+        $version= $request->route()->getAction()['version'];
+        $term = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
-		$data = Classes::with('meetings','instructors')
+		$data = Classes::with('meetings','instructors','enrolled')
 			->where('term_id', $term)
 			->orderBy('subject')->orderBy('catalog_number');
 
-		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::input('instructor', 0);
+		/* APPLY INSTRUCTOR AND ID FILTER */
+		$instructor = $request->input('instructor', false);
+		$id = $request->input('id', false);
 		if($instructor) {
 			$data->hasInstructor($instructor);
-		} else {
+		}
+		if(!$id && !$instructor){
 			$response = array(
 				'errors'	  => ['No filter paramters set']
 			);
@@ -45,11 +47,19 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 		
 		$response = array(
-			'type'		  => 'classes',
+			'collection'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
 
-		return HandlerUtilities::sendResponse($response);
+        if(strpos($request->url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'classes',
+                'classes'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
+
+		return HandlerUtilities::sendResponse($response, $version);
 	}
 
 	/**
@@ -68,29 +78,36 @@ class TermController extends Controller {
 	 * @return class info for ticket number|subject-catalog_number for the given term
 	 *
 	 */
-	public function classesShow($term, $id)
+	public function classesShow($term, $id, Request $request)
 	{
+        $version= $request->route()->getAction()['version'];
 		$term_id = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
-
 		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
 			->whereIdentifier($id)
 			->orderBy('subject')->orderBy('catalog_number');
-	
+
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = Request::input('instructor', 0);
+		$instructor = $request->input('instructor', false);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
-		
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'classes',
+			'collection'		  => 'classes',
 			'classes'	  => $prepped_data
 		);
 
-		return HandlerUtilities::sendResponse($response);
+        if(strpos($request->url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'classes',
+                'classes'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
+
+		return HandlerUtilities::sendResponse($response, $version);
 	}
 
 	/**
@@ -102,23 +119,38 @@ class TermController extends Controller {
 	 * @return all courses for the given term
 	 *
 	 */
-	public function coursesIndex($term)
+	public function coursesIndex($term, Request $request)
 	{
+        $version= $request->route()->getAction()['version'];
 		$term_code = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
-		
-		$data = Classes::groupAsCourse($term_code, false)
-			->orderBy('subject')->orderBy('catalog_number')
-			->get()
-			->toArray();
+
+        $id = $request->input('id', false);
+        if($id){
+            $data = Classes::whereIdentifier($id)
+                ->groupAsCourse($term_code, $request->input('showAll', false))
+                ->orderBy('subject')->orderBy('catalog_number');
+        }
+        else{
+            $data = Classes::groupAsCourse($term_code, false)
+                ->orderBy('subject')->orderBy('catalog_number');
+        }
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'courses',
+			'collection'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
 
-		return HandlerUtilities::sendResponse($response);
+        if(strpos($request->url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'courses',
+                'courses'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
+
+		return HandlerUtilities::sendResponse($response,$version);
 	}
 
 	/**
@@ -135,23 +167,32 @@ class TermController extends Controller {
 	 * @return course info for a subject, all for the given term
 	 *
 	 */
-	public function coursesShow($term, $id)
+	public function coursesShow($term, $id, Request $request)
 	{
+        $version= $request->route()->getAction()['version'];
 		$term_code = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term_code, Request::input('showAll',false))
+			->groupAsCourse($term_code, $request->input('showAll',false))
 			->orderBy('subject')->orderBy('catalog_number');
 
-	
+
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'courses',
+			'collection'		  => 'courses',
 			'courses'	  => $prepped_data
 		);
 
-		return HandlerUtilities::sendResponse($response);
+        if(strpos($request->url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'courses',
+                'courses'	  => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
+
+		return HandlerUtilities::sendResponse($response,$version);
 	}
 	
 }

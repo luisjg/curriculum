@@ -48,7 +48,6 @@ class Term extends Model {
             // return the next term instead
             return $next;
         }
-
         return $current;
 	}
 

@@ -30,7 +30,7 @@ class Classes extends Model {
 	 *
 	 * @var array
 	 */
-	protected $appends = array('');
+	protected $appends = array('enrollment_count');
 
 	/**
 	 * Classes have many meetings (one-to-many relationship)
@@ -45,12 +45,23 @@ class Classes extends Model {
 	/**
 	 * Classes have many instructors (one-to-many relationship)
 	 *
-	 * @return mixed
-	 */  
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
 	public function instructors()
 	{
 		return $this->hasMany('Curriculum\Models\ClassInstructor', 'classes_id', 'classes_id');
 	}
+
+    /**
+     * Classes have many enrollment records (one-to-many relationship)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+	public function enrolled()
+    {
+        return $this->hasMany('Curriculum\Models\ClassMembershipRoster','classes_id', 'classes_id')
+                    ->where('role_position','not like','%Instructor');
+    }
 
 	/** 
 	 * Treat class list as course list
@@ -109,16 +120,30 @@ class Classes extends Model {
 
 		/* Filter By IDs */
 		if ($classes_id) 		$query->where('classes_id', $classes_id);
-		if ($subject) 			$query->where('subject', $subject);				
+		if ($subject) 			$query->where('subject', $subject);
 		if ($catalog_number) 	$query->where('catalog_number', $catalog_number);
 		if ($class_number) 		$query->where('class_number', $class_number);
 
 	}
 
 	/* Only return classes that have specified instructor set */
-	public function scopeHasInstructor($query, $instructor) {
-		$query->whereHas("instructors", function($q) use ($instructor) {
-			$q->where('email', $instructor);
-		});
-	}
+    public function scopeHasInstructor($query, $instructor) {
+        $query->whereHas("instructors", function($q) use ($instructor) {
+            $q->where('email', $instructor);
+        });
+    }
+    public function scopeHasClassId($query, $id) {
+        $query->whereHas("instructors", function($q) use ($instructor) {
+            $q->where('email', $instructor);
+        });
+    }
+
+    public function getEnrollmentCountAttribute(){
+        return $this->enrolled->count();
+    }
+
+
+
+
+
 }
