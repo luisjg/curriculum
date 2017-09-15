@@ -1,7 +1,6 @@
 <?php namespace Curriculum\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Request as RequestInput;
 
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Plan;
@@ -54,7 +53,7 @@ class PlanController extends Controller {
 			'limit'		  => '150',
 			'plans'	  	  => $data
 		);
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'		  => 'plans',
                 'plans'	  => $data
@@ -82,7 +81,7 @@ class PlanController extends Controller {
 			'plan'	  	    => $data
 		);
 
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'	    => 'plans',
                 'plans'	    => $data

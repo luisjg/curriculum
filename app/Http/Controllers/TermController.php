@@ -1,8 +1,6 @@
 <?php namespace Curriculum\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Request as RequestInput;
-
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Classes;
 
@@ -32,8 +30,9 @@ class TermController extends Controller {
 			->where('term_id', $term)
 			->orderBy('subject')->orderBy('catalog_number');
 
-		/* APPLY INSTRUCTOR FILTER */
-		$instructor = RequestInput::input('instructor', 0);
+		/* APPLY INSTRUCTOR AND ID FILTER */
+		$instructor = $request->input('instructor', false);
+		$id = $request->input('id', false);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
@@ -52,7 +51,7 @@ class TermController extends Controller {
 			'classes'	  => $prepped_data
 		);
 
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'		  => 'classes',
                 'classes'	  => $prepped_data
@@ -89,7 +88,7 @@ class TermController extends Controller {
 			->orderBy('subject')->orderBy('catalog_number');
 
 		/* APPLY INSTRUCTOR FILTER */
-		$instructor = RequestInput::input('instructor', 0);
+		$instructor = $request->input('instructor', false);
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
@@ -100,7 +99,7 @@ class TermController extends Controller {
 			'classes'	  => $prepped_data
 		);
 
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'		  => 'classes',
                 'classes'	  => $prepped_data
@@ -125,10 +124,10 @@ class TermController extends Controller {
         $version= $request->route()->getAction()['version'];
 		$term_code = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
-        $id = Request::input('id', 0);
+        $id = $request->input('id', false);
         if($id){
             $data = Classes::whereIdentifier($id)
-                ->groupAsCourse($term_code, Request::input('showAll', false))
+                ->groupAsCourse($term_code, $request->input('showAll', false))
                 ->orderBy('subject')->orderBy('catalog_number');
         }
         else{
@@ -143,7 +142,7 @@ class TermController extends Controller {
 			'courses'	  => $prepped_data
 		);
 
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'		  => 'courses',
                 'courses'	  => $prepped_data
@@ -174,7 +173,7 @@ class TermController extends Controller {
 		$term_code = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term_code, RequestInput::input('showAll',false))
+			->groupAsCourse($term_code, $request->input('showAll',false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 
@@ -185,7 +184,7 @@ class TermController extends Controller {
 			'courses'	  => $prepped_data
 		);
 
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'		  => 'courses',
                 'courses'	  => $prepped_data

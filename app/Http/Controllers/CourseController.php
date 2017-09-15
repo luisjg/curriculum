@@ -1,7 +1,6 @@
 <?php namespace Curriculum\Http\Controllers;
 
 use Illuminate\Http\Request;;
-use Request as RequestInput;
 use Curriculum\Handlers\HandlerUtilities;
 use Curriculum\Models\Classes,
 	Curriculum\Models\Course,
@@ -28,13 +27,12 @@ class CourseController extends Controller {
 	public function index(Request $request)
 	{
         $version= $request->route()->getAction()['version'];
-		//$term = HandlerUtilities::getCurrentTermID();
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
-		$id = Request::input('id', 0);
+		$id = $request->input('id', 0);
 		if($id){
             $data = Classes::whereIdentifier($id)
-                ->groupAsCourse($term_id, Request::input('showAll', false))
+                ->groupAsCourse($term_id, $request->input('showAll', false))
                 ->orderBy('subject')->orderBy('catalog_number');
         }
         else{
@@ -50,7 +48,7 @@ class CourseController extends Controller {
 			'limit'		  => '50',
 			'courses'	  => $prepped_data
 		);
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'		  => 'courses',
                 'courses'	  => $prepped_data
@@ -73,11 +71,10 @@ class CourseController extends Controller {
 	public function show($id, Request $request)
 	{
         $version= $request->route()->getAction()['version'];
-		//$term = HandlerUtilities::getCurrentTermID();
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term_id, RequestInput::input('showAll', false))
+			->groupAsCourse($term_id, $request->input('showAll', false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
@@ -86,7 +83,7 @@ class CourseController extends Controller {
 			'courses'	  => $prepped_data
 		);
 
-        if(strpos(RequestInput::url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false){
             $response = array(
                 'type'		  => 'courses',
                 'courses'	  => $prepped_data
