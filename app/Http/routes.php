@@ -90,6 +90,11 @@ Route::get('/plans/{plan}', 'PlanController@show');
 // END TEMPORARY LEGACY ROUTES
 //
 // ------------------------------------------------
+Route::get('/about/version-history', function(){
+    return view('pages.about.version-history');
+});
 
 // landing page and catch-all
 Route::controller('/', 'HomeController');
+
+

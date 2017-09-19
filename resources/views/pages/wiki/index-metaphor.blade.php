@@ -134,6 +134,8 @@
 		<dd class="accordion__content">
 	    	<pre>
 	    	<code class="prettyprint lang-javascript">
+
+
 // this example assumes jQuery integration for ease of use
 // and a &lt;div&gt; element with the ID of "course-results"
 
@@ -240,5 +242,14 @@ puts JSON.parse(data)
 	    	</pre>
 		</dd>
 	</dl>
+
+	<h3 class="type--header type--thin" id="examples">About</h3>
+	<strong>Version History</strong>
+	<ul>
+		<a href="{{ url('about/version-history') }}">Version History</a>
+	</ul>
+
+
+
 @stop
 
