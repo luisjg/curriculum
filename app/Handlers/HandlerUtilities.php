@@ -7,6 +7,7 @@ use Curriculum\Models\LoggedRequest,
 
 class HandlerUtilities
 {
+
 	/* Place all helper methods here */
 
 
@@ -241,7 +242,8 @@ class HandlerUtilities
 
 		// complete the response
 		$data = array_reverse($data);
-		return self::sendResponse($data);
+		//In the case of an error, a default version matching the latest version will be shown
+		return self::sendResponse($data,'1.1');
 	}
 
 	/**
@@ -251,7 +253,7 @@ class HandlerUtilities
 	 * @param array $data The data to send back to the browser
 	 * @return Response
 	 */
-    public static function sendResponse($data, $version='1.1') {
+    public static function sendResponse($data, $version) {
         // additional data to add that should exist for all responses
         $additional = [
             'version' => $version,
