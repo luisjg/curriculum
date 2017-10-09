@@ -241,7 +241,7 @@ class HandlerUtilities
 
 		// complete the response
 		$data = array_reverse($data);
-		return self::sendResponse($data, $version='1.0');
+		return self::sendResponse($data);
 	}
 
 	/**
@@ -251,7 +251,7 @@ class HandlerUtilities
 	 * @param array $data The data to send back to the browser
 	 * @return Response
 	 */
-    public static function sendResponse($data, $version) {
+    public static function sendResponse($data, $version='1.1') {
         // additional data to add that should exist for all responses
         $additional = [
             'version' => $version,
