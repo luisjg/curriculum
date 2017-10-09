@@ -7,7 +7,6 @@ use Curriculum\Models\LoggedRequest,
 
 class HandlerUtilities
 {
-
 	/* Place all helper methods here */
 
 
