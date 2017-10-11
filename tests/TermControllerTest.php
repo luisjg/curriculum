@@ -4,6 +4,7 @@ use Curriculum\Http\Controllers\TermController;
 class TermControllerTest extends TestCase {
 
     protected $validEmail = 'steven.fitzgerald@csun.edu';
+    protected $termId = 2153;
 
     public function setUp(){
         parent::setUp();
@@ -11,7 +12,7 @@ class TermControllerTest extends TestCase {
 
     public function testClassesIndex_returns_json_content_for_version_one()
     {
-        $data = $this->call('GET','/terms/2153/classes?instructor='.$this->validEmail);
+        $data = $this->call('GET',"/terms/$this->termId/classes?instructor=$this->validEmail");
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['version'], '1.0');
         $this->assertEquals($content['api'], 'curriculum');
@@ -22,7 +23,7 @@ class TermControllerTest extends TestCase {
 
     public function testClassesIndex_returns_json_content_for_version_one_point_one()
     {
-        $data = $this->call('GET','api/1.1/terms/2153/classes?instructor='.$this->validEmail);
+        $data = $this->call('GET',"api/1.1/terms/$this->termId/classes?instructor=$this->validEmail");
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['version'], '1.1');
         $this->assertEquals($content['api'], 'curriculum');
@@ -34,7 +35,7 @@ class TermControllerTest extends TestCase {
 
     public function testCoursesIndex_returns_json_content_for_version_one()
     {
-        $data = $this->call('GET','/terms/2153/courses');
+        $data = $this->call('GET',"/terms/$this->termId/courses");
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['version'], '1.0');
         $this->assertEquals($content['api'], 'curriculum');
@@ -46,7 +47,7 @@ class TermControllerTest extends TestCase {
 
     public function testCoursesIndex_returns_json_content_for_version_one_point_one()
     {
-        $data = $this->call('GET','api/1.1/terms/2153/courses');
+        $data = $this->call('GET',"api/1.1/terms/$this->termId/courses");
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['version'], '1.1');
         $this->assertEquals($content['api'], 'curriculum');
