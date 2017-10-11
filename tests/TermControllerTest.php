@@ -64,8 +64,27 @@ class TermControllerTest extends TestCase {
     public function testCoursesShow_returns_json_content_for_version_one()
     {
         $data = $this->call('GET', '/terms/'.$this->validTerm.'/courses/'.$this->validClassId);
-
+        $content = json_decode($data->getContent(), true);
+        $this->assertEquals($content['version'], '1.0');
+        $this->assertEquals($content['api'], 'curriculum');
+        $this->assertEquals($content['status'], 200);
+        $this->assertEquals($content['success'], 'true');
+        $this->assertEquals($content['type'], 'courses');
+        $this->assertEquals(count($content['courses']), 1);
     }
+
+    public function testCoursesShow_returns_json_content_for_version_one_point_one()
+    {
+        $data = $this->call('GET', '/api/1.1/terms/'.$this->validTerm.'/courses/'. $this->validClassId);
+        $content = json_decode($data->getContent(), true);
+        $this->assertEquals($content['api'], 'curriculum');
+        $this->assertEquals($content['status'], 200);
+        $this->assertEquals($content['success'], 'true');
+        $this->assertEquals($content['version'], '1.1');
+        $this->assertEquals($content['collection'], 'courses');
+        $this->assertEquals(count($content['courses']), 1);
+    }
+
 
 }
 
