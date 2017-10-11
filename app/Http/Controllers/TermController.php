@@ -23,6 +23,7 @@ class TermController extends Controller {
 	 */
 	public function classesIndex($term, Request $request)
 	{
+	    dd('fsdf');
         $version= $request->route()->getAction()['version'];
         $term = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
