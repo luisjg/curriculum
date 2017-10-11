@@ -8,5 +8,8 @@ class PlanControllerTest extends TestCase
         parent::setUp();
     }
 
+    public function testIndex_returns_json_content()
+    {
 
+    }
 }
