@@ -278,16 +278,13 @@ class HandlerUtilities
 
         // figure out the result count
         $dataCount = 0;
-        if($data['collection'] == 'classes') {
+        if ($data['type'] == 'classes') {
             $dataCount = count($data['classes']);
-        }
-        else if($data['collection'] == 'courses') {
+        } else if ($data['type'] == 'courses') {
             $dataCount = count($data['courses']);
-        }
-        else if($data['collection'] == 'plans') {
+        } else if ($data['type'] == 'plans') {
             $dataCount = count($data['plans']);
         }
-
         // log the request for statistical purposes
         LoggedRequest::create([
             'ip' => $ip,
