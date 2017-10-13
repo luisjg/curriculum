@@ -87,6 +87,7 @@ class ClassController extends Controller {
             $term_id =env('TESTING_TERM');
         }
 		$data = Classes::with('meetings', 'instructors','enrolled')
+
 			->where('term_id', $term_id)
 			->whereIdentifier($id);
 

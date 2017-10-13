@@ -12,19 +12,6 @@
 */
 
 
-// authentication functionality
-Route::controller('/auth', 'AuthController');
-
-// admin course functionality
-Route::get('/admin', 'AdminCourseController@index');
-Route::get('/admin/courses/search', 'AdminCourseController@getSearch');
-Route::post('/admin/courses/search', 'AdminCourseController@postSearch');
-Route::resource('/admin/courses', 'AdminCourseController');
-
-// admin user functionality
-Route::post('/admin/users/search', 'AdminUserController@search');
-Route::resource('/admin/users', 'AdminUserController'); 
-
 // API routes Version 1.1
 Route::group(['prefix' => '/api'], function() {
 
@@ -82,7 +69,7 @@ Route::get('/terms/{term}/courses/{id}', ['uses' => 'TermController@coursesShow'
 // plan information
 Route::get('/plans', ['uses' => 'PlanController@index', 'version' => '1.0']);
 Route::get('/plans/graduate', 'PlanController@graduateIndex');
-Route::get('/plans/{plan}', 'PlanController@show');
+Route::get('/plans/{plan}', ['uses' => 'PlanController@Show', 'version' => '1.0']);
 
 
 // ------------------------------------------------
