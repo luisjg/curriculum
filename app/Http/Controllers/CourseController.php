@@ -44,7 +44,7 @@ class CourseController extends Controller {
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'courses',
+			'collection'		  => 'courses',
 			'limit'		  => '50',
 			'courses'	  => $prepped_data
 		);
