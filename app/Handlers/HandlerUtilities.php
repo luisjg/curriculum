@@ -241,7 +241,8 @@ class HandlerUtilities
 
 		// complete the response
 		$data = array_reverse($data);
-		return self::sendResponse($data);
+		//In the case of an error, a default version matching the latest version will be shown
+		return self::sendResponse($data,'1.1');
 	}
 
 	/**
