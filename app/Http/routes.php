@@ -69,7 +69,7 @@ Route::get('/terms/{term}/courses/{id}', ['uses' => 'TermController@coursesShow'
 // plan information
 Route::get('/plans', ['uses' => 'PlanController@index', 'version' => '1.0']);
 Route::get('/plans/graduate', 'PlanController@graduateIndex');
-Route::get('/plans/{plan}', 'PlanController@show');
+Route::get('/plans/{plan}', ['uses' => 'PlanController@Show', 'version' => '1.0']);
 
 
 // ------------------------------------------------
