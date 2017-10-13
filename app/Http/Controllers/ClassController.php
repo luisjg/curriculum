@@ -82,8 +82,12 @@ class ClassController extends Controller {
         $version= $request->route()->getAction()['version'];
 
 		$term = Term::current();
-        $term_id = ($term ? $term->term_id : 0);
-        $data = Classes::with('meetings', 'instructors','enrolled')
+		$term_id = ($term ? $term->term_id : 0);
+        if(env('APP_ENV')=='testing'){
+            $term_id =env('TESTING_TERM');
+        }
+		$data = Classes::with('meetings', 'instructors','enrolled')
+
 			->where('term_id', $term_id)
 			->whereIdentifier($id);
 

@@ -16,8 +16,10 @@
     </testsuites>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="TESTING_TERM" value="2153"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
     </php>
 </phpunit>
+
