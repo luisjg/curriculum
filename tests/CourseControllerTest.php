@@ -14,7 +14,7 @@ class CourseControllerTest extends TestCase
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['version'],'1.1');
-        $this->assertEquals($content['type'],'courses');
+        $this->assertEquals($content['collection'],'courses');
         $this->assertArrayHasKey('courses',$content);
     }
     public function testInfo_shows_legacy_courses(){
