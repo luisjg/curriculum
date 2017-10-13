@@ -10,11 +10,7 @@ class TermControllerTest extends TestCase {
 
     public function setUp(){
         parent::setUp();
-<<<<<<< HEAD
         $this->validEmail = 'steve@metalab.csun.edu';
-=======
-        $this->validEmail = 'nr_steven.fitzgerald@csun.edu';
->>>>>>> 8db933ba2be43c8ea2b3208837089d65b41c301f
         $this->validTerm = 2153;
         $this->validClassId = 19149;
         $this->validClassId2 = 'comp-100';

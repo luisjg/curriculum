@@ -6,11 +6,7 @@ class ClassControllerTest extends TestCase
 
     public function setUp(){
         parent::setUp();
-<<<<<<< HEAD
         $this->validEmail = 'steve@metalab.csun.edu';
-=======
-        $this->validEmail = 'nr_steven.fitzgerald@csun.edu';
->>>>>>> 8db933ba2be43c8ea2b3208837089d65b41c301f
     }
 
     public function testIndex_returns_json_content_for_version_one()
