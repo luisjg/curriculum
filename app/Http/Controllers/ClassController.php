@@ -37,7 +37,7 @@ class ClassController extends Controller {
 			$data->hasInstructor($instructor);
 		} else {
 			$response = array(
-				'errors'	  => ['No filter paramters set']
+				'errors'	  => ['No filter parameters set']
 			);
 
 			return HandlerUtilities::sendErrorResponse($response);

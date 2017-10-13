@@ -38,7 +38,7 @@ class TermController extends Controller {
 		}
 		if(!$id && !$instructor){
 			$response = array(
-				'errors'	  => ['No filter paramters set']
+				'errors'	  => ['No filter parameters set']
 			);
 
 			return HandlerUtilities::sendErrorResponse($response);
