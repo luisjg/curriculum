@@ -1,5 +1,5 @@
-use Curriculum\Http\Controllers\TermController;
-use Curriculum\Http\Controllers\ClassController;
+<?php
+
 
 class TermControllerTest extends TestCase {
 
