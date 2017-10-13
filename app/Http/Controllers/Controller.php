@@ -18,7 +18,6 @@ abstract class Controller extends BaseController {
 		$this->beforeFilter(function() {
 		    Event::fire('clockwork.controller.start');
 		});
-
 		$this->afterFilter(function() {
 		    Event::fire('clockwork.controller.end');
 		});
