@@ -6,7 +6,7 @@ class ClassControllerTest extends TestCase
 {
     protected $classController;
     protected $classId = 'comp-100';
-    protected $validEmail = 'steven.fitzgerald@csun.edu';
+    protected $validEmail = 'nr_steven.fitzgerald@csun.edu';
     public function setUp(){
         parent::setUp();
     }
