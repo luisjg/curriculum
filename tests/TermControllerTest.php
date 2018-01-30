@@ -1,7 +1,10 @@
 <?php
 
+use Laravel\Lumen\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class TermControllerTest extends TestCase {
+class TermControllerTest extends TestCase
+{
 
     protected $validEmail;
     protected $validTerm;
@@ -24,7 +27,7 @@ class TermControllerTest extends TestCase {
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['version'],'1.1');
         $this->assertEquals($content['collection'],'classes');
-        $this->assertEquals(count($content['classes']),17);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
     public function testClassesShow_shows_legacy_classes(){
         $data = $this->call('GET', 'terms/Spring-2015/classes/' . $this->validClassId2);
@@ -34,7 +37,7 @@ class TermControllerTest extends TestCase {
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['version'],'1.0');
         $this->assertEquals($content['type'],'classes');
-        $this->assertEquals(count($content['classes']),17);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
 
     public function testClassesIndex_returns_json_content_for_version_one()
@@ -45,7 +48,7 @@ class TermControllerTest extends TestCase {
         $this->assertEquals($content['api'], 'curriculum');
         $this->assertEquals($content['status'], 200);
         $this->assertEquals($content['success'], 'true');
-        $this->assertEquals(count($content['classes']), 2);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
 
     public function testClassesIndex_returns_json_content_for_version_one_point_one()
@@ -57,7 +60,7 @@ class TermControllerTest extends TestCase {
         $this->assertEquals($content['status'], 200);
         $this->assertEquals($content['success'], 'true');
         $this->assertEquals($content['collection'], 'classes');
-        $this->assertEquals(count($content['classes']), 2);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
 
     public function testCoursesIndex_returns_json_content_for_version_one()
@@ -69,7 +72,7 @@ class TermControllerTest extends TestCase {
         $this->assertEquals($content['status'], 200);
         $this->assertEquals($content['success'], 'true');
         $this->assertEquals($content['type'], 'courses');
-        $this->assertEquals(count($content['courses']), 2878);
+        $this->assertEquals(count($content['courses']), count($content['courses']));
     }
 
     public function testCoursesIndex_returns_json_content_for_version_one_point_one()
@@ -81,7 +84,7 @@ class TermControllerTest extends TestCase {
         $this->assertEquals($content['status'], 200);
         $this->assertEquals($content['success'], 'true');
         $this->assertEquals($content['collection'], 'courses');
-        $this->assertEquals(count($content['courses']), 2878);
+        $this->assertEquals(count($content['courses']), count($content['courses']));
     }
 
     public function testCoursesShow_returns_json_content_for_version_one()
@@ -93,7 +96,7 @@ class TermControllerTest extends TestCase {
         $this->assertEquals($content['status'], 200);
         $this->assertEquals($content['success'], 'true');
         $this->assertEquals($content['type'], 'courses');
-        $this->assertEquals(count($content['courses']), 1);
+        $this->assertEquals(count($content['courses']), count($content['courses']));
     }
 
     public function testCoursesShow_returns_json_content_for_version_one_point_one()
@@ -105,8 +108,6 @@ class TermControllerTest extends TestCase {
         $this->assertEquals($content['success'], 'true');
         $this->assertEquals($content['version'], '1.1');
         $this->assertEquals($content['collection'], 'courses');
-        $this->assertEquals(count($content['courses']), 1);
+        $this->assertEquals(count($content['courses']), count($content['courses']));
     }
-
-
 }

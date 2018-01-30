@@ -1,20 +1,14 @@
-<?php namespace Curriculum\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;;
-use Curriculum\Handlers\HandlerUtilities;
-use Curriculum\Models\Classes,
-	Curriculum\Models\Course,
-	Curriculum\Models\Term;
+use App\Handlers\HandlerUtilities;
+use App\Models\Classes,
+	App\Models\Course,
+	App\Models\Term;
 
 
-class CourseController extends Controller {
-
-	/**
-	 * Constructs a new CourseController object.
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
+class CourseController extends Controller
+{
 
 	/**
 	 * Get all course information for the current term
@@ -26,16 +20,15 @@ class CourseController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-        $version= $request->route()->getAction()['version'];
+        $version= $request->route()[1]['version'];
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
 		$id = $request->input('id', 0);
-		if($id){
+		if($id) {
             $data = Classes::whereIdentifier($id)
                 ->groupAsCourse($term_id, $request->input('showAll', false))
                 ->orderBy('subject')->orderBy('catalog_number');
-        }
-        else{
+        } else {
             $data = Classes::groupAsCourse($term_id, false)
                 ->orderBy('subject')->orderBy('catalog_number');
         }
@@ -44,19 +37,19 @@ class CourseController extends Controller {
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'collection'		  => 'courses',
-			'limit'		  => '50',
-			'courses'	  => $prepped_data
+			'collection' => 'courses',
+			'limit' => '50',
+			'courses' => $prepped_data
 		);
-        if(strpos($request->url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false) {
             $response = array(
-                'type'		  => 'courses',
-                'courses'	  => $prepped_data
+                'type' => 'courses',
+                'courses' => $prepped_data
             );
-            return HandlerUtilities::sendLegacyResponse($response);
+            return HandlerUtilities::sendLegacyResponse($response, $request);
         }
 
-		return HandlerUtilities::sendResponse($response,$version);
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 
 	/**
@@ -70,7 +63,7 @@ class CourseController extends Controller {
 	 */
 	public function show($id, Request $request)
 	{
-        $version= $request->route()->getAction()['version'];
+        $version= $request->route()[1]['version'];
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
 		$data = Classes::whereIdentifier($id)
@@ -79,19 +72,19 @@ class CourseController extends Controller {
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 		$response = array(
-			'collection'		  => 'courses',
-			'courses'	  => $prepped_data
+			'collection' => 'courses',
+			'courses' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false){
+        if(strpos($request->url(),'api' ) == false) {
             $response = array(
-                'type'		  => 'courses',
-                'courses'	  => $prepped_data
+                'type' => 'courses',
+                'courses' => $prepped_data
             );
-            return HandlerUtilities::sendLegacyResponse($response);
+            return HandlerUtilities::sendLegacyResponse($response, $request);
         }
 
-		return HandlerUtilities::sendResponse($response ,$version);
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 	
 }

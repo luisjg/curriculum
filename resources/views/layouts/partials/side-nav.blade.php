@@ -10,7 +10,7 @@
 	</ul>
 <a class="header--sm" href="{{ url('about/version-history') }}"><strong>Version History</strong></a>
 <br><br>
-	<a class="btn btn-default btn-lg" href="{!! asset('pdfs/CurriculumWebService2.0.pdf') !!}" target="_blank">
+	<a class="btn btn-default btn-lg" href="{!! url('pdfs/CurriculumWebService2.0.pdf') !!}" target="_blank">
 		<i class="fa fa-download" aria-hidden="true"></i>
 		System Description
 	</a>

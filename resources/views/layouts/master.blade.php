@@ -1,59 +1,55 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="csrf-token" content="{{ csrf_token() }}" />
-	<title>Curriculum Web Service | @yield('title', 'Admin')</title>
-	<link href="{{ asset('css/metaphor.css') }}" rel="stylesheet" />
+<!DOCTYPE HTML>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+        <meta name="description" content="@yield('description')">
+        <title>Curriculum Web Service</title>
+        <link rel="icon" href="//www.csun.edu/sites/default/themes/csun/favicon.ico" type="image/x-icon" />
+        <script type="text/javascript" src="{!! url('//use.typekit.net/gfb2mjm.js') !!}"></script>
+        <script>try{Typekit.load();}catch(e){}</script>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="{!! url('css/metaphor.css') !!}" />
+        <link rel="stylesheet" href="{!! url('css/tomorrow.css.min') !!}" />
+    </head>
 
-	<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
-	<link href="{{ asset('css/util.css') }}" rel="stylesheet" />
+            <div class="section section--sm">
+                <div class="container type--center">
+                    <h1 class="giga type--thin">Curriculum Web Service</h1>
+                    <h3 class="h1 type--thin type--gray">Delivering CSUN course information</h3>
+                </div>
+            </div>
+            <div class="main main--metalab" style="min-height: calc(100vh - 130px);">
 
-	<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
-</head>
-<body>
+                <div class="section" id="menu">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3" id="sidebar">
+                                @include('layouts.partials.side-nav')
+                            </div>
+                            <div class="col-md-9" id="page">
+                                @yield('content')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-	@include('layouts.partials.header')
-
-	<div class="main main--metalab">
-
-		@if ($errors->count() > 0)
-			<div class="row">
-				<div class="alert alert-danger alert-dismissible" role="alert">
-	  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	  					<span aria-hidden="true">&times;</span>
-	  				</button>
-					<p>The following errors occurred:</p>
-					<p>&nbsp;</p>
-					<ul>
-					@foreach ($errors->all() as $error)
-						<li>{{ $error }}</li>
-					@endforeach
-					</ul>
-				</div>
-			</div>
-		@elseif (!empty($success) || Session::has('success'))
-			<div class="row">
-				<div class="alert alert-success alert-dismissible" role="alert">
-	  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	  					<span aria-hidden="true">&times;</span>
-	  				</button>
-	  				<p>
-	  					@if (Session::has('success'))
-	  						{{ session('success') }}
-	  					@else
-	  						{{ $success }}
-	  					@endif
-	  				</p>
-	  			</div>
-			</div>
-		@endif
-
-		@yield('content')
-
-	</div>
-
-</body>
+        {{-- @include('layouts.partials.csun-footer') --}}
+        @include('layouts.partials.metalab-footer')
+        <script type="text/javascript" src="{!! url('js/metaphor.js') !!}"></script>
+        <script type="text/javascript" src="{!! url('js/run_prettify.js') !!}"></script>
+        <!--
+  __  __   ___   _____     _
+ |  \/  | | __| |_   _|   /_\       Explore Learn Go Beyond
+ | |\/| | | _|    | |    / _ \      https://www.metalab.csun.edu/
+ |_|  |_| |___|   |_|   /_/ \_\
+    _       _        _     ___
+  _| |_    | |      /_\   | _ )
+ |_   _|   | |__   / _ \  | _ \
+   |_|     |____| /_/ \_\ |___/
+-->
+    </body>
 </html>

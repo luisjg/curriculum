@@ -1,6 +1,7 @@
 <?php
 
-use Curriculum\Http\Controllers\ClassController;
+use Laravel\Lumen\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class ClassControllerTest extends TestCase
 {
@@ -18,7 +19,7 @@ class ClassControllerTest extends TestCase
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['version'],'1.1');
         $this->assertEquals($content['collection'],'classes');
-        $this->assertEquals(count($content['classes']),1);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
     public function testShow_shows_legacy_class(){
         $data = $this->call('GET', 'classes/15015');
@@ -28,7 +29,7 @@ class ClassControllerTest extends TestCase
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['type'],'classes');
-        $this->assertEquals(count($content['classes']),1);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
   
    public function testIndex_returns_json_content_for_version_one()
@@ -40,7 +41,7 @@ class ClassControllerTest extends TestCase
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['type'],'classes');
-        $this->assertEquals(count($content['classes']),3);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
 
     public function testIndex_returns_json_content_for_version_one_point_one()
@@ -52,6 +53,6 @@ class ClassControllerTest extends TestCase
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['version'],'1.1');
         $this->assertEquals($content['collection'],'classes');
-        $this->assertEquals(count($content['classes']),3);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
 }

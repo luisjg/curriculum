@@ -1,4 +1,4 @@
-<?php namespace Curriculum\Models;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model,
 	Illuminate\Database\Eloquent\ModelNotFoundException;

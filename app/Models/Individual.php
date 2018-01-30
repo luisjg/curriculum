@@ -1,4 +1,4 @@
-<?php namespace Curriculum\Models;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,6 +33,6 @@ class Individual extends Model
 	 * @return User
 	 */
 	public function user() {
-		return $this->belongsTo("Curriculum\Models\User", "individuals_id");
+		return $this->belongsTo("App\Models\User", "individuals_id");
 	}
 }

@@ -1,9 +1,9 @@
-<?php namespace Curriculum\Handlers;
+<?php namespace App\Handlers;
 
-use Curriculum\Models\ClassMembershipRoster;
-use Request;
-use Curriculum\Models\LoggedRequest,
-	Curriculum\Models\Term;
+use App\Models\ClassMembershipRoster;
+use Illuminate\Http\Request;
+use App\Models\LoggedRequest,
+	App\Models\Term;
 
 class HandlerUtilities
 {
@@ -142,7 +142,7 @@ class HandlerUtilities
 	{
 		// grab all terms as an array so we can transform the ID into
 		// an actual term name
-		$terms = Term::all()->lists('term', 'term_id');
+		$terms = Term::all()->pluck('term', 'term_id');
 	    $classes = [];
 	    foreach($collection as $class) {
 	        $data = [
@@ -195,7 +195,7 @@ class HandlerUtilities
 	{
 		// grab all terms as an array so we can transform the ID into
 		// an actual term name
-		$terms = Term::all()->lists('term', 'term_id');
+		$terms = Term::all()->pluck('term', 'term_id');
 
 	    $courses = [];
 	    foreach($collection as $_course) {
@@ -216,16 +216,17 @@ class HandlerUtilities
 	}
 
 
-	/**
-	 * Returns the JSON response with optional response code. This method also
-	 * logs the request information for statistical purposes.
-	 *
-	 * @param array $data The error data to send back to the browser
-	 * @param integer $code Optional error response code to send back
-	 *
-	 * @return Response
-	 */
-	public static function sendErrorResponse($data, $code=500) {
+    /**
+     * Returns the JSON response with optional response code. This method also
+     * logs the request information for statistical purposes.
+     *
+     * @param array $data The error data to send back to the browser
+     * @param integer $code Optional error response code to send back
+     * @param Request $request the request object
+     *
+     * @return Response
+     */
+	public static function sendErrorResponse($data, $code=500, $request) {
 		// additional data to add that should exist for all responses
 		$additional = [
 			'collection' => 'errors',
@@ -242,7 +243,7 @@ class HandlerUtilities
 		// complete the response
 		$data = array_reverse($data);
 		//In the case of an error, a default version matching the latest version will be shown
-		return self::sendResponse($data,'1.1');
+		return self::sendResponse($data,'1.1', $request);
 	}
 
 	/**
@@ -252,7 +253,7 @@ class HandlerUtilities
 	 * @param array $data The data to send back to the browser
 	 * @return Response
 	 */
-    public static function sendResponse($data, $version) {
+    public static function sendResponse($data, $version, $request) {
         // additional data to add that should exist for all responses
         $additional = [
             'version' => $version,
@@ -271,11 +272,11 @@ class HandlerUtilities
         $data = array_reverse($data);
 
         // grab the necessary Request information
-        $ip = Request::ip();
+        $ip = $request->ip();
 
         // resolve the URL portion beginning with /api to include the
         // query string provided, if any
-        $path = urldecode(str_replace(Request::root(), "", Request::fullUrl()));
+        $path = urldecode(str_replace($request->root(), "", $request->fullUrl()));
 
         // figure out the result count
         $dataCount = 0;
@@ -300,7 +301,7 @@ class HandlerUtilities
     }
 
     //sendLegacyResponse is required if you need to return the JSON with 'type' as it did in version 1.0
-    public static function sendLegacyResponse($data) {
+    public static function sendLegacyResponse($data, $request) {
         // additional data to add that should exist for all responses
         $additional = [
             'success' => 'true',
@@ -319,11 +320,11 @@ class HandlerUtilities
         $data = array_reverse($data);
 
         // grab the necessary Request information
-        $ip = Request::ip();
+        $ip = $request->ip();
 
         // resolve the URL portion beginning with /api to include the
         // query string provided, if any
-        $path = urldecode(str_replace(Request::root(), "", Request::fullUrl()));
+        $path = urldecode(str_replace($request->root(), "", $request->fullUrl()));
 
         // figure out the result count
         $dataCount = 0;

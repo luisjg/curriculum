@@ -1,6 +1,7 @@
 <?php
 
-use Curriculum\Http\Controllers\CourseController;
+use Laravel\Lumen\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class CourseControllerTest extends TestCase
 {

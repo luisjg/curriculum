@@ -1,10 +1,10 @@
-<?php namespace Curriculum\Models;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Curriculum\Models\ClassMembershipRoster;
-use Curriculum\Models\ClassInstructor;
-use Curriculum\Models\Meeting;
-use Curriculum\Handlers\HandlerUtilities;
+use App\Models\ClassMembershipRoster;
+use App\Models\ClassInstructor;
+use App\Models\Meeting;
+use App\Handlers\HandlerUtilities;
 
 /* 'class' is a reserved name */
 class Classes extends Model { 

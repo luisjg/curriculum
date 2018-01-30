@@ -1,4 +1,4 @@
-@extends('layouts.master-metaphor')
+@extends('layouts.master')
 
 {{-- META TAGS 4 SEO --}}
 @section('title')
@@ -10,36 +10,18 @@
 
 {{-- WEBSITE CONTENT --}}
 @section('content')
-
-
-
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<h1 class="page-header">Version History</h1>
-			</div>
-			<div class="col-sm-2">
-
-			</div>
-			<div class="col-sm-10">
-
-
-				<h2>Curriculum 1.1 <small>Release Date:</small></h2>
-				<p>
-					<strong>New Features:</strong>
-				<ol>
-					<li>Placeholder</li>
-
-
-				</ol>
-				</p>
-				<hr>
-
-				<h2>Curriculum 1.0 <small>Release Date:</small></h2>
-				<p>Initial Release</p>
-
-			</div>
-		</div>
-	</div>
-
+	<h2 id="version-history" class="type--header type--thin">Version History</h2>
+	<h2>Curriculum 1.0 <small>Release Date: 02/01/17</small></h2>
+	<p>
+		<strong>Improvements:</strong>
+		<ol>
+			<li>Include a version history section</li>
+			<li>Upgrade to Lumen 5.5</li>
+		</ol>
+		<strong>Bug Fixes</strong>
+		<ol>
+			<li>Fix missing values on the example URLs</li>
+		</ol>
+	</p>
+	<hr>
 @stop
