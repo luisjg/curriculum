@@ -1,12 +1,10 @@
 <?php namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
-
 use App\Handlers\HandlerUtilities;
-use App\Models\Classes,
-	App\Models\Term;
-use App\Models\ClassMembershipRoster;
+use App\Models\Classes;
+use App\Models\Term;
+use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {

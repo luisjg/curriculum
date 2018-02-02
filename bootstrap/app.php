@@ -59,6 +59,10 @@ $app->singleton(
 |
 */
 
+$app->middleware([
+    CSUNMetaLab\LumenForceHttps\Http\Middleware\ForceHttps::class
+]);
+
 // $app->middleware([
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
@@ -80,6 +84,9 @@ $app->singleton(
 
 $app->configure('proxypass');
 $app->register(CSUNMetaLab\LumenProxyPass\Providers\ProxyPassServiceProvider::class);
+
+$app->configure('forcehttps');
+$app->register(CSUNMetaLab\LumenForceHttps\Providers\ForceHttpsServiceProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);

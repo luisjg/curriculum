@@ -10,14 +10,14 @@ use App\Models\Classes,
 class CourseController extends Controller
 {
 
-	/**
-	 * Get all course information for the current term
-	 * @link /api/courses 	GET
-	 * @internal don't allow entire course list for all semesters to be returned without a subject 
-	 * 				until paging or some way to restrict these results is added
-	 * @return all courses for the current term
-	 *
-	 */
+    /**
+     * Get all course information for the current term
+     * @link /api/courses    GET
+     * @internal don't allow entire course list for all semesters to be returned without a subject
+     *                until paging or some way to restrict these results is added
+     * @param Request $request
+     * @return all courses for the current term
+     */
 	public function index(Request $request)
 	{
         $version= $request->route()[1]['version'];
@@ -58,7 +58,7 @@ class CourseController extends Controller
 	 * @todo Exceptions in else block
 	 * @link /api/courses/{id} 	GET
 	 * @param string $id
-	 * @return course info for a subject, all for the current term
+	 * @return response info for a subject, all for the current term
 	 *
 	 */
 	public function show($id, Request $request)

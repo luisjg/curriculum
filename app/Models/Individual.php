@@ -23,7 +23,8 @@ class Individual extends Model
 	 *
 	 * @return boolean
 	 */
-	public function isActive() {
+	public function isActive()
+    {
 		return $this->affiliation_status == "Active";
 	}
 
@@ -32,7 +33,8 @@ class Individual extends Model
 	 *
 	 * @return User
 	 */
-	public function user() {
+	public function user()
+    {
 		return $this->belongsTo("App\Models\User", "individuals_id");
 	}
 }

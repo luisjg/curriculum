@@ -16,7 +16,7 @@ class HomeController extends Controller {
 	/**
 	 * Show the landing screen to the user.
 	 *
-	 * @return Response
+	 * @return view
 	 */
 	public function getIndex() {
 		return view('pages.index');

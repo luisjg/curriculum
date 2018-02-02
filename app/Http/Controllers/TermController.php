@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Handlers\HandlerUtilities;
 use App\Models\Classes;
+use Illuminate\Http\Request;
 
 class TermController extends Controller
 {

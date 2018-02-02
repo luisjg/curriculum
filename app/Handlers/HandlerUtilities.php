@@ -1,9 +1,8 @@
 <?php namespace App\Handlers;
 
-use App\Models\ClassMembershipRoster;
+use App\Models\LoggedRequest;
+use App\Models\Term;
 use Illuminate\Http\Request;
-use App\Models\LoggedRequest,
-	App\Models\Term;
 
 class HandlerUtilities
 {
@@ -16,7 +15,8 @@ class HandlerUtilities
 	 * @return Current Term Code (e.g 2147)
 	 *
 	 */
-	public static function getCurrentTermID(){
+	public static function getCurrentTermID()
+    {
 	        $current_date = date("Y-m-d H:i:s");
 
 	        /* Get First term that that falls between these days */
@@ -41,13 +41,15 @@ class HandlerUtilities
 	 * @return Current Term Code (e.g 2147)
 	 *
 	 */
-	public static function getCurrentTerm(){
+	public static function getCurrentTerm()
+    {
 	    $term = self::getCurrentTermID();
 	    return self::getTermFromTermID($term);
 
 	}
 
-	public static function getTermFromTermID($term_id) {
+	public static function getTermFromTermID($term_id)
+    {
 	    $term_codes = array(
 	            1 => 'Winter',
 	            3 => 'Spring',
@@ -68,7 +70,8 @@ class HandlerUtilities
 	 * @return Generated Term Code (e.g 2147)
 	 *
 	 */
-	public static function generateTermCodeFromSemesterTerm($term){
+	public static function generateTermCodeFromSemesterTerm($term)
+    {
 
 		// does the term code already exist as a four-digit format?
 		if(is_numeric($term) && strlen($term) == 4) {
@@ -226,7 +229,8 @@ class HandlerUtilities
      *
      * @return Response
      */
-	public static function sendErrorResponse($data, $code=500, $request) {
+	public static function sendErrorResponse($data, $code=500, $request)
+    {
 		// additional data to add that should exist for all responses
 		$additional = [
 			'collection' => 'errors',
@@ -253,7 +257,8 @@ class HandlerUtilities
 	 * @param array $data The data to send back to the browser
 	 * @return Response
 	 */
-    public static function sendResponse($data, $version, $request) {
+    public static function sendResponse($data, $version, $request)
+    {
         // additional data to add that should exist for all responses
         $additional = [
             'version' => $version,
@@ -301,7 +306,16 @@ class HandlerUtilities
     }
 
     //sendLegacyResponse is required if you need to return the JSON with 'type' as it did in version 1.0
-    public static function sendLegacyResponse($data, $request) {
+
+    /**
+     * Returns the old json header
+     *
+     * @param $data
+     * @param $request
+     * @return response
+     */
+    public static function sendLegacyResponse($data, $request)
+    {
         // additional data to add that should exist for all responses
         $additional = [
             'success' => 'true',
@@ -358,7 +372,8 @@ class HandlerUtilities
 	 * @return boolean
 	 *
 	 */
-	public static function isAssociationID($id) {
+	public static function isAssociationID($id)
+    {
 	    $pattern = '/^classes:(Spring|Summer|Fall|Winter)-[0-9][0-9]:[0-9]{5}$/';
 	    return preg_match($pattern, $id);
 	}
@@ -370,7 +385,8 @@ class HandlerUtilities
 	 * @return boolean
 	 *
 	 */
-	public static function isSubjectCatelogID($id) {
+	public static function isSubjectCatelogID($id)
+    {
 	    if (strpos($id,':') !== false) {
 	        return false; // contains ':' not a subject
 	    }
@@ -386,7 +402,8 @@ class HandlerUtilities
 	 * @return boolean
 	 *
 	 */
-	public static function isSubjectID($id) {         
+	public static function isSubjectID($id)
+    {
 	    $pattern = '/^[a-zA-Z][a-zA-Z\/ ]*$/';
 	    return preg_match($pattern, $id);
 	}

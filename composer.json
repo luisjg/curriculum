@@ -8,7 +8,8 @@
         "php": ">=7.0",
         "laravel/lumen-framework": "5.5.*",
         "vlucas/phpdotenv": "~2.2",
-        "csun-metalab/lumen-proxypass": "^1.1"
+        "csun-metalab/lumen-proxypass": "^1.1",
+        "csun-metalab/lumen-force-https": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
