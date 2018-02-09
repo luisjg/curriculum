@@ -7,27 +7,28 @@ class PlanControllerTest extends TestCase
     protected $planId;
     public function setUp(){
         parent::setUp();
-        $this->planId=561208;
+        $this->planId='230703M';
     }
 
     public function testGraduateIndex_shows_plan(){
-        $data = $this->call('GET', 'api/1.1/plans/graduate');
+        $data = $this->call('GET', 'api/2.0/plans/graduate');
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['api'],'curriculum');
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
-        $this->assertEquals($content['version'],'1.1');
+        $this->assertEquals($content['version'],'2.0');
         $this->assertEquals($content['collection'],'plans');
-        $this->assertEquals(count($content['plans']),148);
+        $this->assertArrayHasKey('plans', $content);
+
     }
       
     public function testShow_shows_plan(){
-        $data = $this->call('GET', 'api/1.1/plans/' . $this->planId);
+        $data = $this->call('GET', 'api/2.0/plans/' . $this->planId);
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['api'],'curriculum');
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
-        $this->assertEquals($content['version'],'1.1');
+        $this->assertEquals($content['version'],'2.0');
         $this->assertEquals($content['collection'],'plan');
         $this->assertEquals(($content['plan']['plan_id']),$this->planId);
     }
@@ -40,7 +41,7 @@ class PlanControllerTest extends TestCase
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['type'],'plans');
-        $this->assertEquals(count($content['plans']),148);
+        $this->assertArrayHasKey('plans', $content);
     }
 
     public function testShow_shows_legacy_plan(){
@@ -62,17 +63,18 @@ class PlanControllerTest extends TestCase
         $this->assertEquals($content['version'], '1.0');
         $this->assertEquals($content['collection'], 'plans');
         $this->assertEquals($content['limit'], '150');
-        $this->assertEquals(count($content['plans']), 148);
+        $this->assertArrayHasKey('plans', $content);
     }
 
-    public function testIndex_returns_json_content_for_version_one_point_one()
-    {   $data = $this->call('GET','/api/1.1/plans');
+    public function testIndex_returns_json_content_for_version_two()
+    {   $data = $this->call('GET','/api/2.0/plans');
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['api'], 'curriculum');
         $this->assertEquals($content['status'], '200');
-        $this->assertEquals($content['version'], '1.1');
+        $this->assertEquals($content['version'], '2.0');
         $this->assertEquals($content['collection'], 'plans');
         $this->assertEquals($content['limit'], '150');
-        $this->assertEquals(count($content['plans']), 148);
+        $this->assertArrayHasKey('plans', $content);
+
     }
 }

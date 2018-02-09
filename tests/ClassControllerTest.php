@@ -6,19 +6,19 @@ class ClassControllerTest extends TestCase
 {
     protected $classController;
     protected $classId = 'comp-100';
-    protected $validEmail =  'steve@metalab.csun.edu';
+    protected $validEmail = 'nr_nerces.kazandjian@csun.edu';
     public function setUp(){
         parent::setUp();
     }
     public function testShow_shows_class(){
-        $data = $this->call('GET', 'api/1.1/classes/15015');
+        $data = $this->call('GET', 'api/2.0/classes/15015');
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['api'],'curriculum');
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
-        $this->assertEquals($content['version'],'1.1');
+        $this->assertEquals($content['version'],'2.0');
         $this->assertEquals($content['collection'],'classes');
-        $this->assertEquals(count($content['classes']),1);
+        $this->assertArrayHasKey('classes', $content);
     }
     public function testShow_shows_legacy_class(){
         $data = $this->call('GET', 'classes/15015');
@@ -28,7 +28,7 @@ class ClassControllerTest extends TestCase
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['type'],'classes');
-        $this->assertEquals(count($content['classes']),1);
+        $this->assertArrayHasKey('classes', $content);
     }
   
    public function testIndex_returns_json_content_for_version_one()
@@ -40,18 +40,16 @@ class ClassControllerTest extends TestCase
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['type'],'classes');
-        $this->assertEquals(count($content['classes']),3);
     }
 
-    public function testIndex_returns_json_content_for_version_one_point_one()
+    public function testIndex_returns_json_content_for_version_two()
     {
-        $data = $this->call('GET', 'api/1.1/classes?instructor='.$this->validEmail);
+        $data = $this->call('GET', 'api/2.0/classes?instructor='.$this->validEmail);
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['api'],'curriculum');
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
-        $this->assertEquals($content['version'],'1.1');
+        $this->assertEquals($content['version'],'2.0');
         $this->assertEquals($content['collection'],'classes');
-        $this->assertEquals(count($content['classes']),3);
     }
 }
