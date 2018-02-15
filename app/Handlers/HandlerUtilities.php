@@ -146,19 +146,22 @@ class HandlerUtilities
 	    $classes = [];
 	    foreach($collection as $class) {
 	        $data = [
-
-	        'enrollment_count' => $class->enrollment_count,
-	        'class_number' => $class->class_number,
-	        'subject' => $class->subject,
-	        'catalog_number' => $class->catalog_number,
-	        'section_number' => $class->section_number,
-	        'title' => $class->title,
-	        'course_id' => $class->course_id,
-	        'description' => $class->description,
-	        'units' => $class->units,
-	        'term' => (array_key_exists($class->term_id, $terms) ? $terms[$class->term_id] : ""),
-	        'meetings' => [],
-	        'instructors' => []
+		        'class_number' => $class->class_number,
+		        'subject' => $class->subject,
+		        'catalog_number' => $class->catalog_number,
+		        'section_number' => $class->section_number,
+		        'title' => $class->title,
+		        'course_id' => $class->course_id,
+		        'description' => $class->description,
+		        'units' => $class->units,
+		        'term' => (array_key_exists($class->term_id, $terms) ? $terms[$class->term_id] : ""),
+		        'class_type' => $class->class_type,
+		        'enrollment_cap' => $class->enrollment_cap,
+		        'enrollment_count' => $class->enrollment_count,
+		        'waitlist_cap' => $class->waitlist_cap,
+		        'waitlist_count' => $class->waitlist_total,
+		        'meetings' => [],
+		        'instructors' => []
             ];
 	        foreach($class->meetings as $meeting) {
 	            $meeting = [
