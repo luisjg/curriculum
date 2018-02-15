@@ -23,7 +23,16 @@
 			</div>
 			<div class="col-sm-10">
 
+				<h2>Curriculum 2.0 <small>Release Date:</small></h2>
+				<p>
+					<strong>New Features:</strong>
+				<ol>
+					<li>Placeholder</li>
 
+
+				</ol>
+				</p>
+				<hr>
 				<h2>Curriculum 1.1 <small>Release Date:</small></h2>
 				<p>
 					<strong>New Features:</strong>
