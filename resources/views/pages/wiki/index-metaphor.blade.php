@@ -85,6 +85,7 @@
 	<strong>Degree Plan Listings</strong>
 	<ul class="list--unstyled">
 		<li class="list__item">{!! link_to('api/2.0/plans/graduate') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/undergraduate') !!}</li>
 	</ul>
 	
 	<h3 class="type--header type--thin" id="instance">Instance</h3>	
@@ -105,7 +106,12 @@
 	</ul>
 	<strong>Single Degree Plan</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/2.0/plans/561208') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/561208B') !!} (Computer Science - Undergraduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/561208A') !!} (STAR Computer Science - Undergraduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/561208R') !!} (Computer Science - Undergraduate Minor)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/561208M') !!} (Computer Science - Graduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/561208T') !!} (Computer Science - Graduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/785845S') !!} (Mathematics - Graduate Minor)</li>
 	</ul>
 
 	<h3 class="type--header type--thin" id="query">Query</h3>
