@@ -105,7 +105,8 @@
 	</ul>
 	<strong>Single Degree Plan</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/plans/561208') !!}</li>
+		<li class="list__item">{!! link_to('api/plans/561208B') !!} (Bachelor's)</li>
+		<li class="list__item">{!! link_to('api/plans/561208M') !!} (Master's)</li>
 	</ul>
 
 	<h3 class="type--header type--thin" id="query">Query</h3>
