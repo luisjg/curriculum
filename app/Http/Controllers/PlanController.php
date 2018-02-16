@@ -41,10 +41,39 @@ class PlanController extends Controller {
 	 * @return all graduate degree plans
 	 *
 	 */
-	public function graduateIndex(Request $request)
+	public function graduateIndex(Request $request, $type)
 	{
         $version= $request->route()->getAction()['version'];
 		$data = Plan::where('plan_type', 'GRADUATE')
+			->orderBy('name', 'ASC')
+			->get();
+
+		$response = array(
+			'collection'		  => 'plans',
+			'limit'		  => '150',
+			'plans'	  	  => $data
+		);
+        if(strpos($request->url(),'api' ) == false){
+            $response = array(
+                'type'		  => 'plans',
+                'plans'	  => $data
+            );
+            return HandlerUtilities::sendLegacyResponse($response);
+        }
+
+		return HandlerUtilities::sendResponse($response, $version);
+	}
+
+	/**
+	 * Get all undergraduate degree plan information
+	 * @link /api/plans/undergraduate	GET
+	 * @return all undergraduate degree plans
+	 *
+	 */
+	public function undergraduateIndex(Request $request, $type)
+	{
+        $version= $request->route()->getAction()['version'];
+		$data = Plan::where('plan_type', 'UNDERGRADUATE')
 			->orderBy('name', 'ASC')
 			->get();
 

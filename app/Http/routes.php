@@ -37,6 +37,7 @@ Route::group(['prefix' => '/api'], function() {
 	// plan information
 	Route::get('/plans', ['uses' => 'PlanController@index', 'version' => '1.1']);
 	Route::get('/plans/graduate', ['uses' => 'PlanController@graduateIndex', 'version' => '1.1']);
+	Route::get('/plans/undergraduate', ['uses' => 'PlanController@undergraduateIndex', 'version' => '1.1']);
 	Route::get('/plans/{plan}', ['uses' => 'PlanController@show', 'version' => '1.1']);
     });
 
