@@ -9,10 +9,10 @@
 		<li class="featured"><a href="#subcollection">Subcollection</a></li>
 		<li class="featured"><a href="#instance">Instance</a></li>
 		<li class="featured"><a href="#query">Query</a></li>
-		<li><a href="#examples">Usage Example</a></li>	
+		<li><a href="#examples">Usage Example</a></li>
 	</ul>
 
-	
+
 	<a href="{!! asset('pdfs/CurriculumWebService2.0.pdf') !!}" class="download" target="_blank">
 		<span class="glyphicons glyphicons-download-alt"></span>
 		System Description
@@ -29,11 +29,11 @@
 			The curriculum web service gives information about courses and classes.
 			This information is derived from the CSUN catalog and SOLAR.
 			The web service provides a gateway to access the information via a REST-ful API.
-			The information is retrieved by creating a specific URI and giving values to filter the data. 
-			The information that is returned is a JSON object that contains a set of courses or classes; 
+			The information is retrieved by creating a specific URI and giving values to filter the data.
+			The information that is returned is a JSON object that contains a set of courses or classes;
 			the format of the JSON object is as follows:
 		</p>
-		
+
 		<pre class="prettyprint introduction">
 {
 	"status": "200",
@@ -79,38 +79,38 @@
 			<span class="list-type">3</span> <span class="title">Show the results</span>
 			<p>Loop through the data to display its information. See the Usage Example session.</p>
 		</div>
-	
+
 	</div>
 
 	<hr>
 
 	<div class="types" id="subcollection">
 		<h3>Subcollection</h3>
-	
+
 		<div class="well">
 			<p>	The subcollection URI allows the consumer to obtain a list of courses or classes that are
 			either part of a single program or Class Name.</p>
 		</div>
 
 		<h3 class="highlighted">Examples</h3>
-		
-		<h5>Course Classes By Subject</h5>
-		<p class="urls">{!! link_to('api/classes/comp', null, ['target' => '_blank']) !!}</p>
-		<p class="urls">{!! link_to('api/classes/comp-110', null, ['target' => '_blank']) !!}</p>
-		<p class="urls">{!! link_to('api/terms/Spring-2015/classes/comp-110', null, ['target' => '_blank']) !!}</p>
-		<p class="urls">{!! link_to('api/terms/2153/classes/comp-110', null, ['target' => '_blank']) !!}</p>
 
-		<h5>Course Listings</h5>
-		<p class="urls">{!! link_to('api/courses/comp', null, ['target' => '_blank']) !!}</p>
-		<p class="urls">{!! link_to('api/terms/Spring-2015/courses/comp', null, ['target' => '_blank']) !!}</p>
-		<p class="urls">{!! link_to('api/terms/2153/courses/comp', null, ['target' => '_blank']) !!}</p>
+		<h5>Course Classes By Subject</h5>
+		<p class="urls">{!! link_to('api/2.0/classes/comp', null, ['target' => '_blank']) !!}</p>
+		<p class="urls">{!! link_to('api/classes/comp-110', null, ['target' => '_blank']) !!}</p>
+	<p class="urls">{!! link_to('api/terms/Spring-2015/classes/comp-110', null, ['target' => '_blank']) !!}</p>
+	<p class="urls">{!! link_to('api/terms/2153/classes/comp-110', null, ['target' => '_blank']) !!}</p>
+
+	<h5>Course Listings</h5>
+	<p class="urls">{!! link_to('api/courses/comp', null, ['target' => '_blank']) !!}</p>
+	<p class="urls">{!! link_to('api/terms/Spring-2015/courses/comp', null, ['target' => '_blank']) !!}</p>
+	<p class="urls">{!! link_to('api/terms/2153/courses/comp', null, ['target' => '_blank']) !!}</p>
 	</div>
-	
+
 
 
 	<div class="types" id="instance">
 		<h3>Instance</h3>
-		
+
 		<div class="well">
 			<p>	The instance URI allows the consumer to obtain information
 			about a single course or a single class.</p>
@@ -129,7 +129,7 @@
 
 	<div class="types" id="query">
 		<h3>Query</h3>
-		
+
 		<div class="well">
 			<p>	The query URI allows a consumer to obtain a list of courses or classes that meet a
 			particular criteria.</p>
@@ -161,7 +161,7 @@
 		    <li role="presentation"><a href="#ruby" aria-controls="ruby" role="tab" data-toggle="tab">Ruby</a></li>
 
 		    <li role="presentation"><a href="#js" aria-controls="js" role="tab" data-toggle="tab">JavaScript</a></li>
-		 
+
 		  </ul>
 
 		  <!-- Tab panes -->
@@ -192,7 +192,7 @@ print_r($course_list);
 				</div>
 
 
-				<div role="tabpanel" class="tab-pane" id="python">	    	
+				<div role="tabpanel" class="tab-pane" id="python">
 			    	<pre class="prettyprint">
 
 #python
@@ -202,7 +202,7 @@ import json
 #query all CompSci courses
 url = u'{{ url('api/courses/comp') }}'
 
-#try to read the data	
+#try to read the data
 try:
    u = urllib2.urlopen(url)
    data = u.read()
@@ -248,7 +248,7 @@ puts JSON.parse(data)
 			    </div>
 
 
-			    <div role="tabpanel" class="tab-pane" id="js">	    	
+			    <div role="tabpanel" class="tab-pane" id="js">
 			    	<pre class="prettyprint">
 
 // this example assumes jQuery integration for ease of use
@@ -269,7 +269,7 @@ $(document).ready(function() {
 			$('#course-results').append('&lt;p&gt;' + course.subject + ' ' + course.catalog_number + '&lt;/p&gt;');
 
 		});
-		
+
 	});
 
 });

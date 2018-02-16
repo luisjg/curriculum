@@ -8,12 +8,12 @@ class CourseControllerTest extends TestCase
         parent::setUp();
     }
     public function testInfo_shows_courses(){
-        $data = $this->call('GET', 'api/1.1/courses');
+        $data = $this->call('GET', 'api/2.0/courses');
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['api'],'curriculum');
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
-        $this->assertEquals($content['version'],'1.1');
+        $this->assertEquals($content['version'],'2.0');
         $this->assertEquals($content['collection'],'courses');
         $this->assertArrayHasKey('courses',$content);
     }

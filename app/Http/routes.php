@@ -12,32 +12,32 @@
 */
 
 
-// API routes Version 1.1
+// API routes Version 2.0
 Route::group(['prefix' => '/api'], function() {
 
-    Route::group(['prefix' => '/1.1'], function(){
+    Route::group(['prefix' => '/2.0'], function(){
 
         // class info with current term
-	Route::get('/classes', ['uses' => 'ClassController@index', 'version' => '1.1']);
-	Route::get('/classes/{id}', ['uses' => 'ClassController@show', 'version' => '1.1']);
+	Route::get('/classes', ['uses' => 'ClassController@index', 'version' => '2.0']);
+	Route::get('/classes/{id}', ['uses' => 'ClassController@show', 'version' => '2.0']);
 
 	// class info with specific term
-	Route::get('/terms/{term}/classes', ['uses' => 'TermController@classesIndex', 'version' => '1.1']);
-	Route::get('/terms/{term}/classes/{id}', ['uses' => 'TermController@classesShow', 'version' => '1.1']);
+	Route::get('/terms/{term}/classes', ['uses' => 'TermController@classesIndex', 'version' => '2.0']);
+	Route::get('/terms/{term}/classes/{id}', ['uses' => 'TermController@classesShow', 'version' => '2.0']);
 
 	// course info with current term
-	Route::get('/courses', ['uses' => 'CourseController@index', 'version' => '1.1']);
-	Route::get('/courses/{id}', ['uses' => 'CourseController@show', 'version' => '1.1']);
+	Route::get('/courses', ['uses' => 'CourseController@index', 'version' => '2.0']);
+	Route::get('/courses/{id}', ['uses' => 'CourseController@show', 'version' => '2.0']);
 
 
 	// course info with specific term
-	Route::get('/terms/{term}/courses', ['uses' => 'TermController@coursesIndex', 'version' => '1.1']);
-	Route::get('/terms/{term}/courses/{id}', ['uses' => 'TermController@coursesShow', 'version' => '1.1']);
+	Route::get('/terms/{term}/courses', ['uses' => 'TermController@coursesIndex', 'version' => '2.0']);
+	Route::get('/terms/{term}/courses/{id}', ['uses' => 'TermController@coursesShow', 'version' => '2.0']);
 
 	// plan information
-	Route::get('/plans', ['uses' => 'PlanController@index', 'version' => '1.1']);
-	Route::get('/plans/graduate', ['uses' => 'PlanController@graduateIndex', 'version' => '1.1']);
-	Route::get('/plans/{plan}', ['uses' => 'PlanController@show', 'version' => '1.1']);
+	Route::get('/plans', ['uses' => 'PlanController@index', 'version' => '2.0']);
+	Route::get('/plans/graduate', ['uses' => 'PlanController@graduateIndex', 'version' => '2.0']);
+	Route::get('/plans/{plan}', ['uses' => 'PlanController@show', 'version' => '2.0']);
     });
 
 
