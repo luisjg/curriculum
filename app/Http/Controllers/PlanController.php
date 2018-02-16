@@ -41,7 +41,7 @@ class PlanController extends Controller {
 	 * @return all graduate degree plans
 	 *
 	 */
-	public function graduateIndex(Request $request, $type)
+	public function graduateIndex(Request $request)
 	{
         $version= $request->route()->getAction()['version'];
 		$data = Plan::where('plan_type', 'GRADUATE')
@@ -70,7 +70,7 @@ class PlanController extends Controller {
 	 * @return all undergraduate degree plans
 	 *
 	 */
-	public function undergraduateIndex(Request $request, $type)
+	public function undergraduateIndex(Request $request)
 	{
         $version= $request->route()->getAction()['version'];
 		$data = Plan::where('plan_type', 'UNDERGRADUATE')
