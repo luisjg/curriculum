@@ -59,7 +59,7 @@
 	<h3 class="type--thin">Examples</h3>
 	<strong>Degree Plans</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/plans') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/plans') !!}</li>
 	</ul>
 	<h3 class="type--header type--thin" id="subcollection">Subcollection</h3>
 	<div class="panel">
@@ -71,21 +71,21 @@
 	<h3 class="type--thin">Examples</h3>
 	<strong>Course Classes By Subject</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/classes/comp') !!}</li>
-		<li class="list__item">{!! link_to('api/classes/comp-110') !!}</li>
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp-110') !!}</li>
-		<li class="list__item">{!! link_to('api/terms/2153/classes/comp-110') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/classes/comp') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/classes/comp-110') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/terms/Spring-2015/classes/comp-110') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/terms/2153/classes/comp-110') !!}</li>
 	</ul>
 	<strong>Course Listings</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/courses/comp') !!}</li>
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/courses/comp') !!}</li>
-		<li class="list__item">{!! link_to('api/terms/2153/courses/comp') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/courses/comp') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/terms/Spring-2015/courses/comp') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/terms/2153/courses/comp') !!}</li>
 	</ul>
 	<strong>Degree Plan Listings</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/plans/graduate') !!}</li>
-		<li class="list__item">{!! link_to('api/plans/undergraduate') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/graduate') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/undergraduate') !!}</li>
 	</ul>
 	
 	<h3 class="type--header type--thin" id="instance">Instance</h3>	
@@ -98,11 +98,11 @@
 	<h3 class="type--thin">Examples</h3>
 	<strong>Single Class</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/classes/15223') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/classes/15223') !!}</li>
 	</ul>
 	<strong>Single Course</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/courses/comp-100') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/courses/comp-100') !!}</li>
 	</ul>
 	<strong>Single Degree Plan</strong>
 	<ul class="list--unstyled">
@@ -123,14 +123,14 @@
 	<h3 class="type--thin">Examples</h3>
 	<strong>Non-Current Term Classes</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp') !!}</li>
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes/comp-322') !!}</li>
-		<li class="list__item">{!! link_to('api/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu') !!}	</li>
-		<li class="list__item">{!! link_to('api/terms/2153/classes?instructor=steven.fitzgerald@csun.edu') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/terms/Spring-2015/classes/comp') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/terms/Spring-2015/classes/comp-322') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu') !!}	</li>
+		<li class="list__item">{!! link_to('api/2.0/terms/2153/classes?instructor=steven.fitzgerald@csun.edu') !!}</li>
 	</ul>
 	<strong>Course Classes Taught by Instructor</strong>
 	<ul class="list--unstyled">
-		<li class="list__item">{!! link_to('api/classes?instructor=steven.fitzgerald@csun.edu') !!}</li>
+		<li class="list__item">{!! link_to('api/2.0/classes?instructor=steven.fitzgerald@csun.edu') !!}</li>
 	</ul>
 
 	<h3 class="type--header type--thin" id="examples">Usage Example</h3>
@@ -145,7 +145,7 @@
 // and a &lt;div&gt; element with the ID of "course-results"
 
 // query all CompSci courses
-var url = '{!! url('api/courses/comp') !!}';
+var url = '{!! url('api/2.0/courses/comp') !!}';
 $(document).ready(function() {
 
 	// perform a shorthand AJAX call to grab the information
@@ -171,7 +171,7 @@ $(document).ready(function() {
     	<pre>
     	<code class="prettyprint lang-php">
 // query all CompSci courses
-$url = '{!! url('api/courses/comp') !!}';
+$url = '{!! url('api/2.0/courses/comp') !!}';
 
 // call url, you can also use CURL or guzzle -> https://github.com/guzzle/guzzle
 $data = file_get_contents($url);
@@ -201,7 +201,7 @@ import urllib2
 import json
 
 #query all CompSci courses
-url = u'{!! url('api/courses/comp') !!}'
+url = u'{!! url('api/2.0/courses/comp') !!}'
 
 #try to read the data	
 try:
@@ -233,7 +233,7 @@ require 'net/http'
 require 'json'
 
 #query all CompSci courses
-source = '{!! url('api/courses/comp') !!}'
+source = '{!! url('api/2.0/courses/comp') !!}'
 
 #call data
 response = Net::HTTP.get_response(URI.parse(source))
