@@ -171,14 +171,14 @@ class HandlerUtilities
 	            'end_time' => $meeting->end_time,
 	            'days' => $meeting->days,
                 ];
-	            $data['meetings'] = $meeting;
+	            $data['meetings'][] = $meeting;
 	        }
 
 	        foreach($class->instructors as $instructor) {
 	            $instructors = [
 	                'instructor' => $instructor->email
 	            ];
-	            $data['instructors'] = $instructors;
+	            $data['instructors'][] = $instructors;
 	        }
 
 	        $classes[] = $data;
