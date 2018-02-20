@@ -9,33 +9,36 @@
 		The information that is returned is a JSON object that contains a set of courses or classes; 
 		the format of the JSON object is as follows:
 	</p>
-	<pre><code>
+	<pre class="prettyprint"><code>
 {
-	"status": "200",
-	"success": "true",
-	"version": "curriculum-2.0",
-	"type": "courses",
-	"courses": [
-		{
-			"subject": "COMP",
-			"catalog_number": "100",
-			"title": "COMPTRS/IMPCT-USE",
-			"course_id": "10080",
-			"description": "Not open to ...",
-			"units" : "3",
-			"term": "Spring-2015"
-		},
-		{
-			"subject": "COMP",
-			"catalog_number": "110",
-			"title": "INTRO ALGRTH/PROG",
-			"course_id": "18237",
-			"description": "Not open to ...",
-			"units": "2",
-			"term": "Spring-2015"
-		},
-		...
-	]
+  "api": "curriculum",
+  "status": "200",
+  "success": "true",
+  "version": "2.0",
+  "collection": "courses",
+  "courses": [
+    {
+      "subject": "COMP",
+      "catalog_number": "100",
+      "section_number": "06",
+      "title": "Computers: Their Impact and Use",
+      "course_id": 10080,
+      "description": "Not open to Computer Science majors. Introduction to the uses concepts techniques and terminology of computing. Places the possibilities and problems of computer use in historical economic and social contexts. Shows how computers can assist in a wide range of personal commercial and organizational activities. Typical computer applications including word processing spreadsheets and databases. (Available for General Education Lifelong Learning.) (IC)\n",
+      "units": "3",
+      "term": "Spring-2018"
+    },
+    {
+      "subject": "COMP",
+      "catalog_number": "100HON",
+      "section_number": "01",
+      "title": "COMPTRS/IMPCT-USE",
+      "course_id": 21107,
+      "description": null,
+      "units": "3",
+      "term": "Spring-2018"
+    },
+   ...
+   ]
 }
 	</code></pre>
 
@@ -249,14 +252,5 @@ puts JSON.parse(data)
 	    	</pre>
 		</dd>
 	</dl>
-
-	<h3 class="type--header type--thin" id="examples">About</h3>
-	<strong>Version History</strong>
-	<ul>
-		<a href="{{ url('about/version-history') }}">Version History</a>
-	</ul>
-
-
-
 @stop
 
