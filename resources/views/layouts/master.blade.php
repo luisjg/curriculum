@@ -14,34 +14,33 @@
         <link rel="stylesheet" href="{!! url('css/metaphor.css') !!}" />
         <link rel="stylesheet" href="{!! url('css/tomorrow.css.min') !!}" />
     </head>
-
-            <div class="section section--sm">
-                <div class="container type--center">
-                    <h1 class="giga type--thin">Curriculum Web Service</h1>
-                    <h3 class="h1 type--thin type--gray">Delivering CSUN course information</h3>
-                </div>
+    <body>
+        <div class="section section--sm">
+            <div class="container type--center">
+                <h1 class="giga type--thin">Curriculum Web Service</h1>
+                <h3 class="h1 type--thin type--gray">Delivering CSUN course information</h3>
             </div>
-            <div class="main main--metalab" style="min-height: calc(100vh - 130px);">
-
-                <div class="section" id="menu">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-3" id="sidebar">
-                                @include('layouts.partials.side-nav')
-                            </div>
-                            <div class="col-md-9" id="page">
-                                @yield('content')
-                            </div>
+        </div>
+        <div class="main main--metalab" style="min-height: calc(100vh - 130px);">
+            <div class="section" id="menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3" id="sidebar">
+                            @include('layouts.partials.side-nav')
+                        </div>
+                        <div class="col-md-9" id="page">
+                            @yield('content')
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         {{-- @include('layouts.partials.csun-footer') --}}
         @include('layouts.partials.metalab-footer')
         <script type="text/javascript" src="{!! url('js/metaphor.js') !!}"></script>
         <script type="text/javascript" src="{!! url('js/run_prettify.js') !!}"></script>
-        <!--
+<!--
   __  __   ___   _____     _
  |  \/  | | __| |_   _|   /_\       Explore Learn Go Beyond
  | |\/| | | _|    | |    / _ \      https://www.metalab.csun.edu/

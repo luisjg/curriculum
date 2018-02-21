@@ -11,31 +11,34 @@
 	</p>
 	<pre class="prettyprint"><code>
 {
-	"status": "200",
-	"success": "true",
-	"version": "curriculum-2.0",
-	"type": "courses",
-	"courses": [
-		{
-			"subject": "COMP",
-			"catalog_number": "100",
-			"title": "COMPTRS/IMPCT-USE",
-			"course_id": "10080",
-			"description": "Not open to ...",
-			"units" : "3",
-			"term": "Spring-2015"
-		},
-		{
-			"subject": "COMP",
-			"catalog_number": "110",
-			"title": "INTRO ALGRTH/PROG",
-			"course_id": "18237",
-			"description": "Not open to ...",
-			"units": "2",
-			"term": "Spring-2015"
-		},
-		...
-	]
+  "api": "curriculum",
+  "status": "200",
+  "success": "true",
+  "version": "2.0",
+  "collection": "courses",
+  "courses": [
+    {
+      "subject": "COMP",
+      "catalog_number": "100",
+      "section_number": "06",
+      "title": "Computers: Their Impact and Use",
+      "course_id": 10080,
+      "description": "Not open to Computer Science majors. Introduction to the uses concepts techniques and terminology of computing. Places the possibilities and problems of computer use in historical economic and social contexts. Shows how computers can assist in a wide range of personal commercial and organizational activities. Typical computer applications including word processing spreadsheets and databases. (Available for General Education Lifelong Learning.) (IC)\n",
+      "units": "3",
+      "term": "Spring-2018"
+    },
+    {
+      "subject": "COMP",
+      "catalog_number": "100HON",
+      "section_number": "01",
+      "title": "COMPTRS/IMPCT-USE",
+      "course_id": 21107,
+      "description": null,
+      "units": "3",
+      "term": "Spring-2018"
+    },
+   ...
+   ]
 }
 	</code></pre>
 
@@ -59,7 +62,7 @@
 	<h3 class="type--thin">Examples</h3>
 	<strong>Degree Plans</strong>
 	<ul class="list--unstyled">
-		<li class="list__item"><a href="{!! url('api/1.1/plans') !!}">{!! url('api/1.1/plans') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans') !!}">{!! url('api/2.0/plans') !!}</a></li>
 	</ul>
 	<h3 class="type--header type--thin" id="subcollection">Subcollection</h3>
 	<div class="panel">
@@ -71,20 +74,21 @@
 	<h3 class="type--thin">Examples</h3>
 	<strong>Course Classes By Subject</strong>
 	<ul class="list--unstyled">
-		<li class="list__item"><a href="{!! url('api/1.1/classes/comp') !!}">{!! url('api/1.1/classes/comp') !!}</a></li>
-		<li class="list__item"><a href="{!! url('api/1.1/classes/comp-110') !!}">{!! url('api/1.1/classes/comp-110') !!}</a></li>
-		<li class="list__item"><a href="{!! url('api/1.1/terms/Spring-2015/classes/comp-110') !!}">{!! url('api/1.1/terms/Spring-2015/classes/comp-110') !!}</a></li>
-		<li class="list__item"><a href="{!! url('api/1.1/terms/2153/classes/comp-110') !!}">{!! url('api/1.1/terms/2153/classes/comp-110') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/classes/comp') !!}">{!! url('api/2.0/classes/comp') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/classes/comp-110') !!}">{!! url('api/2.0/classes/comp-110') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/terms/Spring-2015/classes/comp-110') !!}">{!! url('api/2.0/terms/Spring-2015/classes/comp-110') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/terms/2153/classes/comp-110') !!}">{!! url('api/2.0/terms/2153/classes/comp-110') !!}</a></li>
 	</ul>
 	<strong>Course Listings</strong>
 	<ul class="list--unstyled">
-		<li class="list__item"><a href="{!! url('api/1.1/courses/comp') !!}">{!! url('api/1.1/courses/comp') !!}</a></li>
-		<li class="list__item"><a href="{!! url('api/1.1/terms/Spring-2015/courses/comp') !!}">{!! url('api/1.1/terms/Spring-2015/courses/comp') !!}</a></li>
-		<li class="list__item"><a href="{!! url('api/1.1/terms/2153/courses/comp') !!}">{!! url('api/1.1/terms/2153/courses/comp') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/courses/comp') !!}">{!! url('api/2.0/courses/comp') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/terms/Spring-2015/courses/comp') !!}">{!! url('api/2.0/terms/Spring-2015/courses/comp') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/terms/2153/courses/comp') !!}">{!! url('api/2.0/terms/2153/courses/comp') !!}</a></li>
 	</ul>
 	<strong>Degree Plan Listings</strong>
 	<ul class="list--unstyled">
-		<li class="list__item"><a href="{!! url('api/1.1/plans/graduate') !!}">{!! url('api/1.1/plans/graduate') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans/graduate') !!}">{!! url('api/2.0/plans/graduate') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans/undergraduate') !!}">{!! url('api/2.0/plans/undergraduate') !!}</a></li>
 	</ul>
 	
 	<h3 class="type--header type--thin" id="instance">Instance</h3>	
@@ -97,15 +101,21 @@
 	<h3 class="type--thin">Examples</h3>
 	<strong>Single Class</strong>
 	<ul class="list--unstyled">
-		<li class="list__item"><a href="{!! url('api/1.1/classes/15223') !!}">{!! url('api/1.1/classes/15223') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/classes/15223') !!}">{!! url('api/2.0/classes/15223') !!}</a></li>
 	</ul>
 	<strong>Single Course</strong>
 	<ul class="list--unstyled">
-		<li class="list__item"><a href="{!! url('api/1.1/courses/comp-100') !!}">{!! url('api/1.1/courses/comp-100') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/courses/comp-100') !!}">{!! url('api/2.0/courses/comp-100') !!}</a></li>
 	</ul>
 	<strong>Single Degree Plan</strong>
 	<ul class="list--unstyled">
-		<li class="list__item"><a href="{!! url('api/1.1/plans/561208M') !!}">{!! url('api/1.1/plans/561208M') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans/561208B') !!}">{!! url('api/2.0/plans/561208B') !!}</a> (Computer Science - Undergraduate Degree)</li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans/561208A') !!}">{!! url('api/2.0/plans/561208A') !!}</a> (STAR Computer Science - Undergraduate Degree)</li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans/450503V') !!}">{!! url('api/2.0/plans/450503V') !!}</a> (Deaf Studies - Undergraduate Degree)</li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans/561208R') !!}">{!! url('api/2.0/plans/561208R') !!}</a> (Computer Science - Undergraduate Minor)</li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans/561208M') !!}">{!! url('api/2.0/plans/561208M') !!}</a> (Computer Science - Graduate Degree)</li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans/561208T') !!}">{!! url('api/2.0/plans/561208T') !!}</a> (Computer Science - Graduate Degree)</li>
+		<li class="list__item"><a href="{!! url('api/2.0/plans/785845S') !!}">{!! url('api/2.0/plans/785845S') !!}</a> (Mathematics - Graduate Minor)</li>
 	</ul>
 
 	<h3 class="type--header type--thin" id="query">Query</h3>
@@ -118,15 +128,15 @@
 	<h3 class="type--thin">Examples</h3>
 	<strong>Non-Current Term Classes</strong>
 	<ul class="list--unstyled">
-		<li class="list__item"><a href="{!! url('api/1.1/terms/Spring-2015/classes/comp') !!}">{!! url('api/1.1/terms/Spring-2015/classes/comp') !!}</a></li>
-		<li class="list__item"><a href="{!! url('api/1.1/terms/Spring-2015/classes/comp-322') !!}">{!! url('api/1.1/terms/Spring-2015/classes/comp-322') !!}</a></li>
-		<li class="list__item"><a href="{!! url('api/1.1/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu') !!}">{!! url('api/1.1/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu') !!}</a>
+		<li class="list__item"><a href="{!! url('api/2.0/terms/Spring-2015/classes/comp') !!}">{!! url('api/2.0/terms/Spring-2015/classes/comp') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/terms/Spring-2015/classes/comp-322') !!}">{!! url('api/2.0/terms/Spring-2015/classes/comp-322') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu') !!}">{!! url('api/2.0/terms/Spring-2015/classes?instructor=steven.fitzgerald@csun.edu') !!}</a>
 		</li>
-		<li class="list__item"><a href="{!! url('api/1.1/terms/2153/classes?instructor=steven.fitzgerald@csun.edu') !!}">{!! url('api/1.1/terms/2153/classes?instructor=steven.fitzgerald@csun.edu') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/terms/2153/classes?instructor=steven.fitzgerald@csun.edu') !!}">{!! url('api/2.0/terms/2153/classes?instructor=steven.fitzgerald@csun.edu') !!}</a></li>
 	</ul>
 	<strong>Course Classes Taught by Instructor</strong>
 	<ul class="list--unstyled">
-		<li class="list__item"><a href="{!! url('api/1.1/classes?instructor=steven.fitzgerald@csun.edu') !!}">{!! url('api/1.1/classes?instructor=steven.fitzgerald@csun.edu') !!}</a></li>
+		<li class="list__item"><a href="{!! url('api/2.0/classes?instructor=steven.fitzgerald@csun.edu') !!}">{!! url('api/2.0/classes?instructor=steven.fitzgerald@csun.edu') !!}</a></li>
 	</ul>
 
 	<h3 class="type--header type--thin" id="examples">Usage Example</h3>
@@ -141,7 +151,7 @@
 // and a &lt;div&gt; element with the ID of "course-results"
 
 // query all CompSci courses
-var url = '{!! url('api/1.1/courses/comp') !!}';
+var url = '{!! url('api/2.0/courses/comp') !!}';
 $(document).ready(function() {
 
 	// perform a shorthand AJAX call to grab the information
@@ -167,7 +177,7 @@ $(document).ready(function() {
     	<pre>
     	<code class="prettyprint lang-php">
 // query all CompSci courses
-$url = '{!! url('api/1.1/courses/comp') !!}';
+$url = '{!! url('api/2.0/courses/comp') !!}';
 
 // call url, you can also use CURL or guzzle -> https://github.com/guzzle/guzzle
 $data = file_get_contents($url);
@@ -197,7 +207,7 @@ import urllib2
 import json
 
 #query all CompSci courses
-url = u'{!! url('api/1.1/courses/comp') !!}'
+url = u'{!! url('api/2.0/courses/comp') !!}'
 
 #try to read the data	
 try:
@@ -229,7 +239,7 @@ require 'net/http'
 require 'json'
 
 #query all CompSci courses
-source = '{!! url('api/1.1/courses/comp') !!}'
+source = '{!! url('api/2.0/courses/comp') !!}'
 
 #call data
 response = Net::HTTP.get_response(URI.parse(source))

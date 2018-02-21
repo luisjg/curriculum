@@ -45,7 +45,7 @@ class TermController extends Controller
 			'classes' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false) {
+        if($version < 2.0) {
             $response = array(
                 'type' => 'classes',
                 'classes' => $prepped_data
@@ -93,7 +93,7 @@ class TermController extends Controller
 			'classes' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false) {
+        if($version < 2.0) {
             $response = array(
                 'type' => 'classes',
                 'classes' => $prepped_data
@@ -135,7 +135,7 @@ class TermController extends Controller
 			'courses' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false) {
+        if($version < 2.0) {
             $response = array(
                 'type' => 'courses',
                 'courses' => $prepped_data
@@ -177,7 +177,7 @@ class TermController extends Controller
 			'courses' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false) {
+        if($version < 2.0) {
             $response = array(
                 'type' => 'courses',
                 'courses' => $prepped_data

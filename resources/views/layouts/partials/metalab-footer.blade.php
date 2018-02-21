@@ -1,5 +1,3 @@
-
-
 <div class="metalab-footer">
   <div class="metalab-wrapper">
     <div class="container">
@@ -23,6 +21,3 @@
     </div>
   </div>
 </div>
-
-
-

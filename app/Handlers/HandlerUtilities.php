@@ -247,7 +247,7 @@ class HandlerUtilities
 		// complete the response
 		$data = array_reverse($data);
 		//In the case of an error, a default version matching the latest version will be shown
-		return self::sendResponse($data,'1.1', $request);
+		return self::sendResponse($data,'2.0', $request);
 	}
 
 	/**
@@ -292,14 +292,17 @@ class HandlerUtilities
         } else if ($data['collection'] == 'plans') {
             $dataCount = count($data['plans']);
         }
-        // log the request for statistical purposes
-        LoggedRequest::create([
-            'ip' => $ip,
-            'path' => $path,
-            'response_code' => $data['status'],
-            'success' => ($data['success'] == 'true'), // string->boolean
-            'results' => $dataCount
-        ]);
+
+        if (env('APP_ENV') === 'production') {
+            // log the request for statistical purposes
+            LoggedRequest::create([
+                'ip' => $ip,
+                'path' => $path,
+                'response_code' => $data['status'],
+                'success' => ($data['success'] == 'true'), // string->boolean
+                'results' => $dataCount
+            ]);
+        }
 
         // now send the response code and data back
         return response($data, $data['status']);
@@ -331,8 +334,8 @@ class HandlerUtilities
         foreach($additional as $key => $value) {
             $data = array_add($data, $key, $value);
         }
-        $data = array_reverse($data);
-
+		$data = array_reverse($data);
+		
         // grab the necessary Request information
         $ip = $request->ip();
 
@@ -352,14 +355,16 @@ class HandlerUtilities
             $dataCount = count($data['plans']);
         }
 
-        // log the request for statistical purposes
-        LoggedRequest::create([
-            'ip' => $ip,
-            'path' => $path,
-            'response_code' => $data['status'],
-            'success' => ($data['success'] == 'true'), // string->boolean
-            'results' => $dataCount
-        ]);
+        if (env('APP_ENV') === 'production') {
+            // log the request for statistical purposes
+            LoggedRequest::create([
+                'ip' => $ip,
+                'path' => $path,
+                'response_code' => $data['status'],
+                'success' => ($data['success'] == 'true'), // string->boolean
+                'results' => $dataCount
+            ]);
+        }
 
         // now send the response code and data back
         return response($data, $data['status']);

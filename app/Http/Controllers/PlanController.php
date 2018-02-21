@@ -44,7 +44,7 @@ class PlanController extends Controller
 			'collection' => 'plans',
 			'plans' => $data
 		);
-        if(strpos($request->url(),'api') == false) {
+        if($version < 2.0) {
             $response = array(
                 'type' => 'plans',
                 'plans' => $data
@@ -54,6 +54,35 @@ class PlanController extends Controller
 
 		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
+
+    /**
+     * Get all undergraduate degree plan information
+     * @link /api/plans/undergraduate  GET
+     * @return all undergraduate degree plans
+     *
+     */
+    public function undergraduateIndex(Request $request)
+    {
+        $version= $request->route()[1]['version'];
+        $data = Plan::where('plan_type', 'UNDERGRADUATE')
+            ->orderBy('name', 'ASC')
+            ->get();
+
+        $response = array(
+            'collection' => 'plans',
+            'limit' => '150',
+            'plans' => $data
+        );
+        if($version < 2.0) {
+            $response = array(
+                'type' => 'plans',
+                'plans' => $data
+            );
+            return HandlerUtilities::sendLegacyResponse($response, $request);
+        }
+
+        return HandlerUtilities::sendResponse($response, $version, $request);
+    }
 
 	/**
 	 * Get information for a specific degree plan
@@ -72,7 +101,7 @@ class PlanController extends Controller
 			'plan' => $data
 		);
 
-        if(strpos($request->url(),'api') == false) {
+        if($version < 2.0) {
             $response = array(
                 'type' => 'plans',
                 'plans' => $data
