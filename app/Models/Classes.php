@@ -1,13 +1,11 @@
-<?php namespace Curriculum\Models;
+<?php namespace App\Models;
 
+use App\Handlers\HandlerUtilities;
 use Illuminate\Database\Eloquent\Model;
-use Curriculum\Models\ClassMembershipRoster;
-use Curriculum\Models\ClassInstructor;
-use Curriculum\Models\Meeting;
-use Curriculum\Handlers\HandlerUtilities;
 
 /* 'class' is a reserved name */
-class Classes extends Model { 
+class Classes extends Model
+{
 
 	/**
 	 * The database table used by the model.
@@ -69,7 +67,8 @@ class Classes extends Model {
 	 * Treat class list as course list
 	 * @internal without a courses table this is the best we can do to get a course list
 	*/
-	public function scopeGroupAsCourse($query, $term, $showAll) {
+	public function scopeGroupAsCourse($query, $term, $showAll)
+    {
 		/* Get All Courses */
 		$query->groupBy('course_id')
 			->orderBy('subject')->orderBy('catalog_number');
@@ -91,7 +90,8 @@ class Classes extends Model {
 	 *		subject 				comp
  	 *		subject-catalog_number 	comp-160
  	**/
-	public function scopeWhereIdentifier($query, $id) {
+	public function scopeWhereIdentifier($query, $id)
+    {
 		/* Init Acceptable ID's */ 
 		$classes_id = '';
 		$subject = '';
@@ -128,19 +128,39 @@ class Classes extends Model {
 
 	}
 
-	/* Only return classes that have specified instructor set */
-    public function scopeHasInstructor($query, $instructor) {
-        $query->whereHas("instructors", function($q) use ($instructor) {
-            $q->where('email', $instructor);
-        });
-    }
-    public function scopeHasClassId($query, $id) {
+    /**
+     * Scope query which only returns classes that have a specified instructor
+     *
+     * @param Builder $query
+     * @param String $instructor
+     */
+    public function scopeHasInstructor($query, $instructor)
+    {
         $query->whereHas("instructors", function($q) use ($instructor) {
             $q->where('email', $instructor);
         });
     }
 
-    public function getEnrollmentCountAttribute(){
+    /**
+     * Scope query which checks if the instructor exists in the given class
+     *
+     * @param Builder $query
+     * @param string $id
+     */
+    public function scopeHasClassId($query, $id)
+    {
+        $query->whereHas("instructors", function($q) use ($id) {
+            $q->where('email', $id);
+        });
+    }
+
+    /**
+     * Retrieves the enrollment count and adds it as a custom data attribute
+     *
+     * @return mixed
+     */
+    public function getEnrollmentCountAttribute()
+    {
         return $this->enrolled->count();
     }
 

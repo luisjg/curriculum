@@ -1,7 +1,5 @@
 <?php
 
-use Curriculum\Http\Controllers\ClassController;
-
 class ClassControllerTest extends TestCase
 {
     protected $classController;
@@ -18,28 +16,29 @@ class ClassControllerTest extends TestCase
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['version'],'2.0');
         $this->assertEquals($content['collection'],'classes');
-        $this->assertArrayHasKey('classes', $content);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
     public function testShow_shows_legacy_class(){
-        $data = $this->call('GET', 'classes/15015');
+        $data = $this->call('GET', 'api/classes/15015');
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['version'],'1.0');
         $this->assertEquals($content['api'],'curriculum');
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['type'],'classes');
-        $this->assertArrayHasKey('classes', $content);
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
   
    public function testIndex_returns_json_content_for_version_one()
     {
-        $data = $this->call('GET', '/classes?instructor='.$this->validEmail);
+        $data = $this->call('GET', 'api/classes?instructor='.$this->validEmail);
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['version'],'1.0');
         $this->assertEquals($content['api'],'curriculum');
         $this->assertEquals($content['status'],'200');
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['type'],'classes');
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
 
     public function testIndex_returns_json_content_for_version_two()
@@ -51,5 +50,6 @@ class ClassControllerTest extends TestCase
         $this->assertEquals($content['success'],'true');
         $this->assertEquals($content['version'],'2.0');
         $this->assertEquals($content['collection'],'classes');
+        $this->assertEquals(count($content['classes']), count($content['classes']));
     }
 }

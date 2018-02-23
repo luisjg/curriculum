@@ -1,7 +1,5 @@
 <?php
 
-use Curriculum\Http\Controllers\CourseController;
-
 class CourseControllerTest extends TestCase
 {
     public function setUp(){
@@ -18,7 +16,7 @@ class CourseControllerTest extends TestCase
         $this->assertArrayHasKey('courses',$content);
     }
     public function testInfo_shows_legacy_courses(){
-        $data = $this->call('GET', 'courses');
+        $data = $this->call('GET', 'api/courses');
         $content = json_decode($data->getContent(), true);
         $this->assertEquals($content['version'],'1.0');
         $this->assertEquals($content['api'],'curriculum');
