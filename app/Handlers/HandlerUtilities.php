@@ -145,7 +145,7 @@ class HandlerUtilities
 	{
 		// grab all terms as an array so we can transform the ID into
 		// an actual term name
-		$terms = Term::all()->pluck('term', 'term_id');
+		$terms = Term::pluck('term', 'term_id')->toArray();
 	    $classes = [];
 	    foreach($collection as $class) {
 	        $data = [
@@ -201,8 +201,7 @@ class HandlerUtilities
 	{
 		// grab all terms as an array so we can transform the ID into
 		// an actual term name
-		$terms = Term::all()->pluck('term', 'term_id');
-
+		$terms = Term::pluck('term', 'term_id')->toArray();
 	    $courses = [];
 	    foreach($collection as $_course) {
 	        $data = [];
