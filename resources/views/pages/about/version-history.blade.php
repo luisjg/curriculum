@@ -2,16 +2,13 @@
 
 {{-- META TAGS 4 SEO --}}
 @section('title')
-	Whats New in Curriculum
-@stop
-
-@section('description')
-@stop
+	Version History
+@endsection
 
 {{-- WEBSITE CONTENT --}}
 @section('content')
 	<h2 class="type--header type--thin">Version History</h2>
-	<h2>Curriculum 2.0.1 <small>Release Date: 02/27/18</small></h2>
+	<h2>{{ env('APP_NAME') }} 2.0.1 <small>Release Date: 02/27/18</small></h2>
 	<p>
 		<strong>Bug Fixes:</strong>
 		<ol>
@@ -23,7 +20,7 @@
 		</ol>
 	</p>
 	<hr>
-	<h2>Curriculum 2.0.0 <small>Release Date: 02/19/18</small></h2>
+	<h2>{{ env('APP_NAME') }} 2.0.0 <small>Release Date: 02/19/18</small></h2>
 	<p>
 		<strong>New Features:</strong>
 	<ol>
@@ -38,6 +35,6 @@
 	</ol>
 	</p>
 	<hr>
-	<h2>Curriculum 1.0.0 <small>Release Date: 03/19/14</small></h2>
+	<h2>{{ env('APP_NAME') }} 1.0.0 <small>Release Date: 03/19/14</small></h2>
 	<p>Initial Release</p>
-@stop
+@endsection

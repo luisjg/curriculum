@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
         <meta name="description" content="@yield('description')">
-        <title>Curriculum Web Service</title>
+        <title>{{ env('APP_NAME') }} Web Service | @yield('title')</title>
         <link rel="icon" href="//www.csun.edu/sites/default/themes/csun/favicon.ico" type="image/x-icon" />
         <script type="text/javascript" src="{!! url('//use.typekit.net/gfb2mjm.js') !!}"></script>
         <script>try{Typekit.load();}catch(e){}</script>
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        {{-- @include('layouts.partials.csun-footer') --}}
+        @include('layouts.partials.csun-footer')
         @include('layouts.partials.metalab-footer')
         <script type="text/javascript" src="{!! url('js/metaphor.js') !!}"></script>
         <script type="text/javascript" src="{!! url('js/run_prettify.js') !!}"></script>
