@@ -184,7 +184,11 @@ class HandlerUtilities
 	            $data['instructors'][] = $instructors;
 	        }
 
-	        $classes[] = $data;
+	        // only allow classes that have a valid course ID; i.e. no classes
+	        // with a textual identifier (official classes only)
+	        if(!empty($data['course_id'])) {
+	        	$classes[] = $data;
+	    	}
 	    }
 
 	   return $classes;
@@ -214,7 +218,11 @@ class HandlerUtilities
 	        $data['units'] = $_course->units;
 	        $data['term'] = (array_key_exists($_course->term_id, $terms) ? $terms[$_course->term_id] : "");
 	        
-	        $courses[] = $data;
+	        // only allow courses that have a valid course ID; i.e. no courses
+	        // with a textual identifier (official courses only)
+	        if(!empty($data['course_id'])) {
+	        	$courses[] = $data;
+	    	}
 	    }
 
 	   return $courses; 

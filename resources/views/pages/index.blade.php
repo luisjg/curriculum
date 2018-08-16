@@ -112,6 +112,16 @@
 	</ul>
 	<strong>Single Degree Plan</strong>
 	<ul class="list--unstyled">
+<<<<<<< HEAD:resources/views/pages/wiki/index-metaphor.blade.php
+		<li class="list__item">{!! link_to('api/2.0/plans/561208B') !!} (Computer Science - Undergraduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/561208A') !!} (STAR Computer Science - Undergraduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/450503V') !!} (Deaf Studies - Undergraduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/897665Y') !!} (Public Sector Management - FTF - Undergraduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/561208R') !!} (Computer Science - Undergraduate Minor)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/561208M') !!} (Computer Science - Graduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/561208T') !!} (Computer Science - Graduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/785845S') !!} (Mathematics - Graduate Minor)</li>
+=======
 		<li class="list__item"><a href="{!! url('api/2.0/plans/561208B') !!}">{!! url('api/2.0/plans/561208B') !!}</a> (Computer Science - Undergraduate Degree)</li>
 		<li class="list__item"><a href="{!! url('api/2.0/plans/561208A') !!}">{!! url('api/2.0/plans/561208A') !!}</a> (STAR Computer Science - Undergraduate Degree)</li>
 		<li class="list__item"><a href="{!! url('api/2.0/plans/450503V') !!}">{!! url('api/2.0/plans/450503V') !!}</a> (Deaf Studies - Undergraduate Degree)</li>
@@ -119,6 +129,7 @@
 		<li class="list__item"><a href="{!! url('api/2.0/plans/561208M') !!}">{!! url('api/2.0/plans/561208M') !!}</a> (Computer Science - Graduate Degree)</li>
 		<li class="list__item"><a href="{!! url('api/2.0/plans/561208T') !!}">{!! url('api/2.0/plans/561208T') !!}</a> (Computer Science - Graduate Degree)</li>
 		<li class="list__item"><a href="{!! url('api/2.0/plans/785845S') !!}">{!! url('api/2.0/plans/785845S') !!}</a> (Mathematics - Graduate Minor)</li>
+>>>>>>> fa0859135ed852ce566c5246c9fc50a485b69dbe:resources/views/pages/index.blade.php
 	</ul>
 
 	<h3 class="type--header type--thin" id="query">Query</h3>
