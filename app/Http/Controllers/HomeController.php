@@ -1,4 +1,4 @@
-<?php namespace Curriculum\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 class HomeController extends Controller {
 
@@ -14,19 +14,12 @@ class HomeController extends Controller {
 	*/
 
 	/**
-	 * Constructs a new HomeController object.
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
-
-	/**
 	 * Show the landing screen to the user.
 	 *
-	 * @return Response
+	 * @return view
 	 */
 	public function getIndex() {
-		return view('pages.wiki.index-metaphor');
+		return view('pages.index');
 	}
 
 }

@@ -1,21 +1,13 @@
-<?php namespace Curriculum\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 
+use App\Handlers\HandlerUtilities;
+use App\Models\Classes;
+use App\Models\Term;
 use Illuminate\Http\Request;
 
-use Curriculum\Handlers\HandlerUtilities;
-use Curriculum\Models\Classes,
-	Curriculum\Models\Term;
-use Curriculum\Models\ClassMembershipRoster;
-
-class ClassController extends Controller {
-
-	/**
-	 * Constructs a new ClassController object.
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
+class ClassController extends Controller
+{
 
 	/**
 	 * Get all class information from the current term
@@ -26,7 +18,7 @@ class ClassController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-        $version= $request->route()->getAction()['version'];
+        $version= $request->route()[1]['version'];
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
 		$data = Classes::with('meetings', 'instructors')->where('term_id', $term_id);
@@ -40,24 +32,24 @@ class ClassController extends Controller {
 				'errors'	  => ['No filter parameters set']
 			);
 
-			return HandlerUtilities::sendErrorResponse($response);
+			return HandlerUtilities::sendErrorResponse($response, $request);
 		}
 	
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-            'collection'	  => 'classes',
-			'classes'	  => $prepped_data
+            'collection' => 'classes',
+			'classes' => $prepped_data
 		);
-        if(strpos($request->url(),'api' ) == false){
+        if($version < 2.0) {
             $response = array(
                 'type'		  => 'classes',
                 'classes'	  => $prepped_data
             );
-            return HandlerUtilities::sendLegacyResponse($response);
+            return HandlerUtilities::sendLegacyResponse($response, $request);
         }
 
-		return HandlerUtilities::sendResponse($response,$version);
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 
 	/**
@@ -79,8 +71,7 @@ class ClassController extends Controller {
 	 */
 	public function show($id, Request $request)
 	{
-        $version= $request->route()->getAction()['version'];
-
+        $version= $request->route()[1]['version'];
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
         if(env('APP_ENV')=='testing'){
@@ -102,18 +93,18 @@ class ClassController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'collection'	=> 'classes',
-			'classes'	    => $prepped_data
+			'collection' => 'classes',
+			'classes' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false){
+        if($version < 2.0) {
             $response = array(
-                'type'		  => 'classes',
-                'classes'	  => $prepped_data
+                'type' => 'classes',
+                'classes' => $prepped_data
             );
-            return HandlerUtilities::sendLegacyResponse($response);
+            return HandlerUtilities::sendLegacyResponse($response, $request);
         }
 
-		return HandlerUtilities::sendResponse($response,$version);
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 }

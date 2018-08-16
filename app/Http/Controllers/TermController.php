@@ -1,29 +1,23 @@
-<?php namespace Curriculum\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
+use App\Handlers\HandlerUtilities;
+use App\Models\Classes;
 use Illuminate\Http\Request;
-use Curriculum\Handlers\HandlerUtilities;
-use Curriculum\Models\Classes;
 
-class TermController extends Controller {
-
-	/**
-	 * Constructs a new TermController object.
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
+class TermController extends Controller
+{
 
 	/**
 	 * Get all class information from the given term
 	 * @link /api/term/{term}/classes 	GET
 	 * @param string $term
-	 * @return all classes, including the class_meeting and
-	 *  class_instructors for those classes
+	 * @return \App\Handlers\Response|all
+     *  class_instructors for those classes
 	 *
 	 */
 	public function classesIndex($term, Request $request)
 	{
-        $version= $request->route()->getAction()['version'];
+        $version= $request->route()[1]['version'];
         $term = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::with('meetings','instructors','enrolled')
@@ -36,30 +30,30 @@ class TermController extends Controller {
 		if($instructor) {
 			$data->hasInstructor($instructor);
 		}
-		if(!$id && !$instructor){
+		if(!$id && !$instructor) {
 			$response = array(
-				'errors'	  => ['No filter parameters set']
+				'errors' => ['No filter parameters set']
 			);
 
-			return HandlerUtilities::sendErrorResponse($response);
+			return HandlerUtilities::sendErrorResponse($response, 500, $request);
 		}
 	
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 		
 		$response = array(
-			'collection'		  => 'classes',
-			'classes'	  => $prepped_data
+			'collection' => 'classes',
+			'classes' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false){
+        if($version < 2.0) {
             $response = array(
-                'type'		  => 'classes',
-                'classes'	  => $prepped_data
+                'type' => 'classes',
+                'classes' => $prepped_data
             );
-            return HandlerUtilities::sendLegacyResponse($response);
+            return HandlerUtilities::sendLegacyResponse($response, $request);
         }
 
-		return HandlerUtilities::sendResponse($response, $version);
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 
 	/**
@@ -80,7 +74,7 @@ class TermController extends Controller {
 	 */
 	public function classesShow($term, $id, Request $request)
 	{
-        $version= $request->route()->getAction()['version'];
+        $version= $request->route()[1]['version'];
 		$term_id = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 		$data = Classes::with('meetings', 'instructors')
 			->where('term_id', $term_id)
@@ -95,19 +89,19 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareClassesResponse($data->get());
 
 		$response = array(
-			'collection'		  => 'classes',
-			'classes'	  => $prepped_data
+			'collection' => 'classes',
+			'classes' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false){
+        if($version < 2.0) {
             $response = array(
-                'type'		  => 'classes',
-                'classes'	  => $prepped_data
+                'type' => 'classes',
+                'classes' => $prepped_data
             );
-            return HandlerUtilities::sendLegacyResponse($response);
+            return HandlerUtilities::sendLegacyResponse($response, $request);
         }
 
-		return HandlerUtilities::sendResponse($response, $version);
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 
 	/**
@@ -121,16 +115,15 @@ class TermController extends Controller {
 	 */
 	public function coursesIndex($term, Request $request)
 	{
-        $version= $request->route()->getAction()['version'];
+        $version= $request->route()[1]['version'];
 		$term_code = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
         $id = $request->input('id', false);
-        if($id){
+        if($id) {
             $data = Classes::whereIdentifier($id)
                 ->groupAsCourse($term_code, $request->input('showAll', false))
                 ->orderBy('subject')->orderBy('catalog_number');
-        }
-        else{
+        } else {
             $data = Classes::groupAsCourse($term_code, false)
                 ->orderBy('subject')->orderBy('catalog_number');
         }
@@ -138,19 +131,19 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'collection'		  => 'courses',
-			'courses'	  => $prepped_data
+			'collection' => 'courses',
+			'courses' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false){
+        if($version < 2.0) {
             $response = array(
-                'type'		  => 'courses',
-                'courses'	  => $prepped_data
+                'type' => 'courses',
+                'courses' => $prepped_data
             );
-            return HandlerUtilities::sendLegacyResponse($response);
+            return HandlerUtilities::sendLegacyResponse($response, $request);
         }
 
-		return HandlerUtilities::sendResponse($response,$version);
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 
 	/**
@@ -169,7 +162,7 @@ class TermController extends Controller {
 	 */
 	public function coursesShow($term, $id, Request $request)
 	{
-        $version= $request->route()->getAction()['version'];
+        $version= $request->route()[1]['version'];
 		$term_code = HandlerUtilities::generateTermCodeFromSemesterTerm($term);
 
 		$data = Classes::whereIdentifier($id)
@@ -180,19 +173,19 @@ class TermController extends Controller {
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'collection'		  => 'courses',
-			'courses'	  => $prepped_data
+			'collection' => 'courses',
+			'courses' => $prepped_data
 		);
 
-        if(strpos($request->url(),'api' ) == false){
+        if($version < 2.0) {
             $response = array(
-                'type'		  => 'courses',
-                'courses'	  => $prepped_data
+                'type' => 'courses',
+                'courses' => $prepped_data
             );
-            return HandlerUtilities::sendLegacyResponse($response);
+            return HandlerUtilities::sendLegacyResponse($response, $request);
         }
 
-		return HandlerUtilities::sendResponse($response,$version);
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 	
 }

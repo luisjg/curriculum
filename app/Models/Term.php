@@ -1,6 +1,6 @@
-<?php namespace Curriculum\Models;
+<?php namespace App\Models;
 
-use Carbon;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Term extends Model {
@@ -23,7 +23,8 @@ class Term extends Model {
 	 *
 	 * @return String
 	 */
-	public function getTermDisplayAttribute(){
+	public function getTermDisplayAttribute()
+    {
 		return str_replace("-", " ", $this->term);
 	}
 
@@ -33,7 +34,8 @@ class Term extends Model {
 	 *
 	 * @return Term
 	 */
-	public function scopeCurrent($query) {
+	public function scopeCurrent($query)
+    {
 		$terms = $query->nowAndNext(1)->get();
         $current = $terms->first();
         $next = $terms->last();
@@ -56,7 +58,8 @@ class Term extends Model {
 	 *
 	 * @return Collection<Term>
 	 */
-	public function scopeNowAndNext($query, $take=2) {
+	public function scopeNowAndNext($query, $take=2)
+    {
 		return $query->where('end_date', '>', Carbon::now())
 		->orderBy('end_date')->take($take + 1);
 	}
