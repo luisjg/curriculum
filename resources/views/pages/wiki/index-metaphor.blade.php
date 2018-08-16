@@ -109,6 +109,7 @@
 		<li class="list__item">{!! link_to('api/2.0/plans/561208B') !!} (Computer Science - Undergraduate Degree)</li>
 		<li class="list__item">{!! link_to('api/2.0/plans/561208A') !!} (STAR Computer Science - Undergraduate Degree)</li>
 		<li class="list__item">{!! link_to('api/2.0/plans/450503V') !!} (Deaf Studies - Undergraduate Degree)</li>
+		<li class="list__item">{!! link_to('api/2.0/plans/897665Y') !!} (Public Sector Management - FTF - Undergraduate Degree)</li>
 		<li class="list__item">{!! link_to('api/2.0/plans/561208R') !!} (Computer Science - Undergraduate Minor)</li>
 		<li class="list__item">{!! link_to('api/2.0/plans/561208M') !!} (Computer Science - Graduate Degree)</li>
 		<li class="list__item">{!! link_to('api/2.0/plans/561208T') !!} (Computer Science - Graduate Degree)</li>
