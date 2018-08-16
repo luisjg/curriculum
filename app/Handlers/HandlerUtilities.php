@@ -1,8 +1,8 @@
-<?php namespace Curriculum\Handlers;
+<?php namespace App\Handlers;
 
-use Request;
-use Curriculum\Models\LoggedRequest,
-	Curriculum\Models\Term;
+use App\Models\LoggedRequest;
+use App\Models\Term;
+use Illuminate\Http\Request;
 
 class HandlerUtilities
 {
@@ -15,9 +15,10 @@ class HandlerUtilities
 	 * @return Current Term Code (e.g 2147)
 	 *
 	 */
-	public static function getCurrentTermID(){
+	public static function getCurrentTermID()
+    {
 	        $current_date = date("Y-m-d H:i:s");
-	        
+
 	        /* Get First term that that falls between these days */
 	        /* Note: muliple semesters avaiable at the same time during the summer and GRAD/UGRD */
 	        $term = Term::where('begin_date', '<=', $current_date)
@@ -30,6 +31,7 @@ class HandlerUtilities
 	        }
 
 	        /* Return current semester's term_id or 0 if no matches */
+
 	        return $term ? $term->term_id : 0;
 	}
 
@@ -39,13 +41,15 @@ class HandlerUtilities
 	 * @return Current Term Code (e.g 2147)
 	 *
 	 */
-	public static function getCurrentTerm(){
+	public static function getCurrentTerm()
+    {
 	    $term = self::getCurrentTermID();
 	    return self::getTermFromTermID($term);
 
 	}
 
-	public static function getTermFromTermID($term_id) {
+	public static function getTermFromTermID($term_id)
+    {
 	    $term_codes = array(
 	            1 => 'Winter',
 	            3 => 'Spring',
@@ -66,7 +70,8 @@ class HandlerUtilities
 	 * @return Generated Term Code (e.g 2147)
 	 *
 	 */
-	public static function generateTermCodeFromSemesterTerm($term){
+	public static function generateTermCodeFromSemesterTerm($term)
+    {
 
 		// does the term code already exist as a four-digit format?
 		if(is_numeric($term) && strlen($term) == 4) {
@@ -140,46 +145,49 @@ class HandlerUtilities
 	{
 		// grab all terms as an array so we can transform the ID into
 		// an actual term name
-		$terms = Term::all()->lists('term', 'term_id');
-
+		$terms = Term::pluck('term', 'term_id')->toArray();
 	    $classes = [];
-	    foreach($collection as $_class) {
-	        $data = [];
-	        $data['class_number'] = $_class->class_number;
-	        $data['subject'] = $_class->subject;
-	        $data['catalog_number'] = $_class->catalog_number;
-	        $data['section_number'] = $_class->section_number;
-	        $data['title'] = $_class->title;
-	        $data['course_id'] = $_class->course_id;
-	        $data['description'] = $_class->description;
-	        $data['units'] = $_class->units;
-	        $data['term'] = (array_key_exists($_class->term_id, $terms) ? $terms[$_class->term_id] : "");
-	        $data['meetings'] = [];
-	        $data['instructors'] = [];
-
-	        foreach($_class->meetings as $_meeting) {
-	            $meeting = [];
-	            $meeting['meeting_number'] = $_meeting->meeting_number;
-	            $meeting['location'] = $_meeting->location;
-	            $meeting['start_time'] = $_meeting->start_time;
-	            $meeting['end_time'] = $_meeting->end_time; 
-	            $meeting['days'] = $_meeting->days; 
-	            
+	    foreach($collection as $class) {
+	        $data = [
+		        'class_number' => $class->class_number,
+		        'subject' => $class->subject,
+		        'catalog_number' => $class->catalog_number,
+		        'section_number' => $class->section_number,
+		        'title' => $class->title,
+		        'course_id' => $class->course_id,
+		        'description' => $class->description,
+		        'units' => $class->units,
+		        'term' => (array_key_exists($class->term_id, $terms) ? $terms[$class->term_id] : ""),
+		        'class_type' => $class->class_type,
+		        'enrollment_cap' => $class->enrollment_cap,
+		        'enrollment_count' => $class->enrollment_count,
+		        'waitlist_cap' => $class->waitlist_cap,
+		        'waitlist_count' => $class->waitlist_total,
+		        'meetings' => [],
+		        'instructors' => []
+            ];
+	        foreach($class->meetings as $meeting) {
+	            $meeting = [
+	            'meeting_number' => $meeting->meeting_number,
+	            'location' => $meeting->location,
+	            'start_time' => $meeting->start_time,
+	            'end_time' => $meeting->end_time,
+	            'days' => $meeting->days,
+                ];
 	            $data['meetings'][] = $meeting;
-
 	        }
 
-	        foreach($_class->instructors as $_instructor) {
-	            $instructor = [];
-	            $instructor['instructor'] = $_instructor->email;   
-	            
-	            $data['instructors'][] = $instructor;
+	        foreach($class->instructors as $instructor) {
+	            $instructors = [
+	                'instructor' => $instructor->email
+	            ];
+	            $data['instructors'][] = $instructors;
 	        }
 
 	        $classes[] = $data;
 	    }
 
-	   return $classes; 
+	   return $classes;
 	}
 
 	/**
@@ -193,8 +201,7 @@ class HandlerUtilities
 	{
 		// grab all terms as an array so we can transform the ID into
 		// an actual term name
-		$terms = Term::all()->lists('term', 'term_id');
-
+		$terms = Term::pluck('term', 'term_id')->toArray();
 	    $courses = [];
 	    foreach($collection as $_course) {
 	        $data = [];
@@ -213,19 +220,22 @@ class HandlerUtilities
 	   return $courses; 
 	}
 
-	/**
-	 * Returns the JSON response with optional response code. This method also
-	 * logs the request information for statistical purposes.
-	 *
-	 * @param array $data The error data to send back to the browser
-	 * @param integer $code Optional error response code to send back
-	 *
-	 * @return Response
-	 */
-	public static function sendErrorResponse($data, $code=500) {
+
+    /**
+     * Returns the JSON response with optional response code. This method also
+     * logs the request information for statistical purposes.
+     *
+     * @param array $data The error data to send back to the browser
+     * @param integer $code Optional error response code to send back
+     * @param Request $request the request object
+     *
+     * @return Response
+     */
+	public static function sendErrorResponse($data, $code=500, $request)
+    {
 		// additional data to add that should exist for all responses
 		$additional = [
-			'type' => 'errors',
+			'collection' => 'errors',
 			'success' => 'false',
 			'status' => $code
 		];
@@ -238,7 +248,8 @@ class HandlerUtilities
 
 		// complete the response
 		$data = array_reverse($data);
-		return self::sendResponse($data);
+		//In the case of an error, a default version matching the latest version will be shown
+		return self::sendResponse($data,'2.0', $request);
 	}
 
 	/**
@@ -248,53 +259,118 @@ class HandlerUtilities
 	 * @param array $data The data to send back to the browser
 	 * @return Response
 	 */
-	public static function sendResponse($data) {
-		// additional data to add that should exist for all responses
-		$additional = [
-			'version' => config('app.api_version'),
-			'success' => 'true',
-			'status' => '200',
-		];
+    public static function sendResponse($data, $version, $request)
+    {
+        // additional data to add that should exist for all responses
+        $additional = [
+            'version' => $version,
+            'success' => 'true',
+            'status' => '200',
+            'api' => 'curriculum',
 
-		// add the additional data to the response if it does not
-		// already exist
+        ];
+
+        // add the additional data to the response if it does not
+        // already exist
+        $data = array_reverse($data);
+        foreach($additional as $key => $value) {
+            $data = array_add($data, $key, $value);
+        }
+        $data = array_reverse($data);
+
+        // grab the necessary Request information
+        $ip = $request->ip();
+
+        // resolve the URL portion beginning with /api to include the
+        // query string provided, if any
+        $path = urldecode(str_replace($request->root(), "", $request->fullUrl()));
+
+        // figure out the result count
+        $dataCount = 0;
+        if ($data['collection'] == 'classes') {
+            $dataCount = count($data['classes']);
+        } else if ($data['collection'] == 'courses') {
+            $dataCount = count($data['courses']);
+        } else if ($data['collection'] == 'plans') {
+            $dataCount = count($data['plans']);
+        }
+
+        if (env('APP_ENV') === 'production') {
+            // log the request for statistical purposes
+            LoggedRequest::create([
+                'ip' => $ip,
+                'path' => $path,
+                'response_code' => $data['status'],
+                'success' => ($data['success'] == 'true'), // string->boolean
+                'results' => $dataCount
+            ]);
+        }
+
+        // now send the response code and data back
+        return response($data, $data['status']);
+    }
+
+    //sendLegacyResponse is required if you need to return the JSON with 'type' as it did in version 1.0
+
+    /**
+     * Returns the old json header
+     *
+     * @param $data
+     * @param $request
+     * @return response
+     */
+    public static function sendLegacyResponse($data, $request)
+    {
+        // additional data to add that should exist for all responses
+        $additional = [
+            'success' => 'true',
+            'status' => '200',
+            'api' => 'curriculum',
+            'version' => '1.0'
+
+        ];
+
+        // add the additional data to the response if it does not
+        // already exist
+        $data = array_reverse($data);
+        foreach($additional as $key => $value) {
+            $data = array_add($data, $key, $value);
+        }
 		$data = array_reverse($data);
-		foreach($additional as $key => $value) {
-			$data = array_add($data, $key, $value);
-		}
-		$data = array_reverse($data);
+		
+        // grab the necessary Request information
+        $ip = $request->ip();
 
-		// grab the necessary Request information
-		$ip = Request::ip();
+        // resolve the URL portion beginning with /api to include the
+        // query string provided, if any
+        $path = urldecode(str_replace($request->root(), "", $request->fullUrl()));
 
-		// resolve the URL portion beginning with /api to include the
-		// query string provided, if any
-		$path = urldecode(str_replace(Request::root(), "", Request::fullUrl()));
+        // figure out the result count
+        $dataCount = 0;
+        if($data['type'] == 'classes') {
+            $dataCount = count($data['classes']);
+        }
+        else if($data['type'] == 'courses') {
+            $dataCount = count($data['courses']);
+        }
+        else if($data['type'] == 'plans') {
+            $dataCount = count($data['plans']);
+        }
 
-		// figure out the result count
-		$dataCount = 0;
-		if($data['type'] == 'classes') {
-			$dataCount = count($data['classes']);
-		}
-		else if($data['type'] == 'courses') {
-			$dataCount = count($data['courses']);
-		}
-		else if($data['type'] == 'plans') {
-			$dataCount = count($data['plans']);
-		}
+        if (env('APP_ENV') === 'production') {
+            // log the request for statistical purposes
+            LoggedRequest::create([
+                'ip' => $ip,
+                'path' => $path,
+                'response_code' => $data['status'],
+                'success' => ($data['success'] == 'true'), // string->boolean
+                'results' => $dataCount
+            ]);
+        }
 
-		// log the request for statistical purposes
-		LoggedRequest::create([
-			'ip' => $ip,
-			'path' => $path,
-			'response_code' => $data['status'],
-			'success' => ($data['success'] == 'true'), // string->boolean
-			'results' => $dataCount
-		]);
-
-		// now send the response code and data back
-		return response($data, $data['status']);
-	}
+        // now send the response code and data back
+        return response($data, $data['status']);
+    }
 
 	/**
 	 * Checks if id is an association id (ie: classes:Summer-14:10472)
@@ -303,7 +379,8 @@ class HandlerUtilities
 	 * @return boolean
 	 *
 	 */
-	public static function isAssociationID($id) {
+	public static function isAssociationID($id)
+    {
 	    $pattern = '/^classes:(Spring|Summer|Fall|Winter)-[0-9][0-9]:[0-9]{5}$/';
 	    return preg_match($pattern, $id);
 	}
@@ -315,7 +392,8 @@ class HandlerUtilities
 	 * @return boolean
 	 *
 	 */
-	public static function isSubjectCatelogID($id) {
+	public static function isSubjectCatelogID($id)
+    {
 	    if (strpos($id,':') !== false) {
 	        return false; // contains ':' not a subject
 	    }
@@ -331,7 +409,8 @@ class HandlerUtilities
 	 * @return boolean
 	 *
 	 */
-	public static function isSubjectID($id) {         
+	public static function isSubjectID($id)
+    {
 	    $pattern = '/^[a-zA-Z][a-zA-Z\/ ]*$/';
 	    return preg_match($pattern, $id);
 	}

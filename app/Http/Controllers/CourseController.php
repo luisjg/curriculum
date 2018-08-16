@@ -1,47 +1,55 @@
-<?php namespace Curriculum\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
-use Request;
+use Illuminate\Http\Request;;
+use App\Handlers\HandlerUtilities;
+use App\Models\Classes,
+	App\Models\Course,
+	App\Models\Term;
 
-use Curriculum\Handlers\HandlerUtilities;
-use Curriculum\Models\Classes,
-	Curriculum\Models\Course,
-	Curriculum\Models\Term;
 
-class CourseController extends Controller {
+class CourseController extends Controller
+{
 
-	/**
-	 * Constructs a new CourseController object.
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
-
-	/**
-	 * Get all course information for the current term
-	 * @link /api/courses 	GET
-	 * @internal don't allow entire course list for all semesters to be returned without a subject 
-	 * 				until paging or some way to restrict these results is added
-	 * @return all courses for the current term
-	 *
-	 */
-	public function index()
+    /**
+     * Get all course information for the current term
+     * @link /api/courses    GET
+     * @internal don't allow entire course list for all semesters to be returned without a subject
+     *                until paging or some way to restrict these results is added
+     * @param Request $request
+     * @return all courses for the current term
+     */
+	public function index(Request $request)
 	{
-		//$term = HandlerUtilities::getCurrentTermID();
+        $version= $request->route()[1]['version'];
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
-		
-		$data = Classes::groupAsCourse($term_id, false)
-			->orderBy('subject')->orderBy('catalog_number');
+		$id = $request->input('id', 0);
+		if($id) {
+            $data = Classes::whereIdentifier($id)
+                ->groupAsCourse($term_id, $request->input('showAll', false))
+                ->orderBy('subject')->orderBy('catalog_number');
+        } else {
+            $data = Classes::groupAsCourse($term_id, false)
+                ->orderBy('subject')->orderBy('catalog_number');
+        }
+
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 
 		$response = array(
-			'type'		  => 'courses',
-			'limit'		  => '50',
-			'courses'	  => $prepped_data
+			'collection' => 'courses',
+			'limit' => '50',
+			'courses' => $prepped_data
 		);
+        if($version < 2.0) {
+            $response = array(
+                'type' => 'courses',
+                'courses' => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response, $request);
+        }
 
-		return HandlerUtilities::sendResponse($response);
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 
 	/**
@@ -50,26 +58,33 @@ class CourseController extends Controller {
 	 * @todo Exceptions in else block
 	 * @link /api/courses/{id} 	GET
 	 * @param string $id
-	 * @return course info for a subject, all for the current term
+	 * @return response info for a subject, all for the current term
 	 *
 	 */
-	public function show($id)
+	public function show($id, Request $request)
 	{
-		//$term = HandlerUtilities::getCurrentTermID();
+        $version= $request->route()[1]['version'];
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
-
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term_id, Request::input('showAll', false))
+			->groupAsCourse($term_id, $request->input('showAll', false))
 			->orderBy('subject')->orderBy('catalog_number');
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 		$response = array(
-			'type'		  => 'courses',
-			'courses'	  => $prepped_data
+			'collection' => 'courses',
+			'courses' => $prepped_data
 		);
 
-		return HandlerUtilities::sendResponse($response);
+        if($version < 2.0) {
+            $response = array(
+                'type' => 'courses',
+                'courses' => $prepped_data
+            );
+            return HandlerUtilities::sendLegacyResponse($response, $request);
+        }
+
+		return HandlerUtilities::sendResponse($response, $version, $request);
 	}
 	
 }

@@ -1,66 +1,61 @@
-<?php namespace Curriculum\Exceptions;
+<?php
 
+namespace App\Exceptions;
+
+use App\Handlers\HandlerUtilities;
 use Exception;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
+use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Curriculum\Handlers\HandlerUtilities;
+class Handler extends ExceptionHandler
+{
+    /**
+     * A list of the exception types that should not be reported.
+     *
+     * @var array
+     */
+    protected $dontReport = [
+        AuthorizationException::class,
+        ModelNotFoundException::class,
+        NotFoundHttpException::class,
+        ValidationException::class
+    ];
 
-class Handler extends ExceptionHandler {
+    /**
+     * Repor t or log an exception.
+     *
+     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+     *
+     * @param  \Exception  $e
+     * @return void
+     */
+    public function report(Exception $e)
+    {
+        parent::report($e);
+    }
 
-	/**
-	 * A list of the exception types that should not be reported.
-	 *
-	 * @var array
-	 */
-	protected $dontReport = [
-		//'Symfony\Component\HttpKernel\Exception\HttpException'
-	];
-
-	/**
-	 * Report or log an exception.
-	 *
-	 * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-	 *
-	 * @param  \Exception  $e
-	 * @return void
-	 */
-	public function report(Exception $e)
-	{
-		return parent::report($e);
-	}
-
-	/**
-	 * Render an exception into an HTTP response.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Exception  $e
-	 * @return \Illuminate\Http\Response
-	 */
-	public function render($request, Exception $e)
-	{
-		if($e instanceof PermissionDeniedException) {
-			return response(view('pages.errors.401', compact('e')), 401);
-		}
-		else if($e instanceof NotFoundHttpException) {
-			// handle API 404 errors differently
-			if(starts_with($request->path(), 'api/')) {
-				$response = [
-					'errors'	  => ['Resource could not be resolved']
-				];
-				return HandlerUtilities::sendErrorResponse($response, 404);
-			}
-
-			// front-end 404 errors get the 404 page
-			return response(view('pages.errors.404'), 404);
-		}
-		else if($e instanceof ModelNotFoundException) {
-			return response(view('pages.errors.404'), 404);
-		}
-
-		return parent::render($request, $e);
-	}
-
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $e
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, Exception $e)
+    {
+        if($e instanceof NotFoundHttpException) {
+            $response = [
+                'errors' => ['Resource could not be resolved']
+            ];
+            return HandlerUtilities::sendErrorResponse($response, 404, $request);
+        } else if ($e instanceof ModelNotFoundException) {
+            $response = [
+                'errors' => ['Resource could not be found.']
+            ];
+            return HandlerUtilities::sendErrorResponse($response, 503, $request);
+        }
+    }
 }

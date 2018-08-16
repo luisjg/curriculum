@@ -1,6 +1,6 @@
-<?php namespace Curriculum\Models;
+<?php namespace App\Models;
 
-use Carbon;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Term extends Model {
@@ -23,26 +23,34 @@ class Term extends Model {
 	 *
 	 * @return String
 	 */
-	public function getTermDisplayAttribute(){
+	public function getTermDisplayAttribute()
+    {
 		return str_replace("-", " ", $this->term);
 	}
 
 	/**
-	 * Select first semester that ends soonest after today. If no matching
-	 * term can be found, use the very last term instead.
+	 * Select first semester that ends soonest after today. If the next term
+	 * is within three weeks from starting, use that term instead.
 	 *
 	 * @return Term
 	 */
-	public function scopeCurrent($query) {
-		$current_date = date("Y-m-d H:i:s");
-		$term = $query->nowAndNext()->first();
-		if(!$term) {
-			$term = $query->where('end_date', '<', $current_date)
-				->orderBy('end_date', 'DESC')
-				->first();
-		}
+	public function scopeCurrent($query)
+    {
+		$terms = $query->nowAndNext(1)->get();
+        $current = $terms->first();
+        $next = $terms->last();
 
-		return $term;
+        // check the next term
+        $today = Carbon::today();
+        $nextStart = Carbon::parse($next->begin_date);
+
+        // is the next term's start date less than three weeks away?
+        $diff = $today->diffInWeeks($nextStart, false);
+        if($diff >= 0 && $diff <= 3) {
+            // return the next term instead
+            return $next;
+        }
+        return $current;
 	}
 
 	/**
@@ -50,8 +58,9 @@ class Term extends Model {
 	 *
 	 * @return Collection<Term>
 	 */
-	public function scopeNowAndNext($query, $take=2) {
+	public function scopeNowAndNext($query, $take=2)
+    {
 		return $query->where('end_date', '>', Carbon::now())
-		->orderBy('end_date')->take($take);
+		->orderBy('end_date')->take($take + 1);
 	}
 }

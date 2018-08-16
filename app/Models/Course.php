@@ -1,9 +1,10 @@
-<?php namespace Curriculum\Models;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model,
 	Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class Course extends Model { 
+class Course extends Model
+{
 
 	/**
 	 * The database table used by the model.
@@ -41,7 +42,8 @@ class Course extends Model {
 	 * @throws ModelNotFoundException
 	 * @return Course
 	 */
-	public static function findOrFailByCourseId($course_id) {
+	public static function findOrFailByCourseId($course_id)
+    {
 		$course = self::where('course_id', $course_id)->first();
 		if($course == null) {
 			throw new ModelNotFoundException();
@@ -57,7 +59,8 @@ class Course extends Model {
 	 * @param integer $catalog_number The course catalog number
 	 * @return Builder|Model
 	 */
-	public function scopeWhereSubjectCatalog($query, $subject, $catalog_number) {
+	public function scopeWhereSubjectCatalog($query, $subject, $catalog_number)
+    {
 		return $query->where('subject', $subject)
 			->where('catalog_number', $catalog_number);
 	}

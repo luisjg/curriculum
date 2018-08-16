@@ -1,4 +1,4 @@
-<?php namespace Curriculum\Models;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +17,13 @@ class Plan extends Model {
 	 * @var string
 	 */
 	protected $primaryKey = 'plan_id';
+
+	/**
+	 * Turn off the auto incrementing feature
+	 * 
+	 * @var boolean
+	 */
+	public $incrementing = false;
 
 	/**
 	 * The attributes that are fillable in the model.

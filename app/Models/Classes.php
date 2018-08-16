@@ -1,11 +1,11 @@
-<?php namespace Curriculum\Models;
+<?php namespace App\Models;
 
+use App\Handlers\HandlerUtilities;
 use Illuminate\Database\Eloquent\Model;
 
-use Curriculum\Handlers\HandlerUtilities;
-
 /* 'class' is a reserved name */
-class Classes extends Model { 
+class Classes extends Model
+{
 
 	/**
 	 * The database table used by the model.
@@ -30,7 +30,7 @@ class Classes extends Model {
 	 *
 	 * @var array
 	 */
-	protected $appends = array('');
+	protected $appends = array('enrollment_count');
 
 	/**
 	 * Classes have many meetings (one-to-many relationship)
@@ -39,24 +39,36 @@ class Classes extends Model {
 	 */  
 	public function meetings()
 	{
-		return $this->hasMany('Curriculum\Models\Meeting', 'classes_id', 'classes_id');
+		return $this->hasMany(Meeting::Class, 'classes_id', 'classes_id');
 	}
 
 	/**
 	 * Classes have many instructors (one-to-many relationship)
 	 *
-	 * @return mixed
-	 */  
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
 	public function instructors()
 	{
-		return $this->hasMany('Curriculum\Models\ClassInstructor', 'classes_id', 'classes_id');
+		return $this->hasMany(ClassInstructor::Class, 'classes_id', 'classes_id');
 	}
+
+    /**
+     * Classes have many enrollment records (one-to-many relationship)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+	public function enrolled()
+    {
+        return $this->hasMany(ClassMembershipRoster::Class,'classes_id', 'classes_id')
+                    ->where('role_position','not like','%Instructor');
+    }
 
 	/** 
 	 * Treat class list as course list
 	 * @internal without a courses table this is the best we can do to get a course list
 	*/
-	public function scopeGroupAsCourse($query, $term, $showAll) {
+	public function scopeGroupAsCourse($query, $term, $showAll)
+    {
 		/* Get All Courses */
 		$query->groupBy('course_id')
 			->orderBy('subject')->orderBy('catalog_number');
@@ -78,7 +90,8 @@ class Classes extends Model {
 	 *		subject 				comp
  	 *		subject-catalog_number 	comp-160
  	**/
-	public function scopeWhereIdentifier($query, $id) {
+	public function scopeWhereIdentifier($query, $id)
+    {
 		/* Init Acceptable ID's */ 
 		$classes_id = '';
 		$subject = '';
@@ -109,16 +122,50 @@ class Classes extends Model {
 
 		/* Filter By IDs */
 		if ($classes_id) 		$query->where('classes_id', $classes_id);
-		if ($subject) 			$query->where('subject', $subject);				
+		if ($subject) 			$query->where('subject', $subject);
 		if ($catalog_number) 	$query->where('catalog_number', $catalog_number);
 		if ($class_number) 		$query->where('class_number', $class_number);
 
 	}
 
-	/* Only return classes that have specified instructor set */
-	public function scopeHasInstructor($query, $instructor) {
-		$query->whereHas("instructors", function($q) use ($instructor) {
-			$q->where('email', $instructor);
-		});
-	}
+    /**
+     * Scope query which only returns classes that have a specified instructor
+     *
+     * @param Builder $query
+     * @param String $instructor
+     */
+    public function scopeHasInstructor($query, $instructor)
+    {
+        $query->whereHas("instructors", function($q) use ($instructor) {
+            $q->where('email', $instructor);
+        });
+    }
+
+    /**
+     * Scope query which checks if the instructor exists in the given class
+     *
+     * @param Builder $query
+     * @param string $id
+     */
+    public function scopeHasClassId($query, $id)
+    {
+        $query->whereHas("instructors", function($q) use ($id) {
+            $q->where('email', $id);
+        });
+    }
+
+    /**
+     * Retrieves the enrollment count and adds it as a custom data attribute
+     *
+     * @return mixed
+     */
+    public function getEnrollmentCountAttribute()
+    {
+        return $this->enrolled->count();
+    }
+
+
+
+
+
 }
