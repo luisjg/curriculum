@@ -63,13 +63,10 @@ $app->middleware([
     CSUNMetaLab\LumenForceHttps\Http\Middleware\ForceHttps::class
 ]);
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
-
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+ $app->routeMiddleware([
+     'auth' => App\Http\Middleware\Authenticate::class,
+     'cors' => \Barryvdh\Cors\HandleCors::class,
+ ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -88,9 +85,8 @@ $app->register(CSUNMetaLab\LumenProxyPass\Providers\ProxyPassServiceProvider::cl
 $app->configure('forcehttps');
 $app->register(CSUNMetaLab\LumenForceHttps\Providers\ForceHttpsServiceProvider::class);
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->configure('cors');
+$app->register(Barryvdh\Cors\ServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
