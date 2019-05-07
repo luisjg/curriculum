@@ -1,10 +1,25 @@
-<?php namespace App\Http\Controllers;
+<?php
+/*  Curriculum Web Service - Backend that delivers CSUN class and course information.
+ *  Copyright (C) 2014-2019 - CSUN META+LAB
+ *
+ *  Waldo Web Service is free software: you can redistribute it and/or modify it under the terms
+ *  of the GNU General Public License as published by the Free Software Found-
+ *  ation, either version 3 of the License, or (at your option) any later version.
+ *
+ *  RetroArch is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ *  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE.  See the GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along with RetroArch.
+ *  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-use Illuminate\Http\Request;;
+namespace App\Http\Controllers;
+
 use App\Handlers\HandlerUtilities;
-use App\Models\Classes,
-	App\Models\Course,
-	App\Models\Term;
+use App\Models\Classes;
+use App\Models\Term;
+use Illuminate\Http\Request;
 
 
 class CourseController extends Controller
