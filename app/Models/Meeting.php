@@ -17,6 +17,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use \DateTime;
 
 class Meeting extends Model
 {
@@ -58,8 +59,8 @@ class Meeting extends Model
 	public function getEndTimeAttribute($value)
 	{
 		$date = new DateTime($value);
-		
+
 		return $date->format('Hi') . 'h';
 	}
-	
+
 }
