@@ -2,7 +2,7 @@
 /*  Curriculum Web Service - Backend that delivers CSUN class and course information.
  *  Copyright (C) 2014-2019 - CSUN META+LAB
  *
- *  Waldo Web Service is free software: you can redistribute it and/or modify it under the terms
+ *  Curriculum Web Service is free software: you can redistribute it and/or modify it under the terms
  *  of the GNU General Public License as published by the Free Software Found-
  *  ation, either version 3 of the License, or (at your option) any later version.
  *
@@ -17,6 +17,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use \DateTime;
 
 class Meeting extends Model
 {
