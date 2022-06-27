@@ -13,7 +13,7 @@
 
 
 // API routes Version 2.0
-$router->group(['prefix' => '/2.0', 'middleware' => 'cors'], function () use ($router) {
+$router->group(['prefix' => '/2.0'], function () use ($router) {
 
         // class info with current term
 	$router->get('/classes', ['uses' => 'ClassController@index', 'version' => '2.0']);
@@ -45,7 +45,6 @@ $router->group(['prefix' => '/2.0', 'middleware' => 'cors'], function () use ($r
 //
 // ------------------------------------------------
 
-$router->group(['middleware' => 'cors'], function () use ($router) {
     $router->get('/classes', ['uses' => 'ClassController@index', 'version' => '1.0']);
     $router->get('/classes/{id}', ['uses' => 'ClassController@show', 'version' => '1.0']);
 
@@ -66,4 +65,3 @@ $router->group(['middleware' => 'cors'], function () use ($router) {
     $router->get('/plans/graduate', ['uses' => 'PlanController@graduateIndex', 'version' => '1.0']);
     $router->get('/plans/undergraduate', ['uses' => 'PlanController@undergraduateIndex', 'version' => '1.0']);
     $router->get('/plans/{plan}', ['uses' => 'PlanController@Show', 'version' => '1.0']);
-});
