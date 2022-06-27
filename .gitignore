@@ -5,3 +5,4 @@
 .env.*
 !.env.example
 storage/framework/sessions/
+.phpunit.result.cache
