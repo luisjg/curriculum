@@ -2,8 +2,8 @@
 
 namespace App\Exceptions;
 
-use App\Handlers\HandlerUtilities;
 use Throwable;
+use App\Handlers\HandlerUtilities;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
@@ -32,7 +32,7 @@ class Handler extends ExceptionHandler
      * @param  \Throwable  $e
      * @return void
      */
-    public function report(Throwable $e)
+    public function report(\Throwable $e)
     {
         parent::report($e);
     }
@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
      * @param  \Throwable  $e
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Throwable $e)
+    public function render($request, \Throwable $e)
     {
         if($e instanceof NotFoundHttpException) {
             $response = [
