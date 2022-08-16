@@ -28,8 +28,23 @@ class Classes extends Model
 	 *
 	 * @var string
 	 */
-	protected $table = 'omar.classes'; 
+	protected $table = 'omar.classes';
+
+	/**
+	 * The table primary key.
+	 * 
+	 * @var string
+	 */
+	protected $primaryKey = 'classes_id';
+
 	
+	/**
+	 * The specify if the table auto-increments.
+	 * 
+	 * @var bool
+	 */
+	public $incrementing = false;
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -55,7 +70,7 @@ class Classes extends Model
 	 */  
 	public function meetings()
 	{
-		return $this->hasMany(Meeting::Class, 'classes_id', 'classes_id');
+		return $this->hasMany(Meeting::class, 'classes_id', 'classes_id');
 	}
 
 	/**
@@ -65,7 +80,7 @@ class Classes extends Model
      */
 	public function instructors()
 	{
-		return $this->hasMany(ClassInstructor::Class, 'classes_id', 'classes_id');
+		return $this->hasMany(ClassInstructor::class, 'classes_id', 'classes_id');
 	}
 
     /**
@@ -75,7 +90,7 @@ class Classes extends Model
      */
 	public function enrolled()
     {
-        return $this->hasMany(ClassMembershipRoster::Class,'classes_id', 'classes_id')
+        return $this->hasMany(ClassMembershipRoster::class,'classes_id', 'classes_id')
                     ->where('role_position','not like','%Instructor');
     }
 
@@ -86,14 +101,14 @@ class Classes extends Model
 	public function scopeGroupAsCourse($query, $term, $showAll)
     {
 		/* Get All Courses */
-		$query->groupBy('course_id')
+		$query->orderBy('course_id')
 			->orderBy('subject')->orderBy('catalog_number');
 
 		/* Filter By Semester Term */
-		$showAll = ($showAll === 'true')?true:false;
+		$showAll = ($showAll === 'true') ? true : false;
 		if ($showAll === false) {
-			$query->groupBy('term_id')
-			->having('term_id', '=', $term);
+			$query->where('term_id', $term)
+			->orderBy('term_id');
 		}
 	}
 	/** 
@@ -127,20 +142,20 @@ class Classes extends Model
 		/* ie: comp-160 */	
 		if (HandlerUtilities::isSubjectCatelogID($id)) {
 			$id_array = explode('-', $id);
-			$subject = $id_array[0];
+			$subject = strtoupper($id_array[0]);
 			$catalog_number = $id_array[1];
 		}
 
 		/* ie: comp */	
 		if (HandlerUtilities::isSubjectID($id)) {
-			$subject = $id;
+			$subject = strtoupper($id);
 		}
 
 		/* Filter By IDs */
-		if ($classes_id) 		$query->where('classes_id', $classes_id);
-		if ($subject) 			$query->where('subject', $subject);
-		if ($catalog_number) 	$query->where('catalog_number', $catalog_number);
-		if ($class_number) 		$query->where('class_number', $class_number);
+		if (!empty($classes_id)) 		$query->where('classes_id', $classes_id);
+		if (!empty($subject)) 			$query->where('subject', $subject);
+		if (!empty($catalog_number)) 	$query->where('catalog_number', $catalog_number);
+		if (!empty($class_number)) 		$query->where('class_number', $class_number);
 
 	}
 

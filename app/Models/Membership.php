@@ -35,6 +35,13 @@ class Membership extends Model
 	protected $primaryKey = 'individuals_id';
 
 	/**
+	 * The specify if the table auto-increments.
+	 * 
+	 * @var bool
+	 */
+	public $incrementing = false;
+
+	/**
 	 * The attributes that can be auto-filled in the model.
 	 *
 	 * @var array

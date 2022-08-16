@@ -35,6 +35,13 @@ class Term extends Model {
 	protected $primaryKey = 'term_id';
 
 	/**
+	 * The specify if the table auto-increments.
+	 * 
+	 * @var bool
+	 */
+	public $incrementing = false;
+
+	/**
 	 * Accessor to remove dash from term, used for views
 	 *
 	 * @return String

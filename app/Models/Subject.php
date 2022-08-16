@@ -35,6 +35,13 @@ class Subject extends Model {
 	protected $primaryKey = 'subjects_id';
 
 	/**
+	 * The specify if the table auto-increments.
+	 * 
+	 * @var bool
+	 */
+	public $incrementing = false;
+
+	/**
 	 * The attributes that are fillable in the model.
 	 *
 	 * @var array
