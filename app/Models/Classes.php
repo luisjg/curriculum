@@ -105,10 +105,9 @@ class Classes extends Model
 			->orderBy('subject')->orderBy('catalog_number');
 
 		/* Filter By Semester Term */
-		$showAll = ($showAll === 'true') ? true : false;
-		if ($showAll === false) {
+		if ($showAll == false) {
 			$query->where('term_id', $term)
-			->orderBy('term_id');
+			->orderBy('term_id')->limit(1);
 		}
 	}
 	/** 
