@@ -44,7 +44,8 @@ class CourseController extends Controller
             $data = Classes::whereIdentifier($id)
                 ->groupAsCourse($term_id, $showAll);
         } else {
-            $data = Classes::groupAsCourse($term_id, false);
+        	$showAll = true;
+            $data = Classes::groupAsCourse($term_id, $showAll);
         }
 
 
