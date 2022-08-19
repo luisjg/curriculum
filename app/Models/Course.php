@@ -37,6 +37,13 @@ class Course extends Model
 	protected $primaryKey = 'courses_id';
 
 	/**
+	 * Specify if the table is auto-incrementing
+	 * 
+	 * @var bool
+	 */
+	public $incrementing = false;
+
+	/**
 	 * The attributes that are fillable in the model.
 	 *
 	 * @var array

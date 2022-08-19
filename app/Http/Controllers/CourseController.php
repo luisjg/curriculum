@@ -39,13 +39,13 @@ class CourseController extends Controller
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
 		$id = $request->input('id', 0);
+		$showAll = ($request->get('showAll') === null) ? false : $request->get('showAll');
 		if($id) {
             $data = Classes::whereIdentifier($id)
-                ->groupAsCourse($term_id, $request->input('showAll', false))
-                ->orderBy('subject')->orderBy('catalog_number');
+                ->groupAsCourse($term_id, $showAll);
         } else {
-            $data = Classes::groupAsCourse($term_id, false)
-                ->orderBy('subject')->orderBy('catalog_number');
+        	$showAll = true;
+            $data = Classes::groupAsCourse($term_id, $showAll);
         }
 
 
@@ -81,9 +81,9 @@ class CourseController extends Controller
         $version= $request->route()[1]['version'];
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
+		$showAll = ($request->get('showAll') === null) ? false : $request->get('showAll');
 		$data = Classes::whereIdentifier($id)
-			->groupAsCourse($term_id, $request->input('showAll', false))
-			->orderBy('subject')->orderBy('catalog_number');
+			->groupAsCourse($term_id, $showAll);
 
 		$prepped_data = HandlerUtilities::prepareCoursesResponse($data->get());
 		$response = array(

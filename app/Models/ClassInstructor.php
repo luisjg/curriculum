@@ -27,6 +27,20 @@ class ClassInstructor extends Model
 	 * @var string
 	 */
 	protected $table = 'nemo.classInstructors'; /* pivot */
+
+    /**
+     * The table primary key.
+     * 
+     * @var string
+     */
+    protected $primayKey = 'classes_id';
+
+    /**
+     * The specify if the table auto-increments.
+     * 
+     * @var bool
+     */
+    public $incrementing = false;
     
     /**
      * The attributes excluded from the model's JSON form.

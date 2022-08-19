@@ -102,15 +102,15 @@ class PlanController extends Controller
 
 	/**
 	 * Get information for a specific degree plan
-	 * @link /api/plans/{id} 	GET
-	 * @param string $id
+	 * @link /api/plans/{plan} 	GET
+	 * @param string $plan
 	 * @return information for a specific degree plan
 	 *
 	 */
-	public function show(Request $request, $id)
+	public function show(Request $request, $plan)
 	{
         $version= $request->route()[1]['version'];
-		$data = Plan::findOrFail($id);
+		$data = Plan::findOrFail($plan);
 
 		$response = array(
 			'collection' => 'plan',

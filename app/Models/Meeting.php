@@ -29,6 +29,21 @@ class Meeting extends Model
      */
     protected $table = 'omar.classMeetings';
 
+    /**
+     * The table's primary key
+     * 
+     * @var string
+     */
+    protected $primaryKey = 'classes_id';
+
+    
+    /**
+     * Set the table to not have an auto-incrementing id
+     * 
+     * @var bool
+     */
+    public $incrementing = false;
+
 	/**
 	 * The database table used by the model.
 	 *

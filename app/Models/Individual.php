@@ -35,6 +35,13 @@ class Individual extends Model
 	protected $primaryKey = 'individuals_id';
 
 	/**
+	 * The specify if the table auto-increments.
+	 * 
+	 * @var bool
+	 */
+	public $incrementing = false;
+
+	/**
 	 * Returns whether this individual is active.
 	 *
 	 * @return boolean

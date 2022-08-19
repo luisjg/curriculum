@@ -60,8 +60,8 @@ $app->singleton(
 */
 
 $app->middleware([
+    \Fruitcake\Cors\HandleCors::class,
     CSUNMetaLab\LumenForceHttps\Http\Middleware\ForceHttps::class,
-    \Fruitcake\Cors\HandleCors::class
 ]);
 
  $app->routeMiddleware([
