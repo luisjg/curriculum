@@ -20,7 +20,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
         <meta name="description" content="@yield('description')">
-        <title>{{ env('APP_NAME') }} Web Service | @yield('title')</title>
+        <title>{{ config('app.name') }} Web Service | @yield('title')</title>
         <link rel="icon" href="//www.csun.edu/sites/default/themes/csun/favicon.ico" type="image/x-icon" />
         <script type="text/javascript" src="{!! url('//use.typekit.net/gfb2mjm.js') !!}"></script>
         <script>try{Typekit.load();}catch(e){}</script>
@@ -32,7 +32,7 @@
     <body>
         <div class="section section--sm">
             <div class="container type--center">
-                <h1 class="giga type--thin">Curriculum Web Service</h1>
+                <h1 class="giga type--thin">{{ config('app.name') }} Web Service</h1>
                 <h3 class="h1 type--thin type--gray">Delivering CSUN course information</h3>
             </div>
         </div>

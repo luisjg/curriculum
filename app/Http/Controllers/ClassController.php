@@ -89,8 +89,8 @@ class ClassController extends Controller
         $version= $request->route()[1]['version'];
 		$term = Term::current();
 		$term_id = ($term ? $term->term_id : 0);
-        if(env('APP_ENV')=='testing'){
-            $term_id =env('TESTING_TERM');
+        if(config('app.env')=='testing'){
+            $term_id = config('app.testing_term');
         }
 		$data = Classes::with('meetings', 'instructors','enrolled')
 
