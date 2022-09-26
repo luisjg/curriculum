@@ -14,6 +14,8 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace Tests;
+
 class TermControllerTest extends TestCase
 {
 

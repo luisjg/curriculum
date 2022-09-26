@@ -22,6 +22,3 @@ $router->get('/about/version-history', function(){
 
 // landing page and catch-all
 $router->get('/', 'HomeController@getIndex');
-
-
-

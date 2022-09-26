@@ -2,13 +2,12 @@
 
 namespace App\Exceptions;
 
-use Throwable;
-use App\Handlers\HandlerUtilities;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -19,39 +18,43 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         AuthorizationException::class,
+        HttpException::class,
         ModelNotFoundException::class,
-        NotFoundHttpException::class,
-        ValidationException::class
+        ValidationException::class,
     ];
 
     /**
-     * Repor t or log an exception.
+     * Report or log an exception.
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Throwable  $e
+     * @param  \Throwable  $exception
      * @return void
+     *
+     * @throws \Exception
      */
-    public function report(\Throwable $e)
+    public function report(Throwable $exception)
     {
-        parent::report($e);
+        parent::report($exception);
     }
 
     /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $e
-     * @return \Illuminate\Http\Response
+     * @param  \Throwable  $exception
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Throwable
      */
-    public function render($request, \Throwable $e)
+    public function render($request, Throwable $exception)
     {
-        if($e instanceof NotFoundHttpException) {
+        if($exception instanceof NotFoundHttpException) {
             $response = [
                 'errors' => ['Resource could not be resolved']
             ];
             return HandlerUtilities::sendErrorResponse($response, 404, $request);
-        } else if ($e instanceof ModelNotFoundException) {
+        } else if ($exception instanceof ModelNotFoundException) {
             $response = [
                 'errors' => ['Resource could not be found.']
             ];

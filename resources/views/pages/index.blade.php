@@ -20,7 +20,7 @@
 @section('content')
 	<h3 class="type--header type--thin" id="introduction">Introduction</h3>
 	<p>
-		The {{ env('APP_NAME') }} web service gives information about courses and classes.
+		The {{ config('app.name') }} web service gives information about courses and classes.
 		This information is derived from the CSUN catalog and SOLAR.
 		The web service provides a gateway to access the information via a REST-ful API.
 		The information is retrieved by creating a specific URI and giving values to filter the data. 

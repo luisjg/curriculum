@@ -1,4 +1,6 @@
-<?php namespace App\Handlers;
+<?php
+
+namespace App\Handlers;
 
 use App\Models\LoggedRequest;
 use App\Models\Term;

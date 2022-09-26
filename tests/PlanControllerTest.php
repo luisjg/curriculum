@@ -14,6 +14,8 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace Tests;
+
 class PlanControllerTest extends TestCase
 {
     protected $planId;
